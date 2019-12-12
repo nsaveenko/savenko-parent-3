@@ -1,0 +1,24 @@
+<div class="col" *ngFor="let complaint of complaint">
+<div class="container">
+   <div class="comp">
+     <strong class="d-inline-block mb-10 text-dark">Id user: {{complaint.idUser}}</strong>
+     <div class="mb-1 text-muted">{{complaint.dateComplaint | date}}</div>
+     <p>Status complaint: {{complaint.idStatusComplaint}}</p>
+     <p>Post id: {{complaint.idPost}}</p>
+     <br>
+     <p >{{complaint.complaint}}</p>
+     <br>
+     <div class="row">
+       <div class="col">
+         <button class="btn btn-danger co">Заблокировать пользователя</button>
+       </div>
+       <div class="col">
+         <button class="btn btn-danger co" (click)="_deletePost(complaint.idPost)">Удалить пост</button>
+       </div>
+       <div class="col">
+         <button class="btn btn-danger co" (click)="_deleteComplaint(complaint.id)">Удалить жалобу</button>
+       </div>
+     </div>
+   </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<form class="form-signin mr-auto ml-auto" id="entryform">
+  <div class="text-center mb-4">
+    <h1 class="h3 mb-3 font-weight-normal">Зарегистрируйтесь, чтобы смотреть фото и видео ваших друзей.</h1>
+  </div>
+
+  <form [formGroup]="registrationForm">
+    <div class="form-label-group">
+      <input formControlName="flName" type="username" id="inputFlName" class="form-control" placeholder="Имя и фамилия"
+             required autofocus>
+    </div>
+    <div class="form-label-group">
+      <br>
+      <input formControlName="username" type="username" id="inputUsername" class="form-control"
+             placeholder="Имя пользователя" required>
+    </div>
+
+    <div class="form-label-group">
+      <br>
+      <input formControlName="password" type="password" id="inputPassword" class="form-control" placeholder="Пароль"
+             required>
+      <br>
+    </div>
+
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="createUser()">Зарегистрироваться</button>
+  </form>
+  <p class="mt-5 mb-3 text-muted text-center">Есть аккаунт? <a routerLink="/entry">Вход</a></p>
+  <p class="mt-5 mb-3 text-muted text-center">&copy; 2019-2020</p>
+</form>
+

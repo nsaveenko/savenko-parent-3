@@ -1,0 +1,10 @@
+<div class="container">
+  <div class="comp">
+    <strong class="d-inline-block mb-10 text-dark">{{userService.currUser.username}}</strong>
+    <div class="mb-1 text-muted">{{editableComplaint.dateComplaint | date}}</div>
+    <br>
+    <input [(ngModel)]="editableComplaint.complaint" id="inputComment" class="form-control" placeholder="Опишите причину жалобы...">
+    <br>
+    <button class="btn btn-danger co" (click)="_addComplaint()">Пожаловаться</button>
+  </div>
+</div>

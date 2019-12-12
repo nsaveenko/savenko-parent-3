@@ -1,0 +1,29 @@
+<div class="container post">
+  <div class="col" *ngFor="let post of posts;">
+    <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-850 position-relative">
+      <div class="col-md-7 d-none d-lg-block qw">
+        <img [attr.src]="'/api/files/' + post.filePath | secure | async" width="100%" height="500">
+      </div>
+      <div class="col p-10 d-flex flex-column position-static pp">
+        <strong class="d-inline-block mb-10 text-dark">{{post.userByIdUser?.username}}</strong>
+        <p>
+          <button class="btn btn-light btn" (click)="_deletePost(post.id)">Удалить</button>
+          <button class="btn btn-light btn" (click)="_complaint(post.id)">Пожаловаться</button>
+        </p>
+        <p class="mb">{{post.text}}</p>
+        <div class="container mb-auto comment">
+          <app-comment [selectedPost]="post" [commentId]="commentId"></app-comment>
+        </div>
+        <div class="mb-1 text-muted">{{post.datePost | date}}</div>
+        <div class="row">
+          <div class="col">
+            <i class="fa fa-heart" [ngClass]="{active:post.isLiked}" (click)="_onLikeClick(post.id)"></i>
+          </div>
+          <div class="col text-muted">Нравится: {{post.likesCount}}</div>
+        </div>
+        <input id="{{post.id}}" class="form-control" placeholder="Добавьте комментарий..." #commentField>
+        <button class="btn btn-light op" (click)="_addComment(post.id, commentField.value)">Опубликовать</button>
+      </div>
+    </div>
+  </div>
+</div>

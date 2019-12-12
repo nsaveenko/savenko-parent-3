@@ -1,0 +1,46 @@
+.col-md-8{
+  margin-left: 100px;
+}
+
+.qw{
+  padding: 20px;
+}
+
+.btn{
+  margin: 3px;
+  width: 135px;
+}
+.like{
+  margin: 3px;
+  width: 40px;
+}
+
+.post{
+  width: 930px;
+}
+
+.pp{
+  padding: 10px;
+  width: 100%;
+}
+
+.op{
+  margin: 5px;
+}
+
+.comment{
+  width: auto;
+}
+
+.active{
+  color: red;
+}
+
+.fa{
+  cursor: pointer;
+}
+.fa-trash-alt{
+  color: red;
+}
+
+

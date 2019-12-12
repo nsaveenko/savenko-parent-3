@@ -1,0 +1,26 @@
+<app-header></app-header>
+
+<form class="form-signin mr-auto ml-auto"  id="editform">
+  <div class="text-center mb-4">
+    <h1 class="h3 mb-3 font-weight-normal">Редактировать профиль</h1>
+  </div>
+
+
+<div class="form-group">
+  <button type="button" class="btn btn-warning" [(ngModel)]="photopath">Изменить фото профиля</button>
+  <div class="form-label-group">
+    <br>
+    <input [(ngModel)]="flname" type="username" id="inputflname" class="form-control" placeholder="Имя и фамилия" required autofocus>
+  </div>
+  <div class="form-label-group">
+    <br>
+    <input [(ngModel)]="username" type="username" id="inputUsername" class="form-control" placeholder="Имя пользователя" required  >
+  </div>
+  <div class="form-label-group">
+    <br>
+    <input [(ngModel)]="password" type="password" id="inputPassword" class="form-control" placeholder="Пароль" required>
+    <br>
+  </div>
+  <button type="button" class="btn btn-lg btn-primary btn-block" id="savechange">Сохранить изменения</button>
+</div>
+</form>
