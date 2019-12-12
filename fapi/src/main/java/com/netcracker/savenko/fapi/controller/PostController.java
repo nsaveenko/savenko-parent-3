@@ -38,7 +38,7 @@ public class PostController {
 
         String fileExtension = (file.getOriginalFilename()).split("\\.")[1];
         String fileName = "image_" + id + "." + fileExtension;
-        String filePath = "/Users/anastasiasavenko/Documents/nc/savenko-parent-master/fapi/image/" + fileName;
+        String filePath = "/Users/anastasiasavenko/Documents/nc/savenko-parent/fapi/image/" + fileName;
 
         File dest = new File(filePath);
         file.transferTo(dest);

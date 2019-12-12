@@ -12,6 +12,6 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
                 .addResourceHandler("/api/files/**")
-                .addResourceLocations("file:///Users/anastasiasavenko/Documents/nc/savenko-parent-master/fapi/image/");
+                .addResourceLocations("file:///Users/anastasiasavenko/Documents/nc/savenko-parent/fapi/image/");
     }
 }

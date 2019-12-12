@@ -32,7 +32,7 @@ import {LogInService} from "./services/logIn.service";
 import {Interceptor} from "./services/Interceptor";
 import {initApp} from "./services/app.initializer";
 import {SecurePipe} from "./services/securePipe";
-import {SubscriptionsComponent} from "./components/subscroptions/subscriptions.component";
+import {SubscriptionsComponent} from "./components/subscriptions/subscriptions.component";
 
 const appRoutes: Routes = [
   {path: "", component: FeedComponent},

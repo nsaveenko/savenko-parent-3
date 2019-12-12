@@ -41,23 +41,20 @@ export class RegistrationComponent implements OnInit {
   }
 
   createUser() {
-    this.user = {
-      id: null,
-      username: this.registrationForm.controls['username'].value,
-      flName: this.registrationForm.controls['flName'].value,
-      password: this.registrationForm.controls['password'].value,
-      statusUserByIdStatus: {id: 1, status: 'ACTIVE'},
-      roleUserByIdRole: {id: 2, role: 'USER'},
-    }
+    this.user.username = this.registrationForm.controls['username'].value;
+    this.user.flName = this.registrationForm.controls['flName'].value;
+    this.user.password = this.registrationForm.controls['password'].value;
+    this.user.statusUserByIdStatus = {id: 1, status: 'ACTIVE'};
+    this.user.roleUserByIdRole = {id: 2, role: 'USER'};
+    // this.user = {
+    //   id: null,
+    //   username: this.registrationForm.controls['username'].value,
+    //   flName: this.registrationForm.controls['flName'].value,
+    //   password: this.registrationForm.controls['password'].value,
+    //   statusUserByIdStatus: {id: 1, status: 'ACTIVE'},
+    //   roleUserByIdRole: {id: 2, role: 'USER'},
+    // };
     console.log(this.user);
-    // this.userService.saveUser(this.user).subscribe(user => {
-    //     this.user = user as User;
-    //     if(this.user!==null){
-    //       console.log(user);
-    //       this.router.navigate(['/']);
-    //     }
-    //   }
-    //)
     this.userService.saveUser(this.user).subscribe((data: User) => {
         this.user = data as User;
         if (this.user !== null) {
