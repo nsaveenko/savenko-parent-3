@@ -4,7 +4,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
-import {ErrorModel} from "../../models/error.model";
+import {ErrorModel} from "../../models/Error.model";
 
 @Component({
   selector: 'app-registration',

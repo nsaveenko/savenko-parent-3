@@ -3,7 +3,8 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {User} from "../models/User";
 import {SignIn} from "../models/SignIn";
-import {LogInParam} from "../models/logInParam";
+import {LogInParam} from "../models/LogInParam";
+import {Post} from "../models/Post";
 
 @Injectable()
 export class UserService {
@@ -39,10 +40,13 @@ export class UserService {
   }
 
   getUserById(id: number): Observable<User> {
-    return this.http.get<User>('/api/user/id?id=' + id);
+    return this.http.get<User>('/api/user/' + id);
   }
 
   saveUser(user: User): Observable<User> {
     return this.http.post<User>('/api/user/registration', user);
+  }
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>('/api/user/');
   }
 }

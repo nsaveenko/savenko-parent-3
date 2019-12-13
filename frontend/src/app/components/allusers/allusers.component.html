@@ -1,0 +1,14 @@
+<app-header></app-header>
+<div class="container" *ngFor="let user of users">
+  <div class="row">
+    <div class="col-md-4">
+      <strong class="d-inline-block text-dark">{{user.username}}</strong>
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-light" [ngClass]="{'active-subscriber':user.isSubscriber}"  (click)="_subscribe(userService.currUser, user)">
+        <ng-container *ngIf = "user.isSubscriber">Отписаться</ng-container>
+        <ng-container *ngIf = "!user.isSubscriber">Подписаться</ng-container>
+      </button>
+    </div>
+  </div>
+</div>

@@ -8,7 +8,7 @@ import java.util.Objects;
 public class SubscriptionsEntity {
     private UserEntity userByIdFollowers;
     private UserEntity userByIdFollowing;
-    private String id;
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "id_followers", referencedColumnName = "id", nullable = false)
@@ -30,14 +30,14 @@ public class SubscriptionsEntity {
         this.userByIdFollowing = userByIdFollowing;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public String getId() {
+    public int getId() {
         return id;
     }
 

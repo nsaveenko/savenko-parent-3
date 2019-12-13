@@ -5,7 +5,7 @@ import {Router} from "@angular/router";
 import {User} from "../../models/User";
 import {Subscription} from "rxjs";
 import {LogInService} from "../../services/logIn.service";
-import {LogInParam} from "../../models/logInParam";
+import {LogInParam} from "../../models/LogInParam";
 import {b} from "@angular/core/src/render3";
 
 @Component({

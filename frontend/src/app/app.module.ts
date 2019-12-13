@@ -32,7 +32,9 @@ import {LogInService} from "./services/logIn.service";
 import {Interceptor} from "./services/Interceptor";
 import {initApp} from "./services/app.initializer";
 import {SecurePipe} from "./services/securePipe";
-import {SubscriptionsComponent} from "./components/subscriptions/subscriptions.component";
+import {SubscriberComponent} from "./components/subscriber/subscriber.component";
+import {AllUsersComponent} from "./components/allusers/allusers.component";
+import {SubscriberService} from "./services/subscriber.service";
 
 const appRoutes: Routes = [
   {path: "", component: FeedComponent},
@@ -48,7 +50,8 @@ const appRoutes: Routes = [
   {path: "newpost", component: NewpostComponent},
   {path: "complaintsforadmin", component: ComplaintsforadminComponent},
   {path: "admin", component: AdminComponent},
-  {path: "subscriptions", component: SubscriptionsComponent}
+  {path: "subscriptions", component: SubscriberComponent},
+  {path: "allUsers", component: AllUsersComponent}
 ];
 
 @NgModule({
@@ -69,7 +72,8 @@ const appRoutes: Routes = [
     NewpostComponent,
     ComplaintsforadminComponent,
     AdminComponent,
-    SubscriptionsComponent
+    SubscriberComponent,
+    AllUsersComponent
   ],
   imports: [
     BrowserModule,
@@ -87,6 +91,7 @@ const appRoutes: Routes = [
     UserService,
     ComplaintService,
     LikeService,
+    SubscriberService,
     CommentService,
     LogInService,
     {

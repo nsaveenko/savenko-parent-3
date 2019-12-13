@@ -6,6 +6,7 @@ import com.netcracker.savenko.fapi.service.TokenService;
 import com.netcracker.savenko.fapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,5 +45,10 @@ public class UserController {
     public ResponseEntity<User> getUserById(@PathVariable String id) throws InterruptedException {
         int userId = Integer.parseInt(id);
         return ResponseEntity.ok(userService.getUserById(userId));
+    }
+
+    @GetMapping("/loadByToken")
+    public User loadByToken(@RequestParam String token) {
+        return tokenService.loadByToken(token);
     }
 }

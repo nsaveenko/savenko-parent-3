@@ -2,7 +2,7 @@ import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {SignIn} from "../models/SignIn";
-import {LogInParam} from "../models/logInParam";
+import {LogInParam} from "../models/LogInParam";
 
 @Injectable()
 export class LogInService {

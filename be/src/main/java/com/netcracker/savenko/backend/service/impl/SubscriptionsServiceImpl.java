@@ -1,6 +1,7 @@
 package com.netcracker.savenko.backend.service.impl;
 
 import com.netcracker.savenko.backend.entity.SubscriptionsEntity;
+import com.netcracker.savenko.backend.entity.UserEntity;
 import com.netcracker.savenko.backend.repository.SubscriptionsRepository;
 import com.netcracker.savenko.backend.service.SubscriptionsService;
 import org.springframework.beans.factory.annotation.Autowired;

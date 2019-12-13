@@ -9,6 +9,7 @@ export class User {
   roleUserByIdRole: Role;
   statusUserByIdStatus: StatusUser;
   postCount: number;
+  isSubscriber: boolean;
   followersCount: number;
   followingCount: number;
 }

@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,6 @@ public class TokenServiceImpl implements TokenService {
     private BCryptPasswordEncoder passwordEncoder;
     @Autowired
     private UserService userService;
-
 
     @Override
     public ResponseEntity<?> authenticate(String username, String password) {
@@ -83,5 +83,10 @@ public class TokenServiceImpl implements TokenService {
             errors.put("password", passwordErrors);
 
         return errors;
+    }
+
+    @Override
+    public User loadByToken(String token){
+        return userService.getByUsername(jwtTokenProvider.getUsername(token));
     }
 }
