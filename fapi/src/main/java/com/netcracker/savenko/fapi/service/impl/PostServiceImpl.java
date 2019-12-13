@@ -24,6 +24,20 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<Post> getPostBySub(int userId){
+        RestTemplate restTemplate = new RestTemplate();
+        Post[] postResponse = restTemplate.getForObject(backendServerUrl + "/api/post/followers/" + userId, Post[].class);
+        return postResponse == null ? Collections.emptyList() : Arrays.asList(postResponse);
+    }
+
+    @Override
+    public List<Post> getPostByCurrUser(int userId){
+        RestTemplate restTemplate = new RestTemplate();
+        Post[] postResponse = restTemplate.getForObject(backendServerUrl + "/api/post/currUser/" + userId, Post[].class);
+        return postResponse == null ? Collections.emptyList() : Arrays.asList(postResponse);
+    }
+
+    @Override
     public Post getPostById(Integer id) {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(backendServerUrl + "/api/post/" + id, Post.class);

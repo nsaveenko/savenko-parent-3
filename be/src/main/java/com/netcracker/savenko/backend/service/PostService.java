@@ -3,6 +3,7 @@ package com.netcracker.savenko.backend.service;
 import com.netcracker.savenko.backend.entity.PostEntity;
 import com.netcracker.savenko.backend.entity.UserEntity;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface PostService {
@@ -10,5 +11,7 @@ public interface PostService {
     Optional<PostEntity> getPostById(Integer id);
     Optional<UserEntity> getUserById(Integer userByIdUser);
     Iterable<PostEntity> getAllPost();
+    List<PostEntity> getPostBySub(int userId);
+    List<PostEntity> getPostByCurrUser(int userId);
     void deletePost(Integer id);
 }

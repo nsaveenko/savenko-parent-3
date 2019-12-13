@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -43,6 +44,16 @@ public class PostController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Iterable<PostEntity> getAllPost() {
         return postService.getAllPost();
+    }
+
+    @RequestMapping(value = "/followers/{id}", method = RequestMethod.GET)
+    public List<PostEntity> getPostBySub(@PathVariable(name = "id") int userId) {
+        return postService.getPostBySub(userId);
+    }
+
+    @RequestMapping(value = "/currUser/{id}", method = RequestMethod.GET)
+    public List<PostEntity> getPostByCurrUser(@PathVariable(name = "id") int userId) {
+        return postService.getPostByCurrUser(userId);
     }
 
     @RequestMapping(method = RequestMethod.POST)

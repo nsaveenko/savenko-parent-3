@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from "../../services/user.service";
-import {Post} from "../../models/Post";
 import {Subscription} from "rxjs";
 import {User} from "../../models/User";
 import {Subscriber} from "../../models/Subscriber"
 import {SubscriberService} from "../../services/subscriber.service";
+import {Post} from "../../models/Post";
+import {PostService} from "../../services/post.service";
+import {Like} from "../../models/Like";
+import {LikeService} from "../../services/like.service";
 
 @Component({
   selector: 'app-user',
@@ -13,12 +16,13 @@ import {SubscriberService} from "../../services/subscriber.service";
 })
 export class UserComponent implements OnInit {
 
-  public users: User[];
   subscribers: Subscriber[];
   public sub: Subscriber[];
   private subscriptions: Subscription[] = [];
 
   constructor(private userService: UserService,
+              private postService: PostService,
+              private likeService: LikeService,
               private subscriberService: SubscriberService) { }
 
   ngOnInit() {
@@ -30,9 +34,4 @@ export class UserComponent implements OnInit {
       this.subscribers = subs;
     }));
   }
-
-  // private getSubById(){
-  //   this.subscriptions.push((this.subscriberService.getSubscriberById(this.userService.currUser.id).subscribe()));
-  // }
-
 }

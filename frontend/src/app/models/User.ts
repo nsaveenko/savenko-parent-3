@@ -8,7 +8,7 @@ export class User {
   password: string;
   roleUserByIdRole: Role;
   statusUserByIdStatus: StatusUser;
-  postCount: number;
+  postsCount: number;
   isSubscriber: boolean;
   followersCount: number;
   followingCount: number;

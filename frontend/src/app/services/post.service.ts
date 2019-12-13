@@ -22,6 +22,14 @@ export class PostService {
     return this.http.get<Post[]>('/api/post/');
   }
 
+  getPostBySub(userId: number): Observable<Post[]>{
+    return this.http.get<Post[]>('/api/post/followers/' + userId);
+  }
+
+  getPostByCurrUser(userId: number): Observable<Post[]>{
+    return this.http.get<Post[]>('/api/post/currUser/' + userId);
+  }
+
   savePost(post: Post): Observable<Post> {
     return this.http.post<Post>('/api/post/', post);
   }

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {Post} from "../../models/Post";
 import {Comment} from "../../models/Comment";
 import {PostService} from "../../services/post.service";
@@ -10,16 +10,21 @@ import {CommentService} from "../../services/comment.service";
 import {LikeService} from "../../services/like.service";
 import {Like} from "../../models/Like";
 import {User} from "../../models/User";
+import {Subscriber} from "../../models/Subscriber";
+import {SubscriberService} from "../../services/subscriber.service";
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
-export class PostComponent implements OnInit {
+export class PostComponent implements OnInit, OnChanges {
 
   @Input() selectedUser: User;
+  @Input() parentPage: string;
+
   public comments: Comment[];
+  public subscribers: Subscriber[];
   public editableComment: Comment = new Comment();
   public likes: Like[];
   public editableLike: Like = new Like();
@@ -31,11 +36,21 @@ export class PostComponent implements OnInit {
   constructor(private postService: PostService,
               private userService: UserService,
               private likeService: LikeService,
+              private subscriberService: SubscriberService,
               private commentService: CommentService,
               private router: Router) { }
 
   ngOnInit() {
-    this.loadPost();
+    this.loadSub();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+    if (changes.parentPage.currentValue === 'feed') {
+      this.loadPost();
+    } else if (changes.parentPage.currentValue === 'user'){
+      this.loadPostByCurrUser();
+    }
   }
 
   public _updatePost(): void {
@@ -49,16 +64,23 @@ export class PostComponent implements OnInit {
   }
 
   private loadPost(): void {
-    this.subscriptions.push(this.postService.getPost()
+    this.subscriptions.push(this.postService.getPostBySub(this.userService.currUser.id)
       .subscribe(posts => {
-        if(this.selectedUser){
-          this.posts = posts.filter((post: Post) => post.userByIdUser.id === this.selectedUser.id);
-          this.selectedUser.postCount = this.posts.filter((post : Post) => post.userByIdUser.id === this.selectedUser.id).length;
-        } else{
-          this.posts = posts;
-        }
+        this.posts = posts;
         this.loadLike();
-    }));
+      }));
+  }
+
+
+  private loadPostByCurrUser(): void {
+    this.subscriptions.push(this.postService.getPostByCurrUser(this.userService.currUser.id)
+      .subscribe(posts => {
+        this.posts = posts;
+        this.posts.forEach((post) => {
+          this.userService.currUser.postsCount = this.posts.length;
+        });
+        this.loadLike();
+      }));
   }
 
   _complaint(id: number) {
@@ -107,6 +129,12 @@ export class PostComponent implements OnInit {
         post.isLiked = this.likes.some((like: Like) => like.userByIdUser.id === this.userService.currUser.id && like.idPost === post.id);
       });
       console.log(this.likes);
+    }));
+  }
+
+  private loadSub(): void {
+    this.subscriptions.push(this.subscriberService.getSubscribers().subscribe(subs => {
+      this.subscribers = subs;
     }));
   }
 }

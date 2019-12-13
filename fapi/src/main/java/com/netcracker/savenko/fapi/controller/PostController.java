@@ -22,6 +22,16 @@ public class PostController {
         return ResponseEntity.ok(postService.getAll());
     }
 
+    @RequestMapping(value = "/followers/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Post>> getPostBySub(@PathVariable int id){
+        return ResponseEntity.ok(postService.getPostBySub(id));
+    }
+
+    @RequestMapping(value = "/currUser/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Post>> getPostByCurrUser(@PathVariable int id){
+        return ResponseEntity.ok(postService.getPostByCurrUser(id));
+    }
+
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Post> savePost(@RequestBody Post post /*todo server validation*/) {
         if (post != null) {
@@ -31,10 +41,9 @@ public class PostController {
     }
 
     @RequestMapping(value = "/{id}/image", method = RequestMethod.POST)
-    public ResponseEntity<Post> saveFile(@PathVariable String id, @RequestParam("file") MultipartFile file) throws IOException {
-        int postId = Integer.valueOf(id);
+    public ResponseEntity<Post> saveFile(@PathVariable int id, @RequestParam("file") MultipartFile file) throws IOException {
 
-        Post post= postService.getPostById(postId);
+        Post post= postService.getPostById(id);
 
         String fileExtension = (file.getOriginalFilename()).split("\\.")[1];
         String fileName = "image_" + id + "." + fileExtension;
@@ -50,13 +59,12 @@ public class PostController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deletePost(@PathVariable String id) {
-        postService.deletePost(Integer.valueOf(id));
+    public void deletePost(@PathVariable int id) {
+        postService.deletePost(id);
     }
 
     @RequestMapping(value = "/{id}")
-    public ResponseEntity<Post> getPostById(@PathVariable String id) throws InterruptedException {
-        int postId = Integer.valueOf(id);
-        return ResponseEntity.ok(postService.getPostById(postId));
+    public ResponseEntity<Post> getPostById(@PathVariable int id) {
+        return ResponseEntity.ok(postService.getPostById(id));
     }
 }

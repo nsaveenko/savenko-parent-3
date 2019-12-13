@@ -10,7 +10,7 @@
       <h4 class="h2 mb-3 font-weight-normal">{{userService.currUser.username}}</h4>
       <br>
       <div class="row">
-        <div class="col-md-3">Публикации: {{userService.currUser.postCount}}</div>
+        <div class="col-md-3">Публикации: {{userService.currUser.postsCount}}</div>
         <div class="col-md-3">Подписчики: 400</div>
         <div class="col-md-3">Подписки: 500</div>
       </div>
@@ -33,6 +33,6 @@
 </div>
 <br>
 <div class="container">
-  <app-post [selectedUser]="userService.currUser"></app-post>
+  <app-post [parentPage]="'user'"></app-post>
 </div>
 

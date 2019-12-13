@@ -6,8 +6,12 @@ import com.netcracker.savenko.backend.repository.PostRepository;
 import com.netcracker.savenko.backend.repository.UserRepository;
 import com.netcracker.savenko.backend.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -37,8 +41,15 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<PostEntity> getPostBySub(int userId){return repository.findPostBySub(userId);}
+
+    @Override
+    public List<PostEntity> getPostByCurrUser(int userId){return repository.findPostByCurrUser(userId);}
+
+    @Override
     public Iterable<PostEntity> getAllPost() {
-        return repository.findAll();
+        Pageable firstPageWithTwoElements = PageRequest.of(0, 3, Sort.by("date_post").descending());
+        return repository.findAll(firstPageWithTwoElements);
     }
 
     @Override
