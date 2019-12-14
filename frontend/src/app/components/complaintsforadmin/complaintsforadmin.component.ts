@@ -14,9 +14,10 @@ import {UserService} from "../../services/user.service";
 export class ComplaintsforadminComponent implements OnInit {
 
   public complaints: Complaint[];
-  public post: Post[];
+  public posts: Post[];
   private subscriptions: Subscription[] = [];
   public editableComplaint: Complaint = new Complaint();
+  public message: string;
 
   constructor(private complaintService: ComplaintService,
               private userService: UserService,
@@ -27,36 +28,33 @@ export class ComplaintsforadminComponent implements OnInit {
     this.loadComplaint();
   }
 
-  private blockUser(id: number): void {
-
+  private loadComplaintByStatusId(id: number): void {
+    this.subscriptions.push(this.complaintService.getComplaintsByStatusId(id)
+      .subscribe( complaints =>{
+        this.complaints = complaints;
+      }));
   }
 
   private changeStatusComplaint(id: number): void {
     this.subscriptions.push(this.complaintService.getComplaintById(id).subscribe(complaint => {
-      console.log(complaint);
-      debugger;
+      this.editableComplaint.id = complaint.id;
+      this.editableComplaint.idPost = complaint.idPost;
+      this.editableComplaint.idUser = complaint.idUser;
+      this.editableComplaint.dateComplaint = complaint.dateComplaint;
+      this.editableComplaint.complaint = complaint.complaint;
       switch (complaint.idStatusComplaint) {
         case 1:
-          this.editableComplaint.id = complaint.id;
-          this.editableComplaint.idPost = complaint.idPost;
-          this.editableComplaint.idUser = complaint.idUser;
-          this.editableComplaint.dateComplaint = complaint.dateComplaint;
-          this.editableComplaint.complaint = complaint.complaint;
           this.editableComplaint.idStatusComplaint = 2;
-          this.subscriptions.push(this.complaintService.saveComplaint(this.editableComplaint).subscribe((complaint: Complaint) => {
+          this.subscriptions.push(this.complaintService.saveComplaint(this.editableComplaint)
+            .subscribe((complaint: Complaint) => {
             this._updateComplaint();
             this.refreshComplaint();
           }));
           break;
         case 2:
-          this.editableComplaint.id = complaint.id;
-          this.editableComplaint.idPost = complaint.idPost;
-          this.editableComplaint.idUser = complaint.idUser;
-          this.editableComplaint.dateComplaint = complaint.dateComplaint;
-          this.editableComplaint.complaint = complaint.complaint;
-          this.editableComplaint.idStatusComplaint = 2;
           this.editableComplaint.idStatusComplaint = 1;
-          this.subscriptions.push(this.complaintService.saveComplaint(this.editableComplaint).subscribe((complaint: Complaint) => {
+          this.subscriptions.push(this.complaintService.saveComplaint(this.editableComplaint)
+            .subscribe((complaint: Complaint) => {
             this._updateComplaint();
             this.refreshComplaint();
           }));
@@ -93,16 +91,5 @@ export class ComplaintsforadminComponent implements OnInit {
     this.subscriptions.push(this.complaintService.deletePost(postId).subscribe(() => {
       this._updateComplaint();
     }));
-  }
-
-  public _updatePost(): void {
-    this.loadPost();
-  }
-
-  private loadPost(): void {
-    this.subscriptions.push(this.postService.getPost()
-      .subscribe(posts => {
-        this.post = posts as Post[];
-      }));
   }
 }

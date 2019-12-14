@@ -19,7 +19,7 @@ export class ComplaintService {
   }
 
   deleteComplaint(complaintId: number): Observable<void> {
-    return this.http.delete<void>( '/api/complaint/' + complaintId);
+    return this.http.delete<void>('/api/complaint/' + complaintId);
   }
 
   deletePost(postId: number): Observable<void> {
@@ -28,5 +28,9 @@ export class ComplaintService {
 
   getComplaintById(id: number): Observable<Complaint> {
     return this.http.get<Complaint>('/api/complaint/' + id);
+  }
+
+  getComplaintsByStatusId(id: number): Observable<Complaint[]> {
+    return this.http.get<Complaint[]>('/api/complaint/status/' + id);
   }
 }

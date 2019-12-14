@@ -22,8 +22,8 @@ public class ComplaintController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Iterable<ComplaintEntity> getAllComplaint() {
-    return complaintService.getAllComplaint();
-}
+        return complaintService.getAllComplaint();
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<ComplaintEntity> getComplaintById(@PathVariable(name = "id") Integer id) {
@@ -51,7 +51,7 @@ public class ComplaintController {
     }
 
     @RequestMapping(value = "/status/{id}", method = RequestMethod.GET)
-    public List<ComplaintEntity> getComplainByStatusId(@PathVariable(name = "id") int id){
+    public List<ComplaintEntity> getComplainByStatusId(@PathVariable(name = "id") int id) {
         return complaintService.getComplaintByStatusId(id);
     }
 }

@@ -1,6 +1,6 @@
 .container{
   width: 500px;
-text-align: center;
+  text-align: center;
   border: 2px solid gray;
   margin-bottom: 20px;
 }
@@ -10,4 +10,9 @@ text-align: center;
 
 .btn{
   width: 125px;
+}
+
+.b{
+  padding: 10px;
+  text-align: center;
 }
