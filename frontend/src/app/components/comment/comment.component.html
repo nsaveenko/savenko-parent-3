@@ -1,16 +1,24 @@
 <div class="container cmm" *ngFor="let comment of comments">
   <div class="row">
-    <div class="col-md-3">
+
+    <div class="col-md-5">
       <strong class="d-inline-block text-dark">{{comment.userByIdUser?.username}}</strong>
     </div>
-    <div class="col-md-4">
-      <div class="container mb-auto">{{comment.tex}}</div>
-    </div>
-    <div class="col-md-3">
+
+    <div class="col-md-5">
       <div class="mb text-muted">{{comment.dataPost | date : 'M/d/yy'}}</div>
     </div>
-    <div class="col-md-1">
+
+
+    <div class="col-md-1" *ngIf="comment.userByIdUser.id===userService.currUser.id">
       <i class="fa fa-minus-square" (click)="_deleteComment(comment.id)"></i>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-md" style="word-break: break-all">
+      <div class="container mb-auto">{{comment.tex}}</div>
+    </div>
+  </div>
+
 </div>

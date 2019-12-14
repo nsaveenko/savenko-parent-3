@@ -11,4 +11,6 @@ public interface UserService {
     User getByUsername(String username);
     User save(User user);
     void deleteUser(Integer id);
+    List<User> getFollowers(int id);
+    List<User> getFollowing(int id);
 }

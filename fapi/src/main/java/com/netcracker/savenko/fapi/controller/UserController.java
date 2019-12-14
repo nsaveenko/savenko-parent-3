@@ -26,6 +26,17 @@ public class UserController {
         return ResponseEntity.ok(userService.getAll());
     }
 
+    @RequestMapping(value = "/followers/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<User>> getFollowers(@PathVariable int id){
+        return ResponseEntity.ok(userService.getFollowers(id));
+    }
+
+
+    @RequestMapping(value = "/following/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<User>> getFollowing(@PathVariable int id){
+        return ResponseEntity.ok(userService.getFollowing(id));
+    }
+
     @PostMapping("/signin")
     public ResponseEntity<?> getByUsernameAndPassword(@RequestBody LogInParam logInParam) {
         return tokenService.authenticate(logInParam.getUsername(), logInParam.getPassword());
@@ -37,14 +48,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deleteUser(@PathVariable String id) {
-        userService.deleteUser(Integer.valueOf(id));
+    public void deleteUser(@PathVariable int id) {
+        userService.deleteUser(id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<User> getUserById(@PathVariable String id) throws InterruptedException {
-        int userId = Integer.parseInt(id);
-        return ResponseEntity.ok(userService.getUserById(userId));
+    public ResponseEntity<User> getUserById(@PathVariable int id) {
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @GetMapping("/loadByToken")

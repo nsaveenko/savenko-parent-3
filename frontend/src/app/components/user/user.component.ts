@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {Subscription} from "rxjs";
-import {User} from "../../models/User";
 import {Subscriber} from "../../models/Subscriber"
 import {SubscriberService} from "../../services/subscriber.service";
-import {Post} from "../../models/Post";
-import {PostService} from "../../services/post.service";
-import {Like} from "../../models/Like";
-import {LikeService} from "../../services/like.service";
+import {User} from "../../models/User";
 
 @Component({
   selector: 'app-user',
@@ -17,21 +13,31 @@ import {LikeService} from "../../services/like.service";
 export class UserComponent implements OnInit {
 
   subscribers: Subscriber[];
+  users: User[];
   public sub: Subscriber[];
   private subscriptions: Subscription[] = [];
 
   constructor(private userService: UserService,
-              private postService: PostService,
-              private likeService: LikeService,
               private subscriberService: SubscriberService) { }
 
   ngOnInit() {
-    this.loadSub();
+    this.loadFollowers();
+    this.loadFollowing();
+    //console.log(this.activeRoute.snapshot.queryParams['id']);
   }
 
-  private loadSub(): void {
-    this.subscriptions.push(this.subscriberService.getSubscribers().subscribe(subs => {
-      this.subscribers = subs;
-    }));
+  private loadFollowers(): void{
+    this.subscriptions.push(this.userService.getFollowers(this.userService.currUser.id).subscribe(followers =>{
+      this.users = followers;
+      this.userService.currUser.followersCount = followers.length;
+    }))
   }
+
+  private loadFollowing(): void{
+    this.subscriptions.push(this.userService.getFollowing(this.userService.currUser.id).subscribe(following =>{
+      this.users = following;
+      this.userService.currUser.followingCount = following.length;
+    }))
+  }
+
 }

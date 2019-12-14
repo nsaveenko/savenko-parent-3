@@ -4,9 +4,11 @@ import com.netcracker.savenko.backend.entity.SubscriptionsEntity;
 import com.netcracker.savenko.backend.entity.UserEntity;
 import com.netcracker.savenko.backend.repository.SubscriptionsRepository;
 import com.netcracker.savenko.backend.service.SubscriptionsService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component

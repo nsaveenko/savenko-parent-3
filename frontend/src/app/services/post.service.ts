@@ -22,11 +22,11 @@ export class PostService {
     return this.http.get<Post[]>('/api/post/');
   }
 
-  getPostBySub(userId: number): Observable<Post[]>{
+  getPostBySub(userId: number): Observable<Post[]> {
     return this.http.get<Post[]>('/api/post/followers/' + userId);
   }
 
-  getPostByCurrUser(userId: number): Observable<Post[]>{
+  getPostByCurrUser(userId: number): Observable<Post[]> {
     return this.http.get<Post[]>('/api/post/currUser/' + userId);
   }
 

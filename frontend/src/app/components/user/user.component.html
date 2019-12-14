@@ -10,9 +10,9 @@
       <h4 class="h2 mb-3 font-weight-normal">{{userService.currUser.username}}</h4>
       <br>
       <div class="row">
-        <div class="col-md-3">Публикации: {{userService.currUser.postsCount}}</div>
-        <div class="col-md-3">Подписчики: 400</div>
-        <div class="col-md-3">Подписки: 500</div>
+        <div class="col-md-3">{{userService.currUser.postsCount}} posts</div>
+        <div class="col-md-3">{{userService.currUser.followersCount}} followers</div>
+        <div class="col-md-3">{{userService.currUser.followingCount}} following</div>
       </div>
       <div class="row">
         <div class="col">
@@ -22,7 +22,6 @@
       </div>
       <div class="row">
         <div class="col-md-3">
-          <button class="btn btn-outline-secondary">Подписаться</button>
         </div>
 <!--        <div class="col align-content-center">-->
 <!--          <i class="fa fa-cog" routerLink="/edit"></i>-->

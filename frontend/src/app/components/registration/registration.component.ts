@@ -46,19 +46,9 @@ export class RegistrationComponent implements OnInit {
     this.user.password = this.registrationForm.controls['password'].value;
     this.user.statusUserByIdStatus = {id: 1, status: 'ACTIVE'};
     this.user.roleUserByIdRole = {id: 2, role: 'USER'};
-    // this.user = {
-    //   id: null,
-    //   username: this.registrationForm.controls['username'].value,
-    //   flName: this.registrationForm.controls['flName'].value,
-    //   password: this.registrationForm.controls['password'].value,
-    //   statusUserByIdStatus: {id: 1, status: 'ACTIVE'},
-    //   roleUserByIdRole: {id: 2, role: 'USER'},
-    // };
-    console.log(this.user);
     this.userService.saveUser(this.user).subscribe((data: User) => {
         this.user = data as User;
         if (this.user !== null) {
-          console.log(this.user);
           this.router.navigate(['/entry']);
         }
       }, response => {

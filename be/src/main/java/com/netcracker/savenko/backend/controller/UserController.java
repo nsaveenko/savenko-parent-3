@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -54,5 +55,15 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteUser(@PathVariable(name = "id") Integer id) {
         userService.deleteUser(id);
+    }
+
+    @RequestMapping(value = "/followers/{id}", method = RequestMethod.GET)
+    public List<UserEntity> getFollowers(@PathVariable(name = "id") int userId) {
+        return userService.getFollowersByIdFollowing(userId);
+    }
+
+    @RequestMapping(value = "/following/{id}", method = RequestMethod.GET)
+    public List<UserEntity> getFollowing(@PathVariable(name = "id") int userId) {
+        return userService.getFollowingByIdFollowers(userId);
     }
 }

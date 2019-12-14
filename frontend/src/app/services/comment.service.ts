@@ -14,8 +14,6 @@ export class CommentService {
   }
 
   saveComment(comment: Comment): Observable<Comment> {
-    debugger;
-    console.log(comment);
     return this.http.post<Comment>('/api/comment', comment);
   }
 

@@ -5,4 +5,5 @@ export class Complaint {
   complaint: string;
   idPost: number;
   idStatusComplaint: number;
+  isReviewed: boolean;
 }

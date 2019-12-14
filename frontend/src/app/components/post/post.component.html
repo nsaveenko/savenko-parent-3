@@ -7,8 +7,10 @@
       <div class="col p-10 d-flex flex-column position-static pp">
         <strong class="d-inline-block mb-10 text-dark">{{post.userByIdUser?.username}}</strong>
         <p>
-          <button class="btn btn-light btn" (click)="_deletePost(post.id)">Удалить</button>
-          <button class="btn btn-light btn" (click)="_complaint(post.id)">Пожаловаться</button>
+          <button class="btn btn-light btn" (click)="_deletePost(post.id)" *ngIf="post.userByIdUser.id===userService.currUser.id">Delete</button>
+          <button class="btn btn-light btn" (click)="_complaint(post.id)" *ngIf="post.userByIdUser.id!=userService.currUser.id">
+            Report
+          </button>
         </p>
         <p class="mb">{{post.text}}</p>
         <div class="container mb-auto comment">
@@ -19,10 +21,12 @@
           <div class="col">
             <i class="fa fa-heart" [ngClass]="{active:post.isLiked}" (click)="_onLikeClick(post.id)"></i>
           </div>
-          <div class="col text-muted">Нравится: {{post.likesCount}}</div>
+          <div class="col text-muted">{{post.likesCount}} Likes</div>
         </div>
-        <input id="{{post.id}}" class="form-control" placeholder="Добавьте комментарий..." #commentField>
-        <button class="btn btn-light op" (click)="_addComment(post.id, commentField.value)">Опубликовать</button>
+        <div class="container">
+          <input id="{{post.id}}" class="form-control" placeholder="Add a comment..." #commentField>
+          <button class="btn btn-light op" (click)="_addComment(post.id, commentField.value)" style="margin-left: 70px">Post</button>
+        </div>
       </div>
     </div>
   </div>

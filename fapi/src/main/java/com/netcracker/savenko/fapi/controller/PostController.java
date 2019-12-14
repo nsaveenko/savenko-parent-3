@@ -23,12 +23,12 @@ public class PostController {
     }
 
     @RequestMapping(value = "/followers/{id}", method = RequestMethod.GET)
-    public ResponseEntity<List<Post>> getPostBySub(@PathVariable int id){
+    public ResponseEntity<List<Post>> getPostBySub(@PathVariable int id) {
         return ResponseEntity.ok(postService.getPostBySub(id));
     }
 
     @RequestMapping(value = "/currUser/{id}", method = RequestMethod.GET)
-    public ResponseEntity<List<Post>> getPostByCurrUser(@PathVariable int id){
+    public ResponseEntity<List<Post>> getPostByCurrUser(@PathVariable int id) {
         return ResponseEntity.ok(postService.getPostByCurrUser(id));
     }
 
@@ -43,7 +43,7 @@ public class PostController {
     @RequestMapping(value = "/{id}/image", method = RequestMethod.POST)
     public ResponseEntity<Post> saveFile(@PathVariable int id, @RequestParam("file") MultipartFile file) throws IOException {
 
-        Post post= postService.getPostById(id);
+        Post post = postService.getPostById(id);
 
         String fileExtension = (file.getOriginalFilename()).split("\\.")[1];
         String fileName = "image_" + id + "." + fileExtension;

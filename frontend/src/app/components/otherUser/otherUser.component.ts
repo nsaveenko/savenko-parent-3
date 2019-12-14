@@ -1,31 +1,49 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from "../../models/User";
 import {UserService} from "../../services/user.service";
 import {Subscription} from "rxjs";
-import {Subscriber} from "../../models/Subscriber";
-import {Comment} from "../../models/Comment";
+import {Subscriber} from "../../models/Subscriber"
 import {SubscriberService} from "../../services/subscriber.service";
-import {Like} from "../../models/Like";
+import {PostService} from "../../services/post.service";
+import {LikeService} from "../../services/like.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {User} from "../../models/User";
 
 @Component({
-  selector: 'app-subscriptions',
-  templateUrl: './allusers.component.html',
-  styleUrls: ['./allusers.component.css']
+  selector: 'app-user',
+  templateUrl: './otherUser.component.html',
+  styleUrls: ['./otherUser.component.css']
 })
-export class AllUsersComponent implements OnInit {
+export class OtherUserComponent implements OnInit {
 
   users: User[];
+  userId: string;
   subscribers: Subscriber[];
-  public editableSubscriber: Subscriber = new Subscriber();
+  public sub: Subscriber[];
   private subscriptions: Subscription[] = [];
+  private routeSubscription: Subscription;
+  user: User;
+  public editableSubscriber: Subscriber = new Subscriber();
 
   constructor(private userService: UserService,
-              private subscriberService: SubscriberService) {
+              private postService: PostService,
+              private likeService: LikeService,
+              private subscriberService: SubscriberService,
+              private activeRoute: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit() {
-    this.loadUsers();
-    this.loadSub();
+    // this.loadSub();
+    this.userId = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
+    this.loadUserById();
+    this.loadFollowers();
+    this.loadFollowing();
+  }
+
+  private loadUserById():void {
+    this.subscriptions.push(this.userService.getUserById(+this.userId).subscribe(user => {
+      this.user = user;
+    }));
   }
 
   public _updateUsers(): void {
@@ -68,5 +86,19 @@ export class AllUsersComponent implements OnInit {
         this._updateSub();
       }));
     }
+  }
+
+  private loadFollowers(): void{
+    this.subscriptions.push(this.userService.getFollowers(this.user.id).subscribe(followers =>{
+      this.users = followers;
+      this.user.followersCount = followers.length;
+    }))
+  }
+
+  private loadFollowing(): void{
+    this.subscriptions.push(this.userService.getFollowing(this.user.id).subscribe(following =>{
+      this.users = following;
+      this.user.followingCount = following.length;
+    }))
   }
 }

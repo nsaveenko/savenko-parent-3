@@ -6,6 +6,7 @@ import com.netcracker.savenko.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -45,5 +46,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity findByUsername(String username) {
         return repository.findByUsername(username);
+    }
+
+    public List<UserEntity> getFollowingByIdFollowers(int userId){
+        return repository.getFollowingByIdFollowers(userId);
+    }
+
+    public List<UserEntity> getFollowersByIdFollowing(int userId){
+        return repository.getFollowersByIdFollowing(userId);
     }
 }

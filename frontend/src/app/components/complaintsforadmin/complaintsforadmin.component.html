@@ -1,7 +1,7 @@
 <div class="col" *ngFor="let complaint of complaint">
 <div class="container">
    <div class="comp">
-     <strong class="d-inline-block mb-10 text-dark">Id user: {{complaint.idUser}}</strong>
+     <strong class="d-inline-block mb-10 text-dark">User id: {{complaint.idUser}}</strong>
      <div class="mb-1 text-muted">{{complaint.dateComplaint | date}}</div>
      <p>Status complaint: {{complaint.idStatusComplaint}}</p>
      <p>Post id: {{complaint.idPost}}</p>
@@ -10,13 +10,16 @@
      <br>
      <div class="row">
        <div class="col">
-         <button class="btn btn-danger co">Заблокировать пользователя</button>
+         <button class="btn btn-danger co" (click)="changeStatusComplaint(complaint.id)">
+           <ng-container *ngIf = "complaint.idStatusComplaint===2">Not Reviewed</ng-container>
+           <ng-container *ngIf = "complaint.idStatusComplaint===1">Reviewed</ng-container>
+         </button>
        </div>
        <div class="col">
-         <button class="btn btn-danger co" (click)="_deletePost(complaint.idPost)">Удалить пост</button>
+         <button class="btn btn-danger co" (click)="_deletePost(complaint.idPost)">Delete post</button>
        </div>
        <div class="col">
-         <button class="btn btn-danger co" (click)="_deleteComplaint(complaint.id)">Удалить жалобу</button>
+         <button class="btn btn-danger co" (click)="_deleteComplaint(complaint.id)">Delete report</button>
        </div>
      </div>
    </div>

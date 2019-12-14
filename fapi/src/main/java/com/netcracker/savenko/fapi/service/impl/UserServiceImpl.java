@@ -67,4 +67,18 @@ public class UserServiceImpl implements UserService {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.delete(backendServerUrl + "api/user/" + id);
     }
+
+    @Override
+    public List<User> getFollowers(int id){
+        RestTemplate restTemplate = new RestTemplate();
+        User[] usersResponse = restTemplate.getForObject(backendServerUrl + "/api/user/followers/" + id, User[].class);
+        return usersResponse == null ? Collections.emptyList() : Arrays.asList(usersResponse);
+    }
+
+    @Override
+    public List<User> getFollowing(int id){
+        RestTemplate restTemplate = new RestTemplate();
+        User[] usersResponse = restTemplate.getForObject(backendServerUrl + "/api/user/following/" + id, User[].class);
+        return usersResponse == null ? Collections.emptyList() : Arrays.asList(usersResponse);
+    }
 }

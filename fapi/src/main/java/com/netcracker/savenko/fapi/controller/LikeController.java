@@ -28,13 +28,12 @@ public class LikeController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deleteLike(@PathVariable String id) {
+    public void deleteLike(@PathVariable int id) {
         likeService.deleteLike(Integer.valueOf(id));
     }
 
     @RequestMapping(value = "/{id}")
-    public ResponseEntity<Like> getLikeById(@PathVariable String id) throws InterruptedException {
-        int likeId = Integer.valueOf(id);
-        return ResponseEntity.ok(likeService.getLikeById(likeId));
+    public ResponseEntity<Like> getLikeById(@PathVariable int id) {
+        return ResponseEntity.ok(likeService.getLikeById(id));
     }
 }

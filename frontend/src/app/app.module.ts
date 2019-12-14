@@ -35,6 +35,8 @@ import {SecurePipe} from "./services/securePipe";
 import {SubscriberComponent} from "./components/subscriber/subscriber.component";
 import {AllUsersComponent} from "./components/allusers/allusers.component";
 import {SubscriberService} from "./services/subscriber.service";
+import {OtherUserComponent} from "./components/otherUser/otherUser.component";
+import {NotFoundComponent} from "./components/404/not-found.component";
 
 const appRoutes: Routes = [
   {path: "", component: FeedComponent},
@@ -51,7 +53,10 @@ const appRoutes: Routes = [
   {path: "complaintsforadmin", component: ComplaintsforadminComponent},
   {path: "admin", component: AdminComponent},
   {path: "subscriptions", component: SubscriberComponent},
-  {path: "allUsers", component: AllUsersComponent}
+  {path: "allUsers", component: AllUsersComponent},
+  {path: "otherUser", component: OtherUserComponent},
+  {path: "allUsers/otherUser/:id", component: OtherUserComponent},
+  {path: "**", component: NotFoundComponent}
 ];
 
 @NgModule({
@@ -73,7 +78,9 @@ const appRoutes: Routes = [
     ComplaintsforadminComponent,
     AdminComponent,
     SubscriberComponent,
-    AllUsersComponent
+    AllUsersComponent,
+    OtherUserComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

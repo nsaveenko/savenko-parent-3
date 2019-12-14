@@ -2,6 +2,7 @@ package com.netcracker.savenko.backend.service;
 
 import com.netcracker.savenko.backend.entity.UserEntity;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
@@ -10,5 +11,7 @@ public interface UserService {
     UserEntity findByUsername(String username);
     Optional<UserEntity> getUserById(Integer id);
     Iterable<UserEntity> getAllUser();
+    List<UserEntity> getFollowingByIdFollowers(int userId);
+    List<UserEntity> getFollowersByIdFollowing(int userId);
     void deleteUser(Integer id);
 }

@@ -9,7 +9,7 @@ export class SubscriberService {
   constructor(private http: HttpClient) {
   }
 
-  getFollowersById(id: number): Observable<Subscriber> {
+  getFollowersById(id: string): Observable<Subscriber> {
     return this.http.get<Subscriber>('/api/subscriptions/' + id);
   }
 

@@ -1,9 +1,13 @@
 .container{
-  width: 700px;
-  margin-left: 25%;
+  width: 500px;
+text-align: center;
   border: 2px solid gray;
   margin-bottom: 20px;
 }
 .comp{
   padding: 5px;
+}
+
+.btn{
+  width: 125px;
 }

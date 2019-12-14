@@ -27,13 +27,12 @@ public class CommentController {
         return null;
     }
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deleteComment(@PathVariable String id) {
+    public void deleteComment(@PathVariable int id) {
         commentService.deleteComment(Integer.valueOf(id));
     }
 
     @RequestMapping(value = "/{id}")
-    public ResponseEntity<Comment> getCommentById(@PathVariable String id) throws InterruptedException {
-        int commentId = Integer.valueOf(id);
-        return ResponseEntity.ok(commentService.getCommentById(commentId));
+    public ResponseEntity<Comment> getCommentById(@PathVariable int id) {
+        return ResponseEntity.ok(commentService.getCommentById(id));
     }
 }

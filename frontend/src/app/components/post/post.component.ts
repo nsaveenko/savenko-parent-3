@@ -20,10 +20,10 @@ import {SubscriberService} from "../../services/subscriber.service";
 })
 export class PostComponent implements OnInit, OnChanges {
 
-  @Input() selectedUser: User;
+  @Input() selectedUserId: number;
   @Input() parentPage: string;
 
-  public comments: Comment[];
+  public user: User;
   public subscribers: Subscriber[];
   public editableComment: Comment = new Comment();
   public likes: Like[];
@@ -45,11 +45,13 @@ export class PostComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
     if (changes.parentPage.currentValue === 'feed') {
       this.loadPost();
     } else if (changes.parentPage.currentValue === 'user'){
       this.loadPostByCurrUser();
+    }
+    else if (changes.parentPage.currentValue === '/allUsers/otherUser/' + this.selectedUserId){
+      this.loadPostOtherUser();
     }
   }
 
@@ -71,14 +73,19 @@ export class PostComponent implements OnInit, OnChanges {
       }));
   }
 
-
   private loadPostByCurrUser(): void {
     this.subscriptions.push(this.postService.getPostByCurrUser(this.userService.currUser.id)
       .subscribe(posts => {
         this.posts = posts;
-        this.posts.forEach((post) => {
-          this.userService.currUser.postsCount = this.posts.length;
-        });
+        this.userService.currUser.postsCount = this.posts.length;
+        this.loadLike();
+      }));
+  }
+
+  private loadPostOtherUser(): void {
+    this.subscriptions.push(this.postService.getPostByCurrUser(this.selectedUserId)
+      .subscribe(posts => {
+        this.posts = posts;
         this.loadLike();
       }));
   }
@@ -95,7 +102,6 @@ export class PostComponent implements OnInit, OnChanges {
     this.editableComment.idPost = postId;
     this.editableComment.tex = textValue;
     this.editableComment.userByIdUser = this.userService.currUser;
-    debugger;
     this.subscriptions.push(this.commentService.saveComment(this.editableComment).subscribe((comment) => {
       this.commentId = comment.id;
       }));
@@ -128,7 +134,6 @@ export class PostComponent implements OnInit, OnChanges {
         post.likesCount = this.likes.filter((like : Like) => like.idPost === post.id).length;
         post.isLiked = this.likes.some((like: Like) => like.userByIdUser.id === this.userService.currUser.id && like.idPost === post.id);
       });
-      console.log(this.likes);
     }));
   }
 

@@ -30,18 +30,17 @@ public class ComplaintController {
 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deleteComplaint(@PathVariable String id) {
+    public void deleteComplaint(@PathVariable int id) {
         complaintService.deleteComplaint(Integer.valueOf(id));
     }
 
     @RequestMapping(value = "/api/post/{id}", method = RequestMethod.DELETE)
-    public void deletePost(@PathVariable String idPost) {
+    public void deletePost(@PathVariable int idPost) {
         complaintService.deletePost(Integer.valueOf(idPost));
     }
 
     @RequestMapping(value = "/{id}")
-    public ResponseEntity<Complaint> getComplaintById(@PathVariable String id) throws InterruptedException {
-        int complaintId = Integer.valueOf(id);
-        return ResponseEntity.ok(complaintService.getComplaintById(complaintId));
+    public ResponseEntity<Complaint> getComplaintById(@PathVariable int id) throws InterruptedException {
+        return ResponseEntity.ok(complaintService.getComplaintById(id));
     }
 }

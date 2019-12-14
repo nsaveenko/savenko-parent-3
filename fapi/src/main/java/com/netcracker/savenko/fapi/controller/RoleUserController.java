@@ -20,8 +20,7 @@ public class RoleUserController {
     }
 
     @RequestMapping(value = "/{id}")
-    public ResponseEntity<RoleUser> getAllRoleUser(@PathVariable String id) throws InterruptedException {
-        int roleUserId = Integer.parseInt(id);
-        return ResponseEntity.ok(roleUserService.getRoleUserById(roleUserId));
+    public ResponseEntity<RoleUser> getAllRoleUser(@PathVariable int id) {
+        return ResponseEntity.ok(roleUserService.getRoleUserById(id));
     }
 }

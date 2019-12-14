@@ -8,12 +8,20 @@ import {Post} from "../models/Post";
 
 @Injectable()
 export class UserService {
+  get otherUser(): User {
+    return this._otherUser;
+  }
+
+  set otherUser(value: User) {
+    this._otherUser = value;
+  }
 
   private _reqHeader: HttpHeaders;
   private _currUser: User;
+  private _otherUser: User;
 
-  constructor(private http: HttpClient){
-    this._reqHeader=new HttpHeaders({
+  constructor(private http: HttpClient) {
+    this._reqHeader = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer_' + localStorage.getItem('token')
     });
@@ -49,5 +57,13 @@ export class UserService {
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>('/api/user/');
+  }
+
+  getFollowers(id: number): Observable<User[]> {
+    return this.http.get<User[]>('/api/user/followers/' + id);
+  }
+
+  getFollowing(id: number): Observable<User[]> {
+    return this.http.get<User[]>('/api/user/following/' + id);
   }
 }

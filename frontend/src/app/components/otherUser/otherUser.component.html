@@ -1,0 +1,41 @@
+<app-header></app-header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <img alt="Фото профиля" class="rounded-circle"
+           src="https://recap-project.eu/wp-content/uploads/2017/02/default-user.jpg"
+           width="150" height="150">
+    </div>
+
+    <div class="col">
+      <h4 class="h2 mb-3 font-weight-normal">{{user.username}}</h4>
+      <br>
+
+      <div class="row">
+        <div class="col-md-3">{{user.postsCount}} posts</div>
+        <div class="col-md-3">{{user.followersCount}} followers</div>
+        <div class="col-md-3">{{user.followersCount}} following</div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <br>
+          <h4 class="h4 mb-3 font-weight-light">{{user.flName}}</h4>
+        </div>
+      </div>
+
+      <div class="row">
+        <button class="btn btn-light" [ngClass]="{'active-subscriber':user.isSubscriber}"  (click)="_subscribe(userService.currUser, user)">
+          <ng-container *ngIf = "user.isSubscriber">Unfollow</ng-container>
+          <ng-container *ngIf = "!user.isSubscriber">Follow</ng-container>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<br>
+<div class="container">
+  <app-post [parentPage]="'/allUsers/otherUser/' + userId" [selectedUserId]="userId"></app-post>
+</div>
+

@@ -40,14 +40,12 @@ export class NewpostComponent implements OnInit {
   }
 
   public _addPost(): void {
-    debugger;
     this.postService.savePost(this.editablePost)
       .pipe(
         flatMap((post: Post) => this.postService.putFileToPostByPostId(post.id, this.selectedFile)),
         skip(4)
       )
       .subscribe(post => {
-        console.log(post);
         this.router.navigate(['/']);
       })
   }

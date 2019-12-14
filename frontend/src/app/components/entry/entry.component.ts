@@ -52,7 +52,6 @@ export class EntryComponent implements OnInit {
   signIn() {
     this.subscriptions.push(this.logInService.signIn(this.signInForm.controls['username'].value, this.signInForm.controls['password'].value)
       .subscribe(signIn => {
-        console.log(signIn);
         if (signIn.error == null) {
           this.errorSignIn = null;
           localStorage.setItem("token", signIn.token);

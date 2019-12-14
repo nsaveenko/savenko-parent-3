@@ -21,14 +21,13 @@ public class SubscriptionsController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deleteSubscription(@PathVariable String id) {
-        subscriptionsService.deleteSubscription(Integer.valueOf(id));
+    public void deleteSubscription(@PathVariable int id) {
+        subscriptionsService.deleteSubscription(id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Subscriptions> getSubscriptionById(@PathVariable String id) throws InterruptedException {
-        int userId = Integer.parseInt(id);
-        return ResponseEntity.ok(subscriptionsService.getSubscriptionById(userId));
+    public ResponseEntity<Subscriptions> getSubscriptionById(@PathVariable int id) {
+        return ResponseEntity.ok(subscriptionsService.getSubscriptionById(id));
     }
 
     @RequestMapping(method = RequestMethod.POST)

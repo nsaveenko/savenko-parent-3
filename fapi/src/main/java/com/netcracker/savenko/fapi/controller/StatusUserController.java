@@ -20,8 +20,7 @@ public class StatusUserController {
     }
 
     @RequestMapping(value = "/{id}")
-    public ResponseEntity<StatusUser> getAllStatusUser(@PathVariable String id) throws InterruptedException {
-        int statusUserId = Integer.parseInt(id);
-        return ResponseEntity.ok(statusUserService.getStatusUserById(statusUserId));
+    public ResponseEntity<StatusUser> getAllStatusUser(@PathVariable int id) {
+        return ResponseEntity.ok(statusUserService.getStatusUserById(id));
     }
 }
