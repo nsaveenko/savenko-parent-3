@@ -4,6 +4,7 @@ import {Subscription} from "rxjs";
 import {ComplaintService} from "../../services/complaint.service";
 import {Post} from "../../models/Post";
 import {PostService} from "../../services/post.service";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-complaintsforadmin',
@@ -12,12 +13,13 @@ import {PostService} from "../../services/post.service";
 })
 export class ComplaintsforadminComponent implements OnInit {
 
-  public complaint: Complaint[];
+  public complaints: Complaint[];
   public post: Post[];
   private subscriptions: Subscription[] = [];
   public editableComplaint: Complaint = new Complaint();
 
   constructor(private complaintService: ComplaintService,
+              private userService: UserService,
               private postService: PostService) {
   }
 
@@ -25,8 +27,12 @@ export class ComplaintsforadminComponent implements OnInit {
     this.loadComplaint();
   }
 
+  private blockUser(id: number): void {
+
+  }
+
   private changeStatusComplaint(id: number): void {
-    this.subscriptions.push(this.complaintService.getComplaintById(id).subscribe(complaint =>{
+    this.subscriptions.push(this.complaintService.getComplaintById(id).subscribe(complaint => {
       console.log(complaint);
       debugger;
       switch (complaint.idStatusComplaint) {
@@ -65,7 +71,11 @@ export class ComplaintsforadminComponent implements OnInit {
 
   private loadComplaint(): void {
     this.subscriptions.push(this.complaintService.getComplaint().subscribe(complaints => {
-      this.complaint = complaints as Complaint[];
+      if (complaints.length > 0) {
+        this.complaints = complaints as Complaint[];
+      } else {
+        console.log("empty");
+      }
     }));
   }
 

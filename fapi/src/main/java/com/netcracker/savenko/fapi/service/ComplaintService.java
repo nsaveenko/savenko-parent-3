@@ -10,5 +10,5 @@ public interface ComplaintService {
     void deleteComplaint(Integer id);
     void deletePost(Integer id);
     List<Complaint> getAll();
-
+    List<Complaint> getComplaintByStatusId(int id);
 }

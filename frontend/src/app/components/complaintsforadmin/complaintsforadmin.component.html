@@ -1,4 +1,4 @@
-<div class="col" *ngFor="let complaint of complaint">
+<div class="col" *ngFor="let complaint of complaints">
 <div class="container">
    <div class="comp">
      <strong class="d-inline-block mb-10 text-dark">User id: {{complaint.idUser}}</strong>
@@ -20,6 +20,9 @@
        </div>
        <div class="col">
          <button class="btn btn-danger co" (click)="_deleteComplaint(complaint.id)">Delete report</button>
+       </div>
+       <div class="col">
+<!--         <button class="btn btn-danger co" (click)="blockUser(complaint.idUser)">Block User</button>-->
        </div>
      </div>
    </div>

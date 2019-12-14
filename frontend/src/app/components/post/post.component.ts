@@ -55,13 +55,13 @@ export class PostComponent implements OnInit, OnChanges {
     }
   }
 
-  public _updatePost(): void {
-    this.loadPost();
+  public _updatePostCurrUser(): void {
+    this.loadPostByCurrUser();
   }
 
   public _deletePost(postId: number): void {
     this.subscriptions.push(this.postService.deletePost(postId).subscribe(() => {
-      this._updatePost();
+      this._updatePostCurrUser();
     }));
   }
 

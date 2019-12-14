@@ -12,4 +12,5 @@ public interface ComplaintService {
     void deleteComplaint(Integer id);
     void deletePost(Integer idPost);
     Iterable<ComplaintEntity> getAllComplaint();
+    List<ComplaintEntity> getComplaintByStatusId(int id);
 }

@@ -28,19 +28,23 @@ public class ComplaintController {
         return ResponseEntity.ok(complaintService.getAll());
     }
 
+    @RequestMapping(value = "/status/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Complaint>> getComplaintByStatusId(@PathVariable int id){
+        return ResponseEntity.ok(complaintService.getComplaintByStatusId(id));
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteComplaint(@PathVariable int id) {
-        complaintService.deleteComplaint(Integer.valueOf(id));
+        complaintService.deleteComplaint(id);
     }
 
     @RequestMapping(value = "/api/post/{id}", method = RequestMethod.DELETE)
-    public void deletePost(@PathVariable int idPost) {
-        complaintService.deletePost(Integer.valueOf(idPost));
+    public void deletePost(@PathVariable int id) {
+        complaintService.deletePost(id);
     }
 
     @RequestMapping(value = "/{id}")
-    public ResponseEntity<Complaint> getComplaintById(@PathVariable int id) throws InterruptedException {
+    public ResponseEntity<Complaint> getComplaintById(@PathVariable int id) {
         return ResponseEntity.ok(complaintService.getComplaintById(id));
     }
 }

@@ -5,6 +5,8 @@ import com.netcracker.savenko.backend.service.ComplaintService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -46,5 +48,10 @@ public class ComplaintController {
     @RequestMapping(value = "/api/post/{id}", method = RequestMethod.DELETE)
     public void deletePost(@PathVariable(name = "id") Integer idPost) {
         complaintService.deletePost(idPost);
+    }
+
+    @RequestMapping(value = "/status/{id}", method = RequestMethod.GET)
+    public List<ComplaintEntity> getComplainByStatusId(@PathVariable(name = "id") int id){
+        return complaintService.getComplaintByStatusId(id);
     }
 }
