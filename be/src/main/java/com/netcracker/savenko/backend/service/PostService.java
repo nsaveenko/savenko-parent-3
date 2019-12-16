@@ -14,4 +14,5 @@ public interface PostService {
     List<PostEntity> getPostBySub(int userId);
     List<PostEntity> getPostByCurrUser(int userId);
     void deletePost(Integer id);
+    Integer countPostByUserId(int userId);
 }

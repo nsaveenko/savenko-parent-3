@@ -31,7 +31,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Page<Comment> getAllByPostId(int id, Integer page, Integer size) {
         RestTemplate restTemplate = new RestTemplate();
-        Page<Comment> comments = restTemplate.getForObject(backendServerUrl + "/api/comment/post/"+ id +"/" + page +"/"+size, RestPageImpl.class);
+        Page<Comment> comments = restTemplate.getForObject(backendServerUrl + "/api/comment/post/" + id + "/" + page + "/" + size, RestPageImpl.class);
         Pageable pageable = createPageable(page, size);
         return PageableExecutionUtils.getPage(comments.getContent(), pageable, comments::getTotalElements);
     }

@@ -56,4 +56,9 @@ public class PostServiceImpl implements PostService {
     public void deletePost(Integer id) {
         repository.deleteById(id);
     }
+
+    @Override
+    public Integer countPostByUserId(int userId){
+        return repository.countPostByUserId(userId);
+    }
 }

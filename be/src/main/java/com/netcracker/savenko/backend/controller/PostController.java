@@ -32,7 +32,7 @@ public class PostController {
     }
 
     @RequestMapping(value = "/api/user/{id}", method = RequestMethod.GET)
-    public ResponseEntity<UserEntity> getUserById(@PathVariable(name = "userByIdUser") Integer id) {
+    public ResponseEntity<UserEntity> getUserById(@PathVariable(name = "id") Integer id) {
         Optional<UserEntity> user = postService.getUserById(id);
         if (user.isPresent()) {
             return ResponseEntity.ok(user.get());
@@ -54,6 +54,11 @@ public class PostController {
     @RequestMapping(value = "/currUser/{id}", method = RequestMethod.GET)
     public List<PostEntity> getPostByCurrUser(@PathVariable(name = "id") int userId) {
         return postService.getPostByCurrUser(userId);
+    }
+
+    @RequestMapping(value = "/count/user/{id}", method = RequestMethod.GET)
+    public Integer countPostByUserId(@PathVariable(name = "id") int userId) {
+        return postService.countPostByUserId(userId);
     }
 
     @RequestMapping(method = RequestMethod.POST)

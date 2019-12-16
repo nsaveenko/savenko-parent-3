@@ -45,14 +45,14 @@ public class CommentController {
         }
     }
 
-    //    @RequestMapping(value = "/post/{id}/{page}/{size}", method = RequestMethod.GET)
-//    public Page<CommentEntity> getAllComment(@PathVariable(name = "id") int id, @PathVariable(name = "page") Integer page, @PathVariable(name = "size") Integer size) {
-//        return commentService.getAllCommentByPostId(id, page, size);
-//    }
-    @RequestMapping(method = RequestMethod.GET)
-    public Page<CommentEntity> getAllCommentByPostId(@RequestParam int postId, @RequestParam int page, @RequestParam int size) {
-        return commentService.getAllCommentByPostId(postId, page, size);
+    @RequestMapping(value = "/post/{id}/{page}/{size}", method = RequestMethod.GET)
+    public Page<CommentEntity> getAllComment(@PathVariable(name = "id") int id, @PathVariable(name = "page") Integer page, @PathVariable(name = "size") Integer size) {
+        return commentService.getAllCommentByPostId(id, page, size);
     }
+//    @RequestMapping(value = "/post/", method = RequestMethod.GET)
+//    public Page<CommentEntity> getAllCommentByPostId(@RequestParam int postId, @RequestParam int page, @RequestParam int size) {
+//        return commentService.getAllCommentByPostId(postId, page, size);
+//    }
 
     @RequestMapping(method = RequestMethod.POST)
     public CommentEntity saveComment(@RequestBody CommentEntity comment) {

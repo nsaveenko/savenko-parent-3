@@ -42,6 +42,10 @@ export class PostService {
     return this.http.get<Post>('/api/post/' + id);
   }
 
+  getCountPostByUserId(UserId: number): Observable<number> {
+    return this.http.get<number>('api/post/count/user/' + UserId);
+  }
+
   putFileToPostByPostId(postId: number, file: File): Observable<any> {
     const formdata: FormData = new FormData();
     formdata.append('file', file);
@@ -52,4 +56,3 @@ export class PostService {
     return this.http.request(req);
   }
 }
-

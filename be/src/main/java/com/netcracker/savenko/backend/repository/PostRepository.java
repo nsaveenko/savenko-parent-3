@@ -15,12 +15,17 @@ public interface PostRepository extends PagingAndSortingRepository<PostEntity, I
             "join user on post.id_user = user.id " +
             "join subscriptions on subscriptions.id_following = user.id " +
             "where subscriptions.id_followers = (?1) " +
-            "order by post.date_post desc", nativeQuery = true)
+            "order by post.date_post desc, post.id desc", nativeQuery = true)
     List<PostEntity> findPostBySub(int userId);
 
     @Query(value = "select post. * from post " +
             "join user on post.id_user = user.id " +
             "where user.id = (?1) " +
-            "order by post.date_post desc", nativeQuery = true)
+            "order by post.date_post desc, post.id desc", nativeQuery = true)
     List<PostEntity> findPostByCurrUser(int userId);
+
+    @Query(value = "select count(post.id) from post " +
+            "join user on post.id_user = user.id " +
+            "where user.id=(?1)", nativeQuery = true)
+    Integer countPostByUserId(int userId);
 }

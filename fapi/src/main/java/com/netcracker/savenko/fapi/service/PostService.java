@@ -11,4 +11,5 @@ public interface PostService {
     Post getPostById(Integer id);
     Post savePost(Post post);
     void deletePost(Integer idPost);
+    Integer getCountPostByUserId(Integer id);
 }

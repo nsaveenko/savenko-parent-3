@@ -10,7 +10,7 @@
       <h4 class="h2 mb-3 font-weight-normal">{{userService.currUser.username}}</h4>
       <br>
       <div class="row">
-        <div class="col-md-3">{{userService.currUser.postsCount}} posts</div>
+        <div class="col-md-3">{{postsCount}} posts</div>
         <div class="col-md-3">{{userService.currUser.followersCount}} followers</div>
         <div class="col-md-3">{{userService.currUser.followingCount}} following</div>
       </div>
@@ -32,6 +32,6 @@
 </div>
 <br>
 <div class="container">
-  <app-post [parentPage]="'user'"></app-post>
+  <app-post [parentPage]="'user'" [selectedUser]="userService.currUser" [postId]="postId"></app-post>
 </div>
 

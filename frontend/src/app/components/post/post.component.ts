@@ -22,6 +22,12 @@ export class PostComponent implements OnInit, OnChanges {
 
   @Input() selectedUserId: number;
   @Input() parentPage: string;
+  @Input() selectedUser: User;
+
+  @Input()
+  set postId(postId: number) {
+    this._updatePostCurrUser();
+  };
 
   public user: User;
   public subscribers: Subscriber[];
@@ -50,7 +56,7 @@ export class PostComponent implements OnInit, OnChanges {
     } else if (changes.parentPage.currentValue === 'user'){
       this.loadPostByCurrUser();
     }
-    else if (changes.parentPage.currentValue === '/allUsers/otherUser/' + this.selectedUserId){
+    else if (changes.parentPage.currentValue === '/otherUser/id' + this.selectedUserId){
       this.loadPostOtherUser();
     }
   }
@@ -141,5 +147,15 @@ export class PostComponent implements OnInit, OnChanges {
     this.subscriptions.push(this.subscriberService.getSubscribers().subscribe(subs => {
       this.subscribers = subs;
     }));
+  }
+
+  private loadUserById(id: number):void {
+    this.subscriptions.push(this.userService.getUserById(id).subscribe(user => {
+      this.user = user;
+    }));
+  }
+
+  public _updateUser(id: number): void {
+    this.loadUserById(id);
   }
 }

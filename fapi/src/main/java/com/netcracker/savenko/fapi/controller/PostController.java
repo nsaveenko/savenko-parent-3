@@ -32,6 +32,11 @@ public class PostController {
         return ResponseEntity.ok(postService.getPostByCurrUser(id));
     }
 
+    @RequestMapping(value = "/count/user/{id}", method = RequestMethod.GET)
+    public Integer getCountPostByUserId(@PathVariable int id) {
+        return postService.getCountPostByUserId(id);
+    }
+
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Post> savePost(@RequestBody Post post /*todo server validation*/) {
         if (post != null) {

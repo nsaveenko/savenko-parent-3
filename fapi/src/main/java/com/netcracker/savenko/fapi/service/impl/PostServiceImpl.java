@@ -44,6 +44,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public Integer getCountPostByUserId(Integer id) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(backendServerUrl + "/api/post/count/user/" + id, Integer.class);
+    }
+
+    @Override
     public Post savePost(Post post) {
         RestTemplate restTemplate = new RestTemplate();
         if (post.getUserByIdUser() == null) {

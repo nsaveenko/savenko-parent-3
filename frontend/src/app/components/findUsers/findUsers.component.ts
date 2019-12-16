@@ -34,11 +34,11 @@ export class FindUsersComponent implements OnInit {
     this.loadSub();
     this.usernameParam = this.activeRoute.snapshot.queryParams['username'];
     this._findUserByUsername(this.usernameParam);
+
   }
 
   public _findUserByUsername(textValue: string): void {
     this.subscriptions.push(this.userService.findUserByUsername(textValue).subscribe(users => {
-      this._updateSub();
       this.users = users;
     }))
   }
