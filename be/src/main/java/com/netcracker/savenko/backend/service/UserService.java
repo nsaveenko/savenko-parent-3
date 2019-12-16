@@ -14,4 +14,5 @@ public interface UserService {
     List<UserEntity> getFollowingByIdFollowers(int userId);
     List<UserEntity> getFollowersByIdFollowing(int userId);
     void deleteUser(Integer id);
+    List<UserEntity> findUserByUsername(String username);
 }

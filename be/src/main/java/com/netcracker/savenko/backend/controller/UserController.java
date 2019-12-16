@@ -21,14 +21,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "/username", method = RequestMethod.GET)
-    public ResponseEntity<UserEntity> getUserByUsernameAndPassword(@RequestParam String username,@RequestParam String password) {
+    public ResponseEntity<UserEntity> getUserByUsernameAndPassword(@RequestParam String username, @RequestParam String password) {
         UserEntity user = userService.findByUsernameAndPassword(username, password);
         return ResponseEntity.ok(user);
     }
 
     @RequestMapping(value = "/username1", method = RequestMethod.GET)
     public UserEntity getUserByUsername(@RequestParam String username) {
-        UserEntity user =  userService.findByUsername(username);
+        UserEntity user = userService.findByUsername(username);
         return user;
     }
 
@@ -65,5 +65,10 @@ public class UserController {
     @RequestMapping(value = "/following/{id}", method = RequestMethod.GET)
     public List<UserEntity> getFollowing(@PathVariable(name = "id") int userId) {
         return userService.getFollowingByIdFollowers(userId);
+    }
+
+    @RequestMapping(value = "/username/{username}", method = RequestMethod.GET)
+    public List<UserEntity> findUserByUsername(@PathVariable(name = "username") String username) {
+        return userService.findUserByUsername(username);
     }
 }

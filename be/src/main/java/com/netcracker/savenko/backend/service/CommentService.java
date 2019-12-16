@@ -12,6 +12,6 @@ public interface CommentService {
     CommentEntity saveComment(CommentEntity comment);
     Optional<CommentEntity> getCommentById(Integer id);
     Optional<UserEntity> getUserById(Integer userByIdUser);
-    Page<CommentEntity> getAllCommentByPostId(int id, Integer page, Integer size);
+    Page<CommentEntity> getAllCommentByPostId(int postId, Integer page, Integer size);
     void deleteComment(Integer id);
 }

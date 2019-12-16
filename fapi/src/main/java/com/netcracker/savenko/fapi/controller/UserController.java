@@ -27,14 +27,18 @@ public class UserController {
     }
 
     @RequestMapping(value = "/followers/{id}", method = RequestMethod.GET)
-    public ResponseEntity<List<User>> getFollowers(@PathVariable int id){
+    public ResponseEntity<List<User>> getFollowers(@PathVariable int id) {
         return ResponseEntity.ok(userService.getFollowers(id));
     }
 
-
     @RequestMapping(value = "/following/{id}", method = RequestMethod.GET)
-    public ResponseEntity<List<User>> getFollowing(@PathVariable int id){
+    public ResponseEntity<List<User>> getFollowing(@PathVariable int id) {
         return ResponseEntity.ok(userService.getFollowing(id));
+    }
+
+    @RequestMapping(value = "/username/{username}", method = RequestMethod.GET)
+    public ResponseEntity<List<User>> findUserByUsername(@PathVariable String username){
+        return ResponseEntity.ok(userService.findUserByUsername(username));
     }
 
     @PostMapping("/signin")

@@ -57,4 +57,9 @@ public class UserServiceImpl implements UserService {
     public List<UserEntity> getFollowersByIdFollowing(int userId){
         return repository.getFollowersByIdFollowing(userId);
     }
+
+    @Override
+    public List<UserEntity> findUserByUsername(String username){
+        return repository.findUserByUsername(username);
+    }
 }

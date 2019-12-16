@@ -15,10 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class UserServiceImpl implements UserService {
@@ -79,6 +76,13 @@ public class UserServiceImpl implements UserService {
     public List<User> getFollowing(int id){
         RestTemplate restTemplate = new RestTemplate();
         User[] usersResponse = restTemplate.getForObject(backendServerUrl + "/api/user/following/" + id, User[].class);
+        return usersResponse == null ? Collections.emptyList() : Arrays.asList(usersResponse);
+    }
+
+    @Override
+    public List<User> findUserByUsername(String username){
+        RestTemplate restTemplate = new RestTemplate();
+        User[] usersResponse = restTemplate.getForObject(backendServerUrl + "/api/user/username/" + username, User[].class);
         return usersResponse == null ? Collections.emptyList() : Arrays.asList(usersResponse);
     }
 }
