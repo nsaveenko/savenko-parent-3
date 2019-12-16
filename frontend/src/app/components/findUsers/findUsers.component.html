@@ -1,0 +1,22 @@
+<app-header></app-header>
+<!--<div class="container">-->
+<!--  <input id="Search" class="form-control" placeholder="Search" #findField>-->
+<!--  <button class="btn btn-light op" (click)="_findUserByUsername(findField.value)">Return</button>-->
+<!--</div>-->
+<!--<div class="container" *ngFor="let user of users">-->
+<!--  {{user.username}}-->
+<!--</div>-->
+<div style="text-align: center">find user by "{{usernameParam}}"</div>
+<div class="container" *ngFor="let user of users">
+  <div class="row">
+    <div class="col-md-4">
+      <strong class="d-inline-block text-dark" routerLink="/otherUser/{{user.id}}">{{user.username}}</strong>
+    </div>
+    <div class="col-md-4" *ngIf="userService.currUser.id != user.id">
+      <button class="btn btn-light" [ngClass]="{'active-subscriber':user.isSubscriber}"  (click)="_subscribe(userService.currUser, user)">
+        <ng-container *ngIf = "user.isSubscriber">Unfollow</ng-container>
+        <ng-container *ngIf = "!user.isSubscriber">Follow</ng-container>
+      </button>
+    </div>
+  </div>
+</div>

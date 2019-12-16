@@ -6,43 +6,49 @@ import {Subscriber} from "../../models/Subscriber";
 import {Comment} from "../../models/Comment";
 import {SubscriberService} from "../../services/subscriber.service";
 import {Like} from "../../models/Like";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
-  selector: 'app-subscriptions',
-  templateUrl: './allusers.component.html',
-  styleUrls: ['./allusers.component.css']
+  selector: 'app-findUsers',
+  templateUrl: './findUsers.component.html',
+  styleUrls: ['./findUsers.component.css']
 })
-export class AllUsersComponent implements OnInit {
+export class FindUsersComponent implements OnInit {
 
+  usernameParam: string;
   users: User[];
   subscribers: Subscriber[];
   public editableSubscriber: Subscriber = new Subscriber();
+  private routeSubscription: Subscription;
+  private querySubscription: Subscription;
   private subscriptions: Subscription[] = [];
 
   constructor(private userService: UserService,
               private subscriberService: SubscriberService,
-              private activeRoute: ActivatedRoute) {
+              private activeRoute: ActivatedRoute,
+              private router: Router) {
+    this.routeSubscription = this.activeRoute.params.subscribe(params => this.usernameParam = params['username']);
   }
 
   ngOnInit() {
-    this.loadUsers();
     this.loadSub();
+    this.usernameParam = this.activeRoute.snapshot.queryParams['username'];
+    this._findUserByUsername(this.usernameParam);
+  }
+
+  public _findUserByUsername(textValue: string): void {
+    this.subscriptions.push(this.userService.findUserByUsername(textValue).subscribe(users => {
+      this._updateSub();
+      this.users = users;
+    }))
   }
 
   public _updateUsers(): void {
-    this.loadUsers();
+    this._findUserByUsername(this.usernameParam);
   }
 
   public _updateSub():void{
     this.loadSub();
-  }
-
-  private loadUsers(): void {
-    this.subscriptions.push(this.userService.getUsers().subscribe(users => {
-      this._updateSub();
-      this.users = users.filter((user: User) => user.roleUserByIdRole.id === 2 && user.id != this.userService.currUser.id);
-    }));
   }
 
   private loadSub(): void {

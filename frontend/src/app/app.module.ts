@@ -33,12 +33,12 @@ import {Interceptor} from "./services/Interceptor";
 import {initApp} from "./services/app.initializer";
 import {SecurePipe} from "./services/securePipe";
 import {SubscriberComponent} from "./components/subscriber/subscriber.component";
-import {AllUsersComponent} from "./components/allusers/allusers.component";
 import {SubscriberService} from "./services/subscriber.service";
 import {OtherUserComponent} from "./components/otherUser/otherUser.component";
 import {NotFoundComponent} from "./components/404/not-found.component";
 import {PaginationModule} from "ngx-bootstrap";
 import {RestPageModel} from "./models/RestPage.model";
+import {FindUsersComponent} from "./components/findUsers/findUsers.component";
 
 const appRoutes: Routes = [
   {path: "", component: FeedComponent},
@@ -46,18 +46,11 @@ const appRoutes: Routes = [
   {path: "registration", component: RegistrationComponent},
   {path: "user", component: UserComponent},
   {path: "edit", component: EditComponent},
-  {path: "activity", component: ActivityComponent},
-  {path: "post", component: PostComponent},
-  {path: "comment", component: CommentComponent},
-  {path: "like", component: LikeComponent},
   {path: "complaint", component: ComplaintComponent},
   {path: "newpost", component: NewpostComponent},
-  {path: "complaintsforadmin", component: ComplaintsforadminComponent},
   {path: "admin", component: AdminComponent},
-  {path: "subscriptions", component: SubscriberComponent},
-  {path: "allUsers", component: AllUsersComponent},
-  {path: "otherUser", component: OtherUserComponent},
-  {path: "allUsers/otherUser/:id", component: OtherUserComponent},
+  {path: "otherUser/:id", component: OtherUserComponent},
+  {path: "findUsers/:username", component: FindUsersComponent},
   {path: "**", component: NotFoundComponent}
 ];
 
@@ -80,9 +73,9 @@ const appRoutes: Routes = [
     ComplaintsforadminComponent,
     AdminComponent,
     SubscriberComponent,
-    AllUsersComponent,
     OtherUserComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    FindUsersComponent
   ],
   imports: [
     BrowserModule,

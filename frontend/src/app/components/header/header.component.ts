@@ -3,6 +3,8 @@ import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
 import {Post} from "../../models/Post";
 import {User} from "../../models/User";
+import {Subscriber} from "../../models/Subscriber";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-header',
@@ -10,6 +12,8 @@ import {User} from "../../models/User";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+
+  public username1: string;
 
   constructor(private  userService: UserService,
               private router: Router) { }
@@ -21,4 +25,5 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('token');
     this.router.navigate(['/entry'])
   }
+
 }
