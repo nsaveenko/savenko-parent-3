@@ -37,6 +37,8 @@ import {AllUsersComponent} from "./components/allusers/allusers.component";
 import {SubscriberService} from "./services/subscriber.service";
 import {OtherUserComponent} from "./components/otherUser/otherUser.component";
 import {NotFoundComponent} from "./components/404/not-found.component";
+import {PaginationModule} from "ngx-bootstrap";
+import {RestPageModel} from "./models/RestPage.model";
 
 const appRoutes: Routes = [
   {path: "", component: FeedComponent},
@@ -91,7 +93,9 @@ const appRoutes: Routes = [
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
     RouterModule.forRoot(appRoutes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PaginationModule,
+    PaginationModule.forRoot()
   ],
   providers: [
     PostService,

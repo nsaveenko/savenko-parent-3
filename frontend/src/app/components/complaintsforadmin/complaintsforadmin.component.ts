@@ -48,7 +48,6 @@ export class ComplaintsforadminComponent implements OnInit {
           this.subscriptions.push(this.complaintService.saveComplaint(this.editableComplaint)
             .subscribe((complaint: Complaint) => {
             this._updateComplaint();
-            this.refreshComplaint();
           }));
           break;
         case 2:
@@ -56,7 +55,6 @@ export class ComplaintsforadminComponent implements OnInit {
           this.subscriptions.push(this.complaintService.saveComplaint(this.editableComplaint)
             .subscribe((complaint: Complaint) => {
             this._updateComplaint();
-            this.refreshComplaint();
           }));
           break;
       }
@@ -71,8 +69,6 @@ export class ComplaintsforadminComponent implements OnInit {
     this.subscriptions.push(this.complaintService.getComplaint().subscribe(complaints => {
       if (complaints.length > 0) {
         this.complaints = complaints as Complaint[];
-      } else {
-        console.log("empty");
       }
     }));
   }

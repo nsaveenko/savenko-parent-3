@@ -22,3 +22,10 @@
   </div>
 
 </div>
+
+<div *ngIf="comments?.length!=0" class="row justify-content-center mt-5 ">
+  <pagination [boundaryLinks]="true" [itemsPerPage]="size" [totalItems]="page?.totalElements"
+              (pageChanged)="pageChanged($event)" [(ngModel)]="currentPage"
+              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+  </pagination>
+</div>

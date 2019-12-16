@@ -4,8 +4,14 @@ import com.netcracker.savenko.fapi.models.Comment;
 import com.netcracker.savenko.fapi.models.User;
 import com.netcracker.savenko.fapi.service.CommentService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.support.PageableExecutionUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -15,11 +21,19 @@ public class CommentServiceImpl implements CommentService {
     @Value("${backend.server.url}")
     private String backendServerUrl;
 
+//    @Override
+//    public List<Comment> getAll() {
+//        RestTemplate restTemplate = new RestTemplate();
+//        Comment[] postResponse = restTemplate.getForObject(backendServerUrl + "/api/comment/", Comment[].class);
+//        return postResponse == null ? Collections.emptyList() : Arrays.asList(postResponse);
+//    }
+
     @Override
-    public List<Comment> getAll() {
+    public Page<Comment> getAllByPostId(int id, Integer page, Integer size) {
         RestTemplate restTemplate = new RestTemplate();
-        Comment[] postResponse = restTemplate.getForObject(backendServerUrl + "/api/comment/", Comment[].class);
-        return postResponse == null ? Collections.emptyList() : Arrays.asList(postResponse);
+        Page<Comment> comments = restTemplate.getForObject(backendServerUrl + "/api/comment/post/"+ id +"/" + page +"/"+size, RestPageImpl.class);
+        Pageable pageable = createPageable(page, size);
+        return PageableExecutionUtils.getPage(comments.getContent(), pageable, comments::getTotalElements);
     }
 
     @Override
@@ -42,5 +56,11 @@ public class CommentServiceImpl implements CommentService {
     public void deleteComment(Integer id) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.delete(backendServerUrl + "/api/comment/" + id);
+    }
+
+    private Pageable createPageable(Integer page, Integer size) {
+        Pageable pageable;
+        pageable = PageRequest.of(page, size);
+        return pageable;
     }
 }

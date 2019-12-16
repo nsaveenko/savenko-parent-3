@@ -45,7 +45,7 @@ export class PostService {
   putFileToPostByPostId(postId: number, file: File): Observable<any> {
     const formdata: FormData = new FormData();
     formdata.append('file', file);
-    const req = new HttpRequest('POST', '/api/post/{id}/image'.replace('{id}', postId.toString()), formdata, {
+    const req = new HttpRequest('POST', `/api/post/${postId.toString()}/image`, formdata, {
       reportProgress: true,
       responseType: 'text'
     });

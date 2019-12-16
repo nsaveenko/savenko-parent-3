@@ -2,6 +2,7 @@
   <button class="btn" (click)="loadComplaintByStatusId(1)">Reviewed</button>
   <button class="btn selected" (click)="loadComplaintByStatusId(2)">Not Reviewed</button>
 </div>
+<div *ngIf="complaints == null" style="text-align: center">No reports</div>
 <div class="col" *ngFor="let complaint of complaints">
   <div class="container">
     <div class="comp">

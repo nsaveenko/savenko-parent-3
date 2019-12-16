@@ -10,9 +10,15 @@ import java.util.List;
 @Repository
 public interface UserRepository extends CrudRepository<UserEntity, Integer> {
     UserEntity findByUsernameAndPassword(String username, String password);
+
     UserEntity findByUsername(String username);
+
     @Query(value = "select user.* from subscriptions join user on subscriptions.id_following = user.id where id_followers=(?1)", nativeQuery = true)
     List<UserEntity> getFollowingByIdFollowers(int userId);
+
     @Query(value = "select user.* from subscriptions join user on subscriptions.id_followers = user.id where id_following=(?1)", nativeQuery = true)
     List<UserEntity> getFollowersByIdFollowing(int userId);
+
+    @Query(value = "select * from user where username like ?%username% and id_role = 2 and id_status = 1", nativeQuery = true)
+    List<UserEntity> findUserByUsername(String username);
 }

@@ -3,6 +3,7 @@ package com.netcracker.savenko.fapi.controller;
 import com.netcracker.savenko.fapi.models.Comment;
 import com.netcracker.savenko.fapi.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,9 +15,14 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    @RequestMapping
-    public ResponseEntity<List<Comment>> getAllComment() {
-        return ResponseEntity.ok(commentService.getAll());
+//    @RequestMapping
+//    public ResponseEntity<List<Comment>> getAllComment() {
+//        return ResponseEntity.ok(commentService.getAll());
+//    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public Page<Comment> getAllCommentByPostId(@RequestParam int postId, @RequestParam int page, @RequestParam int size) {
+        return commentService.getAllByPostId(postId, page, size);
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -26,9 +32,10 @@ public class CommentController {
         }
         return null;
     }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteComment(@PathVariable int id) {
-        commentService.deleteComment(Integer.valueOf(id));
+        commentService.deleteComment(id);
     }
 
     @RequestMapping(value = "/{id}")

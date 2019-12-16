@@ -6,8 +6,13 @@ import com.netcracker.savenko.backend.repository.CommentRepository;
 import com.netcracker.savenko.backend.repository.UserRepository;
 import com.netcracker.savenko.backend.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -36,12 +41,19 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Iterable<CommentEntity> getAllComment() {
-        return repository.findAll();
+    public Page<CommentEntity> getAllCommentByPostId(int id, Integer page, Integer size) {
+        Pageable pageable = createPageable(page, size);
+        return repository.findAllByPostId(id, pageable);
     }
 
     @Override
     public void deleteComment(Integer id) {
         repository.deleteById(id);
+    }
+
+    private Pageable createPageable(Integer page, Integer size) {
+        Pageable pageable;
+        pageable = PageRequest.of(page, size);
+        return pageable;
     }
 }

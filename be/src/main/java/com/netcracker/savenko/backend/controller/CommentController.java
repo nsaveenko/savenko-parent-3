@@ -4,9 +4,14 @@ import com.netcracker.savenko.backend.entity.CommentEntity;
 import com.netcracker.savenko.backend.entity.UserEntity;
 import com.netcracker.savenko.backend.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -31,7 +36,7 @@ public class CommentController {
     }
 
     @RequestMapping(value = "/api/user/{id}", method = RequestMethod.GET)
-    public ResponseEntity<UserEntity> getUserById(@PathVariable(name = "userByIdUser") Integer id) {
+    public ResponseEntity<UserEntity> getUserById(@PathVariable(name = "id") Integer id) {
         Optional<UserEntity> user = commentService.getUserById(id);
         if (user.isPresent()) {
             return ResponseEntity.ok(user.get());
@@ -40,9 +45,9 @@ public class CommentController {
         }
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public Iterable<CommentEntity> getAllComment() {
-        return commentService.getAllComment();
+    @RequestMapping(value = "/post/{id}/{page}/{size}", method = RequestMethod.GET)
+    public Page<CommentEntity> getAllComment(@PathVariable(name = "id") int id, @PathVariable(name = "page")Integer page, @PathVariable(name = "size") Integer size) {
+        return commentService.getAllCommentByPostId(id, page, size);
     }
 
     @RequestMapping(method = RequestMethod.POST)

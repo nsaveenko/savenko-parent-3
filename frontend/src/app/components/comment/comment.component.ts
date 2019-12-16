@@ -6,6 +6,9 @@ import {UserService} from "../../services/user.service";
 import {CommentService} from "../../services/comment.service";
 import {Subscription} from "rxjs";
 import {User} from "../../models/User";
+import {PageChangedEvent} from "ngx-bootstrap";
+import {map, tap} from "rxjs/operators";
+import {RestPageModel} from "../../models/RestPage.model";
 
 @Component({
   selector: 'app-comment',
@@ -16,20 +19,29 @@ export class CommentComponent implements OnInit {
 
   @Input() selectedUser: User;
   @Input() selectedPost: Post;
+
   @Input()
   set commentId(commentId: number) {
     this._updateComment();
   };
+
   public comments: Comment[];
   public posts: Post[];
   private subscriptions: Subscription[] = [];
+  public currentPage: number = 1;
+  private subs: any;
+  private size: number = 3;
+  private page: RestPageModel;
 
   constructor(private postService: PostService,
               private userService: UserService,
-              private commentService: CommentService) { }
+              private commentService: CommentService) {
+  }
 
   ngOnInit() {
     // this.loadComment();
+    this.subs = [];
+    this.subs[this.subs.length] = this.getComment(this.currentPage);
   }
 
   public _deleteComment(CommentId: number): void {
@@ -39,16 +51,47 @@ export class CommentComponent implements OnInit {
   }
 
   public _updateComment(): void {
-    this.loadComment();
+    this.getComment(this.currentPage);
   }
 
-  private loadComment(): void {
-    this.subscriptions.push(this.commentService.getAllComment().subscribe(comments => {
-      if(this.selectedPost){
-        this.comments = comments.filter((comment: Comment) => comment.idPost === this.selectedPost.id) ;
-      } else{
-        this.comments = comments;
-      }
-     }));
+  pageChanged(event: PageChangedEvent) {
+    debugger;
+    this.currentPage = event.page;
+    console.log(this.currentPage);
+    this.getComment(this.currentPage);
   }
+
+  private getComment(page: number) {
+    this.currentPage = page;
+    console.log(this.currentPage);
+    this.commentService.getAllCommentByPostId(this.selectedPost.id, this.currentPage - 1, this.size)
+      .subscribe((pageModel: RestPageModel) => {
+        this.page = pageModel;
+        this.comments = pageModel.content;
+        this.subs.length = pageModel.content.length;
+      });
+  }
+  // private getComment(page: number) {
+  //   this.currentPage = page;
+  //   //this.subs[this.subs.length] =
+  //   console.log(this.currentPage);
+  //   this.commentService.getAllCommentByPostId(this.selectedPost.id, this.currentPage - 1, this.size)
+  //     .pipe(
+  //       map((pageResponse: RestPageModel) => pageResponse.content)
+  //     )
+  //     .subscribe((comments: Comment[]) => {
+  //       this.comments = comments;
+  //       this.subs.length = comments.length;
+  //     });
+  // }
+
+  // private loadComment(): void {
+  //   this.subscriptions.push(this.commentService.getAllComment().subscribe(comments => {
+  //     if(this.selectedPost){
+  //       this.comments = comments.filter((comment: Comment) => comment.idPost === this.selectedPost.id) ;
+  //     } else{
+  //       this.comments = comments;
+  //     }
+  //    }));
+  // }
 }

@@ -48,7 +48,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Iterable<PostEntity> getAllPost() {
-        Pageable firstPageWithTwoElements = PageRequest.of(0, 3, Sort.by("date_post").descending());
+        Pageable firstPageWithTwoElements = PageRequest.of(0, 3);
         return repository.findAll(firstPageWithTwoElements);
     }
 
