@@ -4,6 +4,7 @@ import com.netcracker.savenko.fapi.models.Complaint;
 import com.netcracker.savenko.fapi.service.ComplaintService;
 import com.netcracker.savenko.fapi.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,14 +24,19 @@ public class ComplaintController {
         return null;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<Complaint>> getAllComplaint() {
-        return ResponseEntity.ok(complaintService.getAll());
-    }
+//    @RequestMapping(method = RequestMethod.GET)
+//    public ResponseEntity<List<Complaint>> getAllComplaint() {
+//        return ResponseEntity.ok(complaintService.getAll());
+//    }
+//
+//    @RequestMapping(value = "/status/{id}", method = RequestMethod.GET)
+//    public ResponseEntity<List<Complaint>> getComplaintByStatusId(@PathVariable int id){
+//        return ResponseEntity.ok(complaintService.getComplaintByStatusId(id));
+//    }
 
-    @RequestMapping(value = "/status/{id}", method = RequestMethod.GET)
-    public ResponseEntity<List<Complaint>> getComplaintByStatusId(@PathVariable int id){
-        return ResponseEntity.ok(complaintService.getComplaintByStatusId(id));
+    @RequestMapping(value = "/status",method = RequestMethod.GET)
+    public Page<Complaint> getComplaintByStatusId(@RequestParam int id, @RequestParam int page, @RequestParam int size) {
+        return complaintService.getComplaintByStatusId(id, page, size);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

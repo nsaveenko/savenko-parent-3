@@ -3,6 +3,7 @@ import {HttpClient, HttpParams, HttpRequest} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Complaint} from "../models/Complaint";
 import {RequestOptions, Headers} from "@angular/http";
+import {RestPageModel} from "../models/RestPage.model";
 
 @Injectable()
 export class ComplaintService {
@@ -30,8 +31,13 @@ export class ComplaintService {
     return this.http.get<Complaint>('/api/complaint/' + id);
   }
 
-  getComplaintsByStatusId(id: number): Observable<Complaint[]> {
-    return this.http.get<Complaint[]>('/api/complaint/status/' + id);
+  // getComplaintsByStatusId(id: number): Observable<Complaint[]> {
+  //   return this.http.get<Complaint[]>('/api/complaint/status/' + id);
+  // }
+
+  // Ajax request for billing account data
+  getComplaintsByStatusId(id: number, page: number, size: number): Observable<RestPageModel> {
+    return this.http.get<RestPageModel>("/api/complaint/status?id="+ id + "&page=" + page + "&size=" + size);
   }
 
   getUserIdByPostId(postId: number): Observable<number>{

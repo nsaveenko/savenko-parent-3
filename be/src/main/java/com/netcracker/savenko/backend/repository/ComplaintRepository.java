@@ -1,21 +1,22 @@
 package com.netcracker.savenko.backend.repository;
 
 import com.netcracker.savenko.backend.entity.ComplaintEntity;
-import com.netcracker.savenko.backend.entity.UserEntity;
-import org.apache.catalina.User;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import java.util.Collection;
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 @Repository
-public interface ComplaintRepository extends CrudRepository<ComplaintEntity, Integer>  {
-    @Query(value = "select complaint.* from complaint where id_status_complaint = (?1) " +
+public interface ComplaintRepository extends PagingAndSortingRepository<ComplaintEntity, Integer> {
+
+    @Query(value = "select * from complaint where id_status_complaint = (?1) " +
             "order by complaint.date_complaimnt desc", nativeQuery = true)
-    List<ComplaintEntity> getComplaintByStatusId(int id);
+    Page<ComplaintEntity> getComplaintByStatusId(int id, Pageable pageable);
+
+//    @Query(value = "select complaint.* from complaint where id_status_complaint = (?1) " +
+//            "order by complaint.date_complaimnt desc", nativeQuery = true)
+//    List<ComplaintEntity> getComplaintByStatusId(int id);
 
 //    @Query(value = "select user.* from complaint " +
 ////            "join post on complaint.id_post = post.id " +

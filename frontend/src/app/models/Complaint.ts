@@ -1,5 +1,5 @@
 export class Complaint {
-  id:number;
+  id: number;
   idUser: number;
   dateComplaint: number;
   complaint: string;
@@ -8,5 +8,5 @@ export class Complaint {
   isReviewed: boolean;
   message: string;
   username: string;
-  statusComplaint: string;
+  //statusComplaint: string;
 }

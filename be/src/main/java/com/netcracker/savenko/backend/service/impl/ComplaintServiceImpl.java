@@ -7,6 +7,9 @@ import com.netcracker.savenko.backend.repository.ComplaintRepository;
 import com.netcracker.savenko.backend.service.ComplaintService;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -32,9 +35,15 @@ public class ComplaintServiceImpl implements ComplaintService {
         return repository.findById(id);
     }
 
+//    @Override
+//    public List<ComplaintEntity> getComplaintByStatusId(int id) {
+//        return repository.getComplaintByStatusId(id);
+//    }
+
     @Override
-    public List<ComplaintEntity> getComplaintByStatusId(int id) {
-        return repository.getComplaintByStatusId(id);
+    public Page<ComplaintEntity> getComplaintByStatusId(int id, Integer page, Integer size) {
+        Pageable pageable = createPageable(page, size);
+        return repository.getComplaintByStatusId(id, pageable);
     }
 
     @Override
@@ -65,6 +74,12 @@ public class ComplaintServiceImpl implements ComplaintService {
     @Override
     public String getUsernameByComplaintId(int id) {
         return repository.getUsernameByComplaintId(id);
+    }
+
+    private Pageable createPageable(Integer page, Integer size) {
+        Pageable pageable;
+        pageable = PageRequest.of(page, size);
+        return pageable;
     }
 
 }

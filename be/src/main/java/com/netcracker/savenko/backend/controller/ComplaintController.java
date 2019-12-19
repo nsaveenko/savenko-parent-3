@@ -5,6 +5,7 @@ import com.netcracker.savenko.backend.entity.UserEntity;
 import com.netcracker.savenko.backend.service.ComplaintService;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,10 +53,16 @@ public class ComplaintController {
         complaintService.deletePost(idPost);
     }
 
-    @RequestMapping(value = "/status/{id}", method = RequestMethod.GET)
-    public List<ComplaintEntity> getComplainByStatusId(@PathVariable(name = "id") int id) {
-        return complaintService.getComplaintByStatusId(id);
+
+    @RequestMapping(value = "status", method = RequestMethod.GET)
+    public Page<ComplaintEntity> getComplainByStatusId(@RequestParam int id, @RequestParam int page, @RequestParam int size) {
+        return complaintService.getComplaintByStatusId(id, page, size);
     }
+
+//    @RequestMapping(value = "/status/{id}", method = RequestMethod.GET)
+//    public List<ComplaintEntity> getComplainByStatusId(@PathVariable(name = "id") int id) {
+//        return complaintService.getComplaintByStatusId(id);
+//    }
 
     @RequestMapping(value = "user/post/{id}")
     public Integer getUser(@PathVariable(name = "id") int id) {

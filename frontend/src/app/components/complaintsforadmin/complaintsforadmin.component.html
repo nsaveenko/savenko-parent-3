@@ -1,6 +1,6 @@
 <div class="align-content-lg-center b">
-  <button class="btn selected" (click)="loadComplaintByStatusId(2)">Not Reviewed</button>
-  <button class="btn" (click)="loadComplaintByStatusId(1)">Reviewed</button>
+  <button class="btn selected" (click)="getComplaint(this.currentPage, 2)">Not Reviewed</button>
+  <button class="btn" (click)="getComplaint(this.currentPage, 1)">Reviewed</button>
 </div>
 <div *ngIf="complaints == null" style="text-align: center; color: lightcoral">No reports!</div>
 <div class="col" *ngFor="let complaint of complaints">
@@ -32,14 +32,20 @@
         <div class="col">
           <button class="btn btn-danger co" (click)="_deletePost(complaint.idPost)">Delete post</button>
         </div>
-
-<!--        <div class="col">-->
-<!--          <button class="btn btn-danger co" (click)="blockUserByPostId(complaint.idPost)">-->
-<!--            <ng-container *ngIf="complaint.idStatusComplaint===2">Unblock user</ng-container>-->
-<!--            <ng-container *ngIf="complaint.idStatusComplaint===1">Block user</ng-container>-->
-<!--          </button>-->
-<!--        </div>-->
+        <!--        <div class="col">-->
+        <!--          <button class="btn btn-danger co" (click)="blockUserByPostId(complaint.idPost)">-->
+        <!--            <ng-container *ngIf="complaint.idStatusComplaint===2">Unblock user</ng-container>-->
+        <!--            <ng-container *ngIf="complaint.idStatusComplaint===1">Block user</ng-container>-->
+        <!--          </button>-->
+        <!--        </div>-->
       </div>
     </div>
   </div>
+</div>
+
+<div *ngIf="complaints?.length!==0" class="row justify-content-center mt-5 ">
+  <pagination [boundaryLinks]="true" [itemsPerPage]="size" [totalItems]="page?.totalElements"
+              (pageChanged)="pageChanged($event)" [(ngModel)]="currentPage"
+              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+  </pagination>
 </div>

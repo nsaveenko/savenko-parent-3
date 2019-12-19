@@ -5,6 +5,10 @@ import com.netcracker.savenko.fapi.service.ComplaintService;
 import com.netcracker.savenko.fapi.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.support.PageableExecutionUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -31,11 +35,19 @@ public class ComplaintServiceImpl implements ComplaintService {
         return restTemplate.getForObject(backendServerUrl + "api/complaint/" + id, Complaint.class);
     }
 
+//    @Override
+//    public List<Complaint> getComplaintByStatusId(int id) {
+//        RestTemplate restTemplate = new RestTemplate();
+//        Complaint[] postResponse = restTemplate.getForObject(backendServerUrl + "api/complaint/status/" + id, Complaint[].class);
+//        return postResponse == null ? Collections.emptyList() : Arrays.asList(postResponse);
+//    }
+
     @Override
-    public List<Complaint> getComplaintByStatusId(int id) {
+    public Page<Complaint> getComplaintByStatusId(int id, Integer page, Integer size) {
         RestTemplate restTemplate = new RestTemplate();
-        Complaint[] postResponse = restTemplate.getForObject(backendServerUrl + "api/complaint/status/" + id, Complaint[].class);
-        return postResponse == null ? Collections.emptyList() : Arrays.asList(postResponse);
+        Page<Complaint> comments = restTemplate.getForObject(backendServerUrl + "api/complaint/status?id=" + id + "&page=" + page + "&size=" + size, RestPageImpl.class);
+        Pageable pageable = createPageable(page, size);
+        return PageableExecutionUtils.getPage(comments.getContent(), pageable, comments::getTotalElements);
     }
 
     @Override
@@ -72,5 +84,11 @@ public class ComplaintServiceImpl implements ComplaintService {
     public void deletePost(Integer idPost) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.delete(backendServerUrl + "/api/post/" + idPost);
+    }
+
+    private Pageable createPageable(Integer page, Integer size) {
+        Pageable pageable;
+        pageable = PageRequest.of(page, size);
+        return pageable;
     }
 }

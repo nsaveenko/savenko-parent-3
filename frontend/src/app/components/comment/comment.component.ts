@@ -55,7 +55,6 @@ export class CommentComponent implements OnInit {
   }
 
   pageChanged(event: PageChangedEvent) {
-    debugger;
     this.currentPage = event.page;
     console.log(this.currentPage);
     this.getComment(this.currentPage);
