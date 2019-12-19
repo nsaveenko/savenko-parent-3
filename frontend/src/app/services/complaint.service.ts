@@ -33,4 +33,15 @@ export class ComplaintService {
   getComplaintsByStatusId(id: number): Observable<Complaint[]> {
     return this.http.get<Complaint[]>('/api/complaint/status/' + id);
   }
+
+  getUserIdByPostId(postId: number): Observable<number>{
+    return this.http.get<number>('api/complaint/user/post/' + postId);
+  }
+
+  getUsernameByComplaintId(complaintId: number): Observable<string>{
+    return  this.http.get<string>('api/complaint/username/' + complaintId);
+  }
+  getStatusComplaint(complaintId: number): Observable<string>{
+    return  this.http.get<string>('api/statusComplaint/username/' + complaintId);
+  }
 }

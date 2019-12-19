@@ -1,30 +1,30 @@
 <form class="form-signin mr-auto ml-auto" id="entryform">
   <div class="text-center mb-4">
-    <h1 class="h3 mb-3 font-weight-normal">Зарегистрируйтесь, чтобы смотреть фото и видео ваших друзей.</h1>
+    <h1 class="h3 mb-3 font-weight-normal">Register to watch photos and videos of your friends</h1>
   </div>
 
   <form [formGroup]="registrationForm">
     <div class="form-label-group">
-      <input formControlName="flName" type="username" id="inputFlName" class="form-control" placeholder="Имя и фамилия"
+      <input formControlName="flName" type="username" id="inputFlName" class="form-control" placeholder="First and last name"
              required autofocus>
     </div>
     <div class="form-label-group">
       <br>
       <input formControlName="username" type="username" id="inputUsername" class="form-control"
-             placeholder="Имя пользователя" required>
+             placeholder="Username" required>
     </div>
 
     <div class="form-label-group">
       <br>
-      <input formControlName="password" type="password" id="inputPassword" class="form-control" placeholder="Пароль"
+      <input formControlName="password" type="password" id="inputPassword" class="form-control" placeholder="Password"
              required>
       <br>
     </div>
 
 
-    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="createUser()">Зарегистрироваться</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="createUser()">Check in</button>
   </form>
-  <p class="mt-5 mb-3 text-muted text-center">Есть аккаунт? <a routerLink="/entry">Вход</a></p>
+  <p class="mt-5 mb-3 text-muted text-center">Have an account? <a routerLink="/entry">input</a></p>
   <p class="mt-5 mb-3 text-muted text-center">&copy; 2019-2020</p>
 </form>
 

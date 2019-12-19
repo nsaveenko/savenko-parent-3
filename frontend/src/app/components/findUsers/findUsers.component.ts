@@ -32,13 +32,16 @@ export class FindUsersComponent implements OnInit {
 
   ngOnInit() {
     this.loadSub();
-    this.usernameParam = this.activeRoute.snapshot.queryParams['username'];
+    this.activeRoute.queryParams.subscribe(params => {
+      this.usernameParam = params.username;
+    });
     this._findUserByUsername(this.usernameParam);
 
   }
 
   public _findUserByUsername(textValue: string): void {
     this.subscriptions.push(this.userService.findUserByUsername(textValue).subscribe(users => {
+      this._updateSub();
       this.users = users;
     }))
   }
@@ -67,13 +70,13 @@ export class FindUsersComponent implements OnInit {
       subscriber.userByIdFollowers.id === followers.id && subscriber.userByIdFollowing.id === following.id);
     if(userSubscribe){
       this.subscriptions.push(this.subscriberService.deleteSubscriber(userSubscribe.id).subscribe(()=>{
-        this._updateUsers();
         this._updateSub();
+        this._updateUsers();
       }))
     } else {
       this.subscriptions.push(this.subscriberService.saveSubscriber(this.editableSubscriber).subscribe(() => {
-        this._updateUsers();
         this._updateSub();
+        this._updateUsers();
       }));
     }
   }

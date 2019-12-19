@@ -5,6 +5,7 @@ import com.netcracker.savenko.backend.entity.UserEntity;
 import com.netcracker.savenko.backend.repository.CommentRepository;
 import com.netcracker.savenko.backend.repository.UserRepository;
 import com.netcracker.savenko.backend.service.CommentService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

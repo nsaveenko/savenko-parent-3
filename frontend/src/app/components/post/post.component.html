@@ -14,8 +14,6 @@
         </p>
         <p class="mb">{{post.text}}</p>
         <div class="container mb-auto comment">
-<!--          <app-comment [selectedPost]="post"></app-comment>-->
-
           <app-comment [selectedPost]="post" [commentId]="commentId"></app-comment>
         </div>
         <div class="mb-1 text-muted">{{post.datePost | date}}</div>
@@ -25,21 +23,9 @@
           </div>
           <div class="col text-muted">{{post.likesCount}} Likes</div>
         </div>
-
-<!--        <div class="container" style="padding: 10px">-->
-<!--        <div class="input-group">-->
-<!--          <input id="{{post.id}}" type="text" class="form-control" placeholder="Add a comment..." aria-label="Add a comment... " aria-describedby="button-addon2" #commentField>-->
-<!--          <div class="input-group-append">-->
-<!--            <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="_addComment(post.id, commentField.value)">-->
-<!--              Post-->
-<!--            </button>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        </div>-->
-
-        <div class="container">
-          <input id="{{post.id}}" class="form-control" placeholder="Add a comment..." #commentField>
-          <button class="btn btn-light op" (click)="_addComment(post.id, commentField.value)" style="margin-left: 70px">Post</button>
+        <div class="input-group-prepend">
+          <input id="{{post.id}}" type="text" class="form-control" placeholder="Add a comment..." #commentField>
+          <span class="input-group-text" (click)="_addComment(post.id, commentField.value)">Add</span>
         </div>
       </div>
     </div>

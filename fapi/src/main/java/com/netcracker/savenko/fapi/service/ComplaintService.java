@@ -11,4 +11,7 @@ public interface ComplaintService {
     void deletePost(Integer id);
     List<Complaint> getAll();
     List<Complaint> getComplaintByStatusId(int id);
+    Integer getUserId(int id);
+    String getStatusComplaint(int id);
+    String getUsernameByComplaintId(int id);
 }

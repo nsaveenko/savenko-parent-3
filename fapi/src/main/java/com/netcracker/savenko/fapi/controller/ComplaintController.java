@@ -47,4 +47,19 @@ public class ComplaintController {
     public ResponseEntity<Complaint> getComplaintById(@PathVariable int id) {
         return ResponseEntity.ok(complaintService.getComplaintById(id));
     }
+
+    @RequestMapping(value = "/user/post/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Integer> getUserId(@PathVariable int id){
+        return ResponseEntity.ok(complaintService.getUserId(id));
+    }
+
+    @RequestMapping(value = "/statusComplaint/{id}", method = RequestMethod.GET)
+    public ResponseEntity<String> getStatusComplaint(@PathVariable int id){
+        return ResponseEntity.ok(complaintService.getStatusComplaint(id));
+    }
+
+    @RequestMapping(value = "/username/{id}", method = RequestMethod.GET)
+    public ResponseEntity<String> getUsernameByComplaintId(@PathVariable int id){
+        return ResponseEntity.ok(complaintService.getUsernameByComplaintId(id));
+    }
 }

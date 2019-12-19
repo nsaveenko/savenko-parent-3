@@ -1,6 +1,6 @@
 <form class="form-signin mr-auto ml-auto" id="entryform">
   <div class="text-center mb-4">
-    <h1 class="h3 mb-3 font-weight-normal">Вход.</h1>
+    <h1 class="h3 mb-3 font-weight-normal">Photogram</h1>
   </div>
 
   <form [formGroup]="signInForm">
@@ -8,14 +8,14 @@
     <div class="form-group">
       <br>
       <input formControlName="username" type="username" id="inputUsername" class="form-control"
-             placeholder="Имя пользователя" required autofocus>
+             placeholder="Username" required autofocus>
     </div>
     <div *ngIf="isControlInvalid('username')" class="alert alert-danger">
       Incorrect username
     </div>
     <div class="form-label-group">
       <br>
-      <input formControlName="password" type="password" id="inputPassword" class="form-control" placeholder="Пароль"
+      <input formControlName="password" type="password" id="inputPassword" class="form-control" placeholder="Password"
              required>
     </div>
     <div *ngIf="isControlInvalid('password')" class="alert alert-danger">
@@ -23,10 +23,10 @@
     </div>
     <div *ngIf="errorMassage!=null" class="alert alert-danger">{{errorMassage}}</div>
     <br>
-    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="signIn()">Войти</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="signIn()">To come in</button>
 
-    <p class="mt-5 mb-3 text-muted text-center">У вас еще нет аккаунта? <a
-      routerLink="/registration">Зарегистрироваться</a></p>
+    <p class="mt-5 mb-3 text-muted text-center">Don't have an account yet?
+      <a routerLink="/registration">Sign up</a></p>
     <p class="mt-5 mb-3 text-muted text-center">&copy; 2019-2020</p>
   </form>
 </form>

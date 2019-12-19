@@ -31,6 +31,7 @@ public class ComplaintServiceImpl implements ComplaintService {
         return restTemplate.getForObject(backendServerUrl + "api/complaint/" + id, Complaint.class);
     }
 
+    @Override
     public List<Complaint> getComplaintByStatusId(int id) {
         RestTemplate restTemplate = new RestTemplate();
         Complaint[] postResponse = restTemplate.getForObject(backendServerUrl + "api/complaint/status/" + id, Complaint[].class);
@@ -38,9 +39,27 @@ public class ComplaintServiceImpl implements ComplaintService {
     }
 
     @Override
+    public String getStatusComplaint(int id){
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(backendServerUrl + "api/complaint/statusComplaint/" + id, String.class);
+    }
+
+    @Override
+    public String getUsernameByComplaintId(int id){
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(backendServerUrl + "api/complaint/username/" + id, String.class);
+    }
+
+    @Override
     public Complaint saveComplaint(Complaint complaint) {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.postForEntity(backendServerUrl + "api/complaint/", complaint, Complaint.class).getBody();
+    }
+
+    @Override
+    public Integer getUserId(int id) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(backendServerUrl + "/api/complaint/user/post/" + id, Integer.class);
     }
 
     @Override

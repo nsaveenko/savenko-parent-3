@@ -7,4 +7,6 @@ export class Complaint {
   idStatusComplaint: number;
   isReviewed: boolean;
   message: string;
+  username: string;
+  statusComplaint: string;
 }

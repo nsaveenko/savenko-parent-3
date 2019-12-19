@@ -1,5 +1,5 @@
 .container{
-  width: 500px;
+  width: 700px;
   text-align: center;
   border: 2px solid gray;
   margin-bottom: 20px;
@@ -9,7 +9,7 @@
 }
 
 .btn{
-  width: 125px;
+  width: 300px;
 }
 
 .b{

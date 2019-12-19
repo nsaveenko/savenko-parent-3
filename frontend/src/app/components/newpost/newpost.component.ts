@@ -46,7 +46,7 @@ export class NewpostComponent implements OnInit {
         skip(4)
       )
       .subscribe(post => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/user']);
       })
   }
 

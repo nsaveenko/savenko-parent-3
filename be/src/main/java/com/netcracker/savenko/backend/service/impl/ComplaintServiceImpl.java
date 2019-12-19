@@ -2,8 +2,10 @@ package com.netcracker.savenko.backend.service.impl;
 
 import com.netcracker.savenko.backend.entity.ComplaintEntity;
 import com.netcracker.savenko.backend.entity.PostEntity;
+import com.netcracker.savenko.backend.entity.UserEntity;
 import com.netcracker.savenko.backend.repository.ComplaintRepository;
 import com.netcracker.savenko.backend.service.ComplaintService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +33,7 @@ public class ComplaintServiceImpl implements ComplaintService {
     }
 
     @Override
-    public List<ComplaintEntity> getComplaintByStatusId(int id){
+    public List<ComplaintEntity> getComplaintByStatusId(int id) {
         return repository.getComplaintByStatusId(id);
     }
 
@@ -49,4 +51,20 @@ public class ComplaintServiceImpl implements ComplaintService {
     public void deletePost(Integer idPost) {
         repository.deleteById(idPost);
     }
+
+    @Override
+    public Integer getUserId(int id) {
+        return repository.getUserIdByPostIdAndComplaintId(id);
+    }
+
+    @Override
+    public String getStatusComplaintId(int id) {
+        return repository.getStatusComplaintByComplaintId(id);
+    }
+
+    @Override
+    public String getUsernameByComplaintId(int id) {
+        return repository.getUsernameByComplaintId(id);
+    }
+
 }
