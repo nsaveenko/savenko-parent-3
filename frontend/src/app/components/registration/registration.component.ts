@@ -12,6 +12,8 @@ import {ErrorModel} from "../../models/Error.model";
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
+  errorMassage: string;
+
   user = new User();
   registrationForm: FormGroup;
   errors: ErrorModel[] = [];
@@ -21,23 +23,58 @@ export class RegistrationComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.registrationForm = new FormGroup({
+    //   flName: new FormControl("", [
+    //     Validators.required,
+    //     Validators.minLength(2),
+    //     Validators.maxLength(40)
+    //   ]),
+    //   username: new FormControl('', [
+    //     Validators.required,
+    //     Validators.minLength(2),
+    //     Validators.maxLength(20)
+    //   ]),
+    //   password: new FormControl('', [
+    //     Validators.required,
+    //     Validators.minLength(2),
+    //     Validators.maxLength(20)
+    //   ]),
+    //   isRemember: new FormControl()
+    // })
     this.registrationForm = new FormGroup({
       flName: new FormControl("", [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(25),
+          Validators.pattern('^[A-Z]{1}[a-z]+\\s[A-Z]{1}[a-z]+$')
+        ]
+      ),
+      username: new FormControl("", [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(25),
+          Validators.pattern('^[A-Z0-9a-z\._]+$')
+        ]
+      ),
+      password: new FormControl("", [
         Validators.required,
-        Validators.minLength(2),
-        Validators.maxLength(40)
+        Validators.minLength(5),
+        Validators.maxLength(25),
+        Validators.pattern('^[0-9a-zA-Z]+$')
       ]),
-      username: new FormControl('', [
-        Validators.required,
-        Validators.minLength(2),
-        Validators.maxLength(20)
-      ]),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(2),
-        Validators.maxLength(20)
-      ])
-    })
+      isRemember: new FormControl()
+    });
+  }
+
+
+  isControlInvalid(controlName: string): boolean {
+    const control = this.registrationForm.controls[controlName];
+    const result = control.invalid && control.touched;
+    return result;
+  }
+
+  onSubmit() {
+    alert(JSON.stringify(this.registrationForm.value));
   }
 
   createUser() {

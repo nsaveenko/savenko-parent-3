@@ -67,8 +67,8 @@ public class UserController {
         return userService.getFollowingByIdFollowers(userId);
     }
 
-    @RequestMapping(value = "/username/{username}", method = RequestMethod.GET)
-    public List<UserEntity> findUserByUsername(@PathVariable(name = "username") String username) {
-        return userService.findUserByUsername(username);
+    @RequestMapping(value = "/username/{id}/{username}", method = RequestMethod.GET)
+    public List<UserEntity> findUserByUsername(@PathVariable(name = "username") String username, @PathVariable(name= "id") int id) {
+        return userService.findUserByUsername(username, id);
     }
 }

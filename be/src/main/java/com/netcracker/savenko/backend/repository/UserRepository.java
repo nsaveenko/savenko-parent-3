@@ -20,6 +20,6 @@ public interface UserRepository extends CrudRepository<UserEntity, Integer> {
     @Query(value = "select user.* from subscriptions join user on subscriptions.id_followers = user.id where id_following=(?1)", nativeQuery = true)
     List<UserEntity> getFollowersByIdFollowing(int userId);
 
-    @Query(value = "select * from user where username like concat('%', (:username), '%') and id_role = 2 and id_status = 1", nativeQuery = true)
-    List<UserEntity> findUserByUsername(@Param("username") String username);
+    @Query(value = "select * from user where username like concat('%', (:username), '%') and id_role = 2 and id_status = 1 and user.id <> (:id)", nativeQuery = true)
+    List<UserEntity> findUserByUsername(@Param("username") String username, @Param("id") int id);
 }

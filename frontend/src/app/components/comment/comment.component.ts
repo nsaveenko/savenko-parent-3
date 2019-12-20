@@ -9,6 +9,7 @@ import {User} from "../../models/User";
 import {PageChangedEvent} from "ngx-bootstrap";
 import {map, tap} from "rxjs/operators";
 import {RestPageModel} from "../../models/RestPage.model";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-comment',
@@ -32,6 +33,7 @@ export class CommentComponent implements OnInit {
   private subs: any;
   private size: number = 3;
   private page: RestPageModel;
+  message: string;
 
   constructor(private postService: PostService,
               private userService: UserService,

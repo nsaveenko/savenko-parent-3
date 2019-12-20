@@ -9,11 +9,15 @@
       <input type="file" class="custom-file-input" id="customFile" (change)="onFileSelected($event)">
       <label class="custom-file-label" for="customFile">{{selectedFile?.name}}</label>
     </div>
+    <form [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
     <div class="form-label-group">
       <br>
-      <input type="text" id="inputText" name="text" class="form-control" placeholder="Write a caption..." [(ngModel)]="editablePost.text" required>
+      <input formControlName="caption" type="text" id="inputText" name="text" class="form-control" placeholder="Write a caption..."
+             [ngClass]="{'is-invalid':form.get('caption').touched && form.get('caption').invalid}"
+             [(ngModel)]="editablePost.text" required>
       <br>
     </div>
-    <button type="button" class="btn btn-lg btn-primary btn-block" (click)="_addPost()">Share</button>
+    </form>
+    <button type="button" class="btn btn-lg btn-primary btn-block" [disabled]="form.invalid" (click)="_addPost()">Share</button>
   </div>
 </form>

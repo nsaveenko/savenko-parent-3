@@ -67,7 +67,7 @@ export class UserService {
     return this.http.get<User[]>('/api/user/following/' + id);
   }
 
-  findUserByUsername(username: string): Observable<User[]>{
-    return this.http.get<User[]>('/api/user/username/' + username);
+  findUserByUsername(username: string, id: number): Observable<User[]>{
+    return this.http.get<User[]>('/api/user/username/'+ '/' + id + '/'+ username);
   }
 }

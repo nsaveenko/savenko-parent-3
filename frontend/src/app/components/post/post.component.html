@@ -1,11 +1,16 @@
 <div class="container post">
+  <div class="h4" *ngIf="this.message !== null" style="text-align: center">
+    {{message}}
+  </div>
   <div class="col" *ngFor="let post of posts;">
     <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-850 position-relative">
       <div class="col-md-7 d-none d-lg-block qw">
         <img [attr.src]="'/api/files/' + post.filePath | secure | async" width="100%" height="500">
       </div>
       <div class="col p-10 d-flex flex-column position-static pp">
-        <strong class="d-inline-block mb-10 text-dark">{{post.userByIdUser?.username}}</strong>
+<!--        <strong class="d-inline-block mb-10 text-dark">{{post.userByIdUser?.username}}</strong>-->
+        <strong class="d-inline-block text-dark" routerLink="/otherUser/id/"
+                [queryParams]="{id: post.userByIdUser.id}">{{post.userByIdUser?.username}}</strong>
         <p>
           <button class="btn btn-light btn" (click)="_deletePost(post.id)" *ngIf="post.userByIdUser.id===userService.currUser.id">Delete</button>
           <button class="btn btn-light btn" (click)="_complaint(post.id)" *ngIf="post.userByIdUser.id!=userService.currUser.id">
@@ -24,8 +29,13 @@
           <div class="col text-muted">{{post.likesCount}} Likes</div>
         </div>
         <div class="input-group-prepend">
-          <input id="{{post.id}}" type="text" class="form-control" placeholder="Add a comment..." #commentField>
-          <span class="input-group-text" (click)="_addComment(post.id, commentField.value)">Add</span>
+          <form [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
+          <input id="{{post.id}}" formControlName="comment" type="text" class="form-control"
+                 placeholder="Add a comment..." #commentField
+                 [ngClass]="{'is-invalid':form.get('comment').touched && form.get('comment').invalid}">
+          </form>
+          <button class="input-group-text" [disabled]="form.invalid" (click)="_addComment(post.id, commentField.value)">Add</button>
+<!--          <span class="input-group-text" [disabled]="form.invalid" (click)="_addComment(post.id, commentField.value)">Add</span>-->
         </div>
       </div>
     </div>

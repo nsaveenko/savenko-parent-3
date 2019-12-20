@@ -1,15 +1,21 @@
 <app-header></app-header>
+
 <div class="h4" style="text-align: center"> Users found by "{{usernameParam}}"</div>
-<div class="container" *ngFor="let user of users">
+
+<div class="container" *ngFor="let user of users" >
   <div class="row">
-    <div class="col-md-4">
-      <strong class="d-inline-block text-dark" routerLink="/otherUser/id/" [queryParams]="{id: user.id}">{{user.username}}</strong>
+    <div class="col-md-7">
+      <strong class="d-inline-block text-dark" routerLink="/otherUser/id/"
+              [queryParams]="{id: user.id}">{{user.username}}</strong>
     </div>
-    <div class="col-md-4" *ngIf="userService.currUser.id != user.id">
-      <button class="btn btn-light" [ngClass]="{'active-subscriber':user.isSubscriber}"  (click)="_subscribe(userService.currUser, user)">
-        <ng-container *ngIf = "user.isSubscriber">Unfollow</ng-container>
-        <ng-container *ngIf = "!user.isSubscriber">Follow</ng-container>
+    <div class="col-md-4">
+      <button class="btn btn-light" [ngClass]="{'active-subscriber':user.isSubscriber}"
+              (click)="_subscribe(userService.currUser, user)">
+        <ng-container *ngIf="user.isSubscriber">Unfollow</ng-container>
+        <ng-container *ngIf="!user.isSubscriber">Follow</ng-container>
       </button>
     </div>
   </div>
 </div>
+
+

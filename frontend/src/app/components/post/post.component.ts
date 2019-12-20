@@ -12,6 +12,9 @@ import {Like} from "../../models/Like";
 import {User} from "../../models/User";
 import {Subscriber} from "../../models/Subscriber";
 import {SubscriberService} from "../../services/subscriber.service";
+import {RestPageModel} from "../../models/RestPage.model";
+import {PageChangedEvent} from "ngx-bootstrap";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-post',
@@ -38,28 +41,70 @@ export class PostComponent implements OnInit, OnChanges {
   private subscriptions: Subscription[] = [];
   public pathUrl = `${Config.POSTFIX}`;
   public commentId;
+  form: FormGroup;
+  message: string;
 
   constructor(private postService: PostService,
               private userService: UserService,
               private likeService: LikeService,
               private subscriberService: SubscriberService,
               private commentService: CommentService,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit() {
     this.loadSub();
+    // this.subs = [];
+    // this.subs[this.subs.length] = this.getPostBySub(this.currentPage);
+    this.form = new FormGroup({
+      comment: new FormControl("", [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(50),
+          Validators.pattern('^[A-Z\'\\-.,:;a-z0-9]{1}[A-Z \'\\-.,:;a-z0-9]+$'),
+        ]
+      ),
+      isRemember: new FormControl()
+    });
+  }
+
+  onSubmit() {
+    alert(JSON.stringify(this.form.value));
+  }
+
+  isControlInvalid(controlName: string): boolean {
+    const control = this.form.controls[controlName];
+    const result = control.invalid && control.touched;
+    return result;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.parentPage.currentValue === 'feed') {
       this.loadPost();
-    } else if (changes.parentPage.currentValue === 'user'){
+    } else if (changes.parentPage.currentValue === 'user') {
       this.loadPostByCurrUser();
-    }
-    else if (changes.parentPage.currentValue === '/otherUser/id' + this.selectedUserId){
+    } else if (changes.parentPage.currentValue === '/otherUser/id' + this.selectedUserId) {
       this.loadPostOtherUser();
     }
   }
+
+  // pageChanged(event: PageChangedEvent) {
+  //   this.currentPage = event.page;
+  //   console.log(this.currentPage);
+  //   this.getPostBySub(this.currentPage);
+  // }
+
+  // private getPostBySub(page: number) {
+  //   this.currentPage = page;
+  //   console.log(this.currentPage);
+  //   this.postService.getPostBySub(this.userService.currUser.id, this.currentPage - 1, this.size)
+  //     .subscribe((pageModel: RestPageModel) => {
+  //       this.page = pageModel;
+  //       this.posts = pageModel.content;
+  //       this.subs.length = pageModel.content.length;
+  //       this.loadLike();
+  //     });
+  // }
 
   public _updatePostCurrUser(): void {
     this.loadPostByCurrUser();
@@ -74,25 +119,38 @@ export class PostComponent implements OnInit, OnChanges {
   private loadPost(): void {
     this.subscriptions.push(this.postService.getPostBySub(this.userService.currUser.id)
       .subscribe(posts => {
-        this.posts = posts;
-        this.loadLike();
+        if (posts.length !== 0) {
+          this.posts = posts;
+          this.loadLike();
+        } else {
+          this.message = "Welcome to Photogram. When you follow people, you'll see the photos they post here.";
+        }
       }));
   }
 
   private loadPostByCurrUser(): void {
     this.subscriptions.push(this.postService.getPostByCurrUser(this.userService.currUser.id)
       .subscribe(posts => {
-        this.posts = posts;
-        this.userService.currUser.postsCount = this.posts.length;
-        this.loadLike();
+        if (posts.length !== 0) {
+          this.posts = posts;
+          this.userService.currUser.postsCount = this.posts.length;
+          this.loadLike();
+        } else {
+          this.message = "Share Photos. When you share photos, they'll appear on your profile.";
+        }
       }));
   }
 
   private loadPostOtherUser(): void {
     this.subscriptions.push(this.postService.getPostByCurrUser(this.selectedUserId)
       .subscribe(posts => {
-        this.posts = posts;
-        this.loadLike();
+        // this._updateUser(this.selectedUserId);
+        if (posts.length !== 0) {
+          this.posts = posts;
+          this.loadLike();
+        } else {
+          this.message = "No Posts Yet";
+        }
       }));
   }
 
@@ -103,14 +161,15 @@ export class PostComponent implements OnInit, OnChanges {
     this.router.navigate(['complaint']);
   }
 
-  _addComment(postId: number, textValue: string) : void{
+  _addComment(postId: number, textValue: string): void {
     this.editableComment.dataPost = Date.now();
     this.editableComment.idPost = postId;
     this.editableComment.tex = textValue;
     this.editableComment.userByIdUser = this.userService.currUser;
     this.subscriptions.push(this.commentService.saveComment(this.editableComment).subscribe((comment) => {
       this.commentId = comment.id;
-      }));
+    }));
+    this.form.reset();
   }
 
   public _onLikeClick(postId: number): void {
@@ -137,7 +196,7 @@ export class PostComponent implements OnInit, OnChanges {
     this.subscriptions.push(this.likeService.getAllLike().subscribe(likes => {
       this.likes = likes as Like[];
       this.posts.forEach((post) => {
-        post.likesCount = this.likes.filter((like : Like) => like.idPost === post.id).length;
+        post.likesCount = this.likes.filter((like: Like) => like.idPost === post.id).length;
         post.isLiked = this.likes.some((like: Like) => like.userByIdUser.id === this.userService.currUser.id && like.idPost === post.id);
       });
     }));
@@ -149,7 +208,7 @@ export class PostComponent implements OnInit, OnChanges {
     }));
   }
 
-  private loadUserById(id: number):void {
+  private loadUserById(id: number): void {
     this.subscriptions.push(this.userService.getUserById(id).subscribe(user => {
       this.user = user;
     }));

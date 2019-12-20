@@ -14,8 +14,6 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { FeedComponent } from './components/feed/feed.component';
 import { UserComponent } from './components/user/user.component';
 import { PostComponent } from './components/post/post.component';
-import { EditComponent } from './components/edit/edit.component';
-import { ActivityComponent } from './components/activity/activity.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { LikeComponent } from './components/like/like.component';
@@ -37,20 +35,20 @@ import {SubscriberService} from "./services/subscriber.service";
 import {OtherUserComponent} from "./components/otherUser/otherUser.component";
 import {NotFoundComponent} from "./components/404/not-found.component";
 import {PaginationModule} from "ngx-bootstrap";
-import {RestPageModel} from "./models/RestPage.model";
 import {FindUsersComponent} from "./components/findUsers/findUsers.component";
+import {AuthGuardService} from "./services/guards/guard.service";
+import {AdminGuardService} from "./services/guards/admin.guard.service";
+import {UserGuardService} from "./services/guards/user.guard.service";
 
 const appRoutes: Routes = [
-  {path: "", component: FeedComponent},
+  {path: "", component: FeedComponent, canActivate:[AuthGuardService, UserGuardService]},
   {path: "entry", component: EntryComponent},
   {path: "registration", component: RegistrationComponent},
-  {path: "user", component: UserComponent},
-  {path: "edit", component: EditComponent},
-  {path: "complaint", component: ComplaintComponent},
-  {path: "newpost", component: NewpostComponent},
-  {path: "admin", component: AdminComponent},
-  {path: "otherUser/:id", component: OtherUserComponent},
-  {path: "findUsers/:username", component: FindUsersComponent},
+  {path: "user", component: UserComponent, canActivate:[AuthGuardService, UserGuardService]},
+  {path: "newpost", component: NewpostComponent, canActivate:[AuthGuardService, UserGuardService]},
+  {path: "admin", component: AdminComponent, canActivate:[AuthGuardService, AdminGuardService]},
+  {path: "otherUser/:id", component: OtherUserComponent, canActivate:[AuthGuardService, UserGuardService]},
+  {path: "findUsers/:username", component: FindUsersComponent, canActivate:[AuthGuardService, UserGuardService]},
   {path: "**", component: NotFoundComponent}
 ];
 
@@ -63,8 +61,6 @@ const appRoutes: Routes = [
     FeedComponent,
     UserComponent,
     PostComponent,
-    EditComponent,
-    ActivityComponent,
     HeaderComponent,
     CommentComponent,
     LikeComponent,
@@ -75,7 +71,7 @@ const appRoutes: Routes = [
     SubscriberComponent,
     OtherUserComponent,
     NotFoundComponent,
-    FindUsersComponent
+    FindUsersComponent,
   ],
   imports: [
     BrowserModule,
@@ -98,6 +94,9 @@ const appRoutes: Routes = [
     SubscriberService,
     CommentService,
     LogInService,
+    AuthGuardService,
+    AdminGuardService,
+    UserGuardService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,

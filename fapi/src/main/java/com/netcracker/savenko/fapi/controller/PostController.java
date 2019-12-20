@@ -3,6 +3,7 @@ package com.netcracker.savenko.fapi.controller;
 import com.netcracker.savenko.fapi.models.Post;
 import com.netcracker.savenko.fapi.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,6 +32,16 @@ public class PostController {
     public ResponseEntity<List<Post>> getPostByCurrUser(@PathVariable int id) {
         return ResponseEntity.ok(postService.getPostByCurrUser(id));
     }
+
+//    @RequestMapping(value = "/followers", method = RequestMethod.GET)
+//    public Page<Post> getPostBySub(@RequestParam int id, @RequestParam int page, @RequestParam int size) {
+//        return postService.getPostBySub(id, page, size);
+//    }
+//
+//    @RequestMapping(value = "/currUser", method = RequestMethod.GET)
+//    public Page<Post> getPostByCurrUser(@RequestParam int id, @RequestParam int page, @RequestParam int size) {
+//        return postService.getPostByCurrUser(id, page, size);
+//    }
 
     @RequestMapping(value = "/count/user/{id}", method = RequestMethod.GET)
     public Integer getCountPostByUserId(@PathVariable int id) {

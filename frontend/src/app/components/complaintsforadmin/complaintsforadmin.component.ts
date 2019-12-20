@@ -6,7 +6,6 @@ import {Post} from "../../models/Post";
 import {PostService} from "../../services/post.service";
 import {UserService} from "../../services/user.service";
 import {User} from "../../models/User";
-import {b} from "@angular/core/src/render3";
 import {RestPageModel} from "../../models/RestPage.model";
 import {PageChangedEvent} from "ngx-bootstrap";
 
@@ -47,13 +46,13 @@ export class ComplaintsforadminComponent implements OnInit {
     // this.getStatusComplaint(this.complaint.id);
     // this.getUsername(this.complaint.id);
     this.subs = [];
-    this.subs[this.subs.length] = this.getComplaint(this.currentPage, 1);
+    this.subs[this.subs.length] = this.getComplaint(this.currentPage, 2);
   }
 
   pageChanged(event: PageChangedEvent) {
     this.currentPage = event.page;
     console.log(this.currentPage);
-    this.getComplaint(this.currentPage, 1);
+    this.getComplaint(this.currentPage, 2);
   }
 
   private getComplaint(page: number, statusId: number) {
@@ -61,9 +60,9 @@ export class ComplaintsforadminComponent implements OnInit {
     console.log(this.currentPage);
     this.complaintService.getComplaintsByStatusId(statusId, this.currentPage - 1, this.size)
       .subscribe((pageModel: RestPageModel) => {
-        this.page = pageModel;
-        this.complaints = pageModel.content;
-        this.subs.length = pageModel.content.length;
+          this.page = pageModel;
+          this.complaints = pageModel.content;
+          this.subs.length = pageModel.content.length;
       });
   }
 
@@ -149,12 +148,14 @@ export class ComplaintsforadminComponent implements OnInit {
 
   public _deleteComplaint(complaintId: number): void {
     this.subscriptions.push(this.complaintService.deleteComplaint(complaintId).subscribe(() => {
+      this._updateComplaint(1);
       this._updateComplaint(2);
     }));
   }
 
   public _deletePost(postId: number): void {
     this.subscriptions.push(this.complaintService.deletePost(postId).subscribe(() => {
+      this._updateComplaint(1);
       this._updateComplaint(2);
     }));
   }

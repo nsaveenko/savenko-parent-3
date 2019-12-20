@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserEntity> findUserByUsername(String username){
-        return repository.findUserByUsername(username);
+    public List<UserEntity> findUserByUsername(String username, int id){
+        return repository.findUserByUsername(username, id);
     }
 }

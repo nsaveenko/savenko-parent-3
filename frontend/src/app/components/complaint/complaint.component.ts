@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Post} from "../../models/Post";
 import {Subscription} from "rxjs";
 import {ComplaintService} from "../../services/complaint.service";
@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 import {Complaint} from "../../models/Complaint";
 import {PostService} from "../../services/post.service";
 import {UserService} from "../../services/user.service";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-complaint',
@@ -19,6 +20,7 @@ export class ComplaintComponent implements OnInit {
   public post: Post[];
   private subscriptions: Subscription[] = [];
   public editableComplaint: Complaint = new Complaint();
+  form: FormGroup;
 
   constructor(private complaintService: ComplaintService,
               private postService: PostService,
@@ -28,21 +30,36 @@ export class ComplaintComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.form = new FormGroup({
+      complaint: new FormControl("", [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(50),
+          Validators.pattern('^[A-Z\'\\-.,:;a-z0-9]{1}[A-Z \'\\-.,:;a-z0-9]+$'),
+        ]
+      ),
+      isRemember: new FormControl()
+    });
+  }
+
+  onSubmit() {
+    alert(JSON.stringify(this.form.value));
   }
 
   public _updateComplaint(): void {
     this.loadComplaint();
   }
 
-  public _addComplaint(): void {
+  public _addComplaint(textValue: string): void {
     this.editableComplaint.dateComplaint = Date.now();
     this.editableComplaint.idPost = this.postService.currPost.id;
     this.editableComplaint.idUser = this.userService.currUser.id;
-    this.editableComplaint.idStatusComplaint =1;
+    this.editableComplaint.complaint = textValue;
+    this.editableComplaint.idStatusComplaint = 2;
     this.subscriptions.push(this.complaintService.saveComplaint(this.editableComplaint).subscribe((complaint: Complaint) => {
-       this._updateComplaint();
-       this.refreshComplaint();
-       this.router.navigate(['/']);
+      this._updateComplaint();
+      this.refreshComplaint();
+      this.router.navigate(['/']);
     }));
   }
 

@@ -36,9 +36,9 @@ public class UserController {
         return ResponseEntity.ok(userService.getFollowing(id));
     }
 
-    @RequestMapping(value = "/username/{username}", method = RequestMethod.GET)
-    public ResponseEntity<List<User>> findUserByUsername(@PathVariable String username){
-        return ResponseEntity.ok(userService.findUserByUsername(username));
+    @RequestMapping(value = "/username/{id}/{username}", method = RequestMethod.GET)
+    public ResponseEntity<List<User>> findUserByUsername(@PathVariable String username, @PathVariable int id){
+        return ResponseEntity.ok(userService.findUserByUsername(username, id));
     }
 
     @PostMapping("/signin")

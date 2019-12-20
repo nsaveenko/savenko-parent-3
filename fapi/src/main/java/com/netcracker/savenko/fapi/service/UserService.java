@@ -13,5 +13,5 @@ public interface UserService {
     void deleteUser(Integer id);
     List<User> getFollowers(int id);
     List<User> getFollowing(int id);
-    List<User> findUserByUsername(String username);
+    List<User> findUserByUsername(String username, int id);
 }

@@ -4,6 +4,10 @@ import com.netcracker.savenko.fapi.models.Post;
 import com.netcracker.savenko.fapi.models.User;
 import com.netcracker.savenko.fapi.service.PostService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.support.PageableExecutionUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -24,18 +28,34 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getPostBySub(int userId){
+    public List<Post> getPostBySub(int userId) {
         RestTemplate restTemplate = new RestTemplate();
         Post[] postResponse = restTemplate.getForObject(backendServerUrl + "/api/post/followers/" + userId, Post[].class);
         return postResponse == null ? Collections.emptyList() : Arrays.asList(postResponse);
     }
 
     @Override
-    public List<Post> getPostByCurrUser(int userId){
+    public List<Post> getPostByCurrUser(int userId) {
         RestTemplate restTemplate = new RestTemplate();
         Post[] postResponse = restTemplate.getForObject(backendServerUrl + "/api/post/currUser/" + userId, Post[].class);
         return postResponse == null ? Collections.emptyList() : Arrays.asList(postResponse);
     }
+
+//    @Override
+//    public Page<Post> getPostBySub(int id, Integer page, Integer size) {
+//        RestTemplate restTemplate = new RestTemplate();
+//        Page<Post> comments = restTemplate.getForObject(backendServerUrl + "api/post/followers?id=" + id + "&page=" + page + "&size=" + size, RestPageImpl.class);
+//        Pageable pageable = createPageable(page, size);
+//        return PageableExecutionUtils.getPage(comments.getContent(), pageable, comments::getTotalElements);
+//    }
+//
+//    @Override
+//    public Page<Post> getPostByCurrUser(int id, Integer page, Integer size) {
+//        RestTemplate restTemplate = new RestTemplate();
+//        Page<Post> comments = restTemplate.getForObject(backendServerUrl + "api/post/currUser?id=" + id + "&page=" + page + "&size=" + size, RestPageImpl.class);
+//        Pageable pageable = createPageable(page, size);
+//        return PageableExecutionUtils.getPage(comments.getContent(), pageable, comments::getTotalElements);
+//    }
 
     @Override
     public Post getPostById(Integer id) {
@@ -63,5 +83,11 @@ public class PostServiceImpl implements PostService {
     public void deletePost(Integer id) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.delete(backendServerUrl + "/api/post/" + id);
+    }
+
+    private Pageable createPageable(Integer page, Integer size) {
+        Pageable pageable;
+        pageable = PageRequest.of(page, size);
+        return pageable;
     }
 }

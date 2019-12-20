@@ -6,6 +6,7 @@ import {Post} from "../../models/Post";
 import {Router} from "@angular/router";
 import {flatMap, skip, switchMapTo, take} from "rxjs/operators";
 import {UserService} from "../../services/user.service";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-newpost',
@@ -19,6 +20,8 @@ export class NewpostComponent implements OnInit {
   public post: Post[];
   private subscriptions: Subscription[] = [];
   public editablePost: Post = new Post();
+  form: FormGroup;
+
   constructor(private postService: PostService,
               private userService: UserService,
               private http: HttpClient,
@@ -28,6 +31,25 @@ export class NewpostComponent implements OnInit {
   ngOnInit() {
     this.editablePost.datePost = Date.now();
     this.editablePost.idUser = this.userService.currUser.id;
+    this.form = new FormGroup({
+      caption: new FormControl("", [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(25),
+        Validators.pattern('^[A-Z\'\\-.,:;a-z0-9]{1}[A-Z \'\\-.,:;a-z0-9]+$')
+      ]),
+      isRemember: new FormControl()
+    });
+  }
+
+  isControlInvalid(controlName: string): boolean {
+    const control = this.form.controls[controlName];
+    const result = control.invalid && control.touched;
+    return result;
+  }
+
+  onSubmit() {
+    alert(JSON.stringify(this.form.value));
   }
 
   onFileSelected(event) {

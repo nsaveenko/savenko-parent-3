@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams, HttpRequest} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Post} from "../models/Post";
+import {RestPageModel} from "../models/RestPage.model";
 
 @Injectable()
 export class PostService {
@@ -29,6 +30,14 @@ export class PostService {
   getPostByCurrUser(userId: number): Observable<Post[]> {
     return this.http.get<Post[]>('/api/post/currUser/' + userId);
   }
+
+  // getPostBySub(id: number, page: number, size: number): Observable<RestPageModel> {
+  //   return this.http.get<RestPageModel>("/api/post/followers?id="+ id + "&page=" + page + "&size=" + size);
+  // }
+  //
+  // getPostByCurrUser(id: number, page: number, size: number): Observable<RestPageModel> {
+  //   return this.http.get<RestPageModel>("/api/post/currUser?id="+ id + "&page=" + page + "&size=" + size);
+  // }
 
   savePost(post: Post): Observable<Post> {
     return this.http.post<Post>('/api/post/', post);

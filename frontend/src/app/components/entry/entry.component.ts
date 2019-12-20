@@ -37,7 +37,8 @@ export class EntryComponent implements OnInit {
       password: new FormControl("", [
         Validators.required,
         Validators.minLength(5),
-        Validators.maxLength(25)
+        Validators.maxLength(25),
+        Validators.pattern('^[0-9a-zA-Z]+$')
       ]),
       isRemember: new FormControl()
     });
@@ -59,14 +60,19 @@ export class EntryComponent implements OnInit {
             this.userService.currUser = signIn.user;
             switch (signIn.user.roleUserByIdRole.id) {
               case 2:
-                this.router.navigate(['/']);
+                if (signIn.user.statusUserByIdStatus.id === 1) {
+                  this.router.navigate(['/']);
+                } else {
+                  this.errorMassage = 'Your account was blocked by administration.';
+                  localStorage.clear();
+                }
                 break;
               case 1:
                 this.router.navigate(['/admin']);
                 break;
             }
           } else {
-            this.errorMassage = 'Incorrect data. Recheck entered data'
+            this.errorMassage = 'Incorrect data. Recheck entered data';
           }
         } else {
           this.errorSignIn = signIn.error;

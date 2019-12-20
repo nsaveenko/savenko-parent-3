@@ -3,26 +3,42 @@
     <h1 class="h3 mb-3 font-weight-normal">Register to watch photos and videos of your friends</h1>
   </div>
 
-  <form [formGroup]="registrationForm">
-    <div class="form-label-group">
-      <input formControlName="flName" type="username" id="inputFlName" class="form-control" placeholder="First and last name"
+  <form [formGroup]="registrationForm" (ngSubmit)="registrationForm.valid && onSubmit()">
+    <div class="form-group">
+      <input formControlName="flName" type="username" id="inputFlName" class="form-control"
+             placeholder="First and last name"
+             [ngClass]="{'is-invalid':registrationForm.get('flName').touched && registrationForm.get('flName').invalid}"
              required autofocus>
+    </div>
+    <div *ngIf="isControlInvalid('flName')" class="alert alert-danger">
+      Incorrect flname
     </div>
     <div class="form-label-group">
       <br>
       <input formControlName="username" type="username" id="inputUsername" class="form-control"
-             placeholder="Username" required>
+             placeholder="Username"
+             [ngClass]="{'is-invalid':registrationForm.get('username').touched && registrationForm.get('username').invalid}"
+             required>
+      <br>
+    </div>
+    <div *ngIf="isControlInvalid('username')" class="alert alert-danger">
+      Incorrect username
     </div>
 
     <div class="form-label-group">
       <br>
       <input formControlName="password" type="password" id="inputPassword" class="form-control" placeholder="Password"
+             [ngClass]="{'is-invalid':registrationForm.get('password').touched && registrationForm.get('password').invalid}"
              required>
-      <br>
     </div>
+    <br>
 
-
-    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="createUser()">Check in</button>
+    <div *ngIf="isControlInvalid('password')" class="alert alert-danger">
+      Incorrect password
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="registrationForm.invalid"
+            (click)="createUser()">Check in
+    </button>
   </form>
   <p class="mt-5 mb-3 text-muted text-center">Have an account? <a routerLink="/entry">input</a></p>
   <p class="mt-5 mb-3 text-muted text-center">&copy; 2019-2020</p>

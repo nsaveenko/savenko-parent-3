@@ -1,11 +1,15 @@
 <div class="container">
   <div class="comp">
-    <strong class="d-inline-block mb-10 text-dark">{{userService.currUser.username}}</strong>
-    <div class="mb-1 text-muted">{{editableComplaint.dateComplaint | date}}</div>
-    <br>
-    <input [(ngModel)]="editableComplaint.complaint" id="inputComment" class="form-control" placeholder="Why are you reporting this post?">
-    <br>
-    <button class="btn btn-danger co" (click)="_addComplaint()">Report</button>
+    <form [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
+      <strong class="d-inline-block mb-10 text-dark">{{userService.currUser.username}}</strong>
+      <div class="mb-1 text-muted">{{editableComplaint.dateComplaint | date}}</div>
+      <br>
+      <input [ngClass]="{'is-invalid':form.get('complaint').touched && form.get('complaint').invalid}"
+             formControlName="complaint" class="form-control"
+             placeholder="Why are you reporting this post?" #complaintField>
+      <br>
+    </form>
+    <button class="btn btn-danger co" [disabled]="form.invalid" (click)="_addComplaint(complaintField.value)">Report</button>
   </div>
 </div>
 

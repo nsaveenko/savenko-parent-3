@@ -66,23 +66,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getFollowers(int id){
+    public List<User> getFollowers(int id) {
         RestTemplate restTemplate = new RestTemplate();
         User[] usersResponse = restTemplate.getForObject(backendServerUrl + "/api/user/followers/" + id, User[].class);
         return usersResponse == null ? Collections.emptyList() : Arrays.asList(usersResponse);
     }
 
     @Override
-    public List<User> getFollowing(int id){
+    public List<User> getFollowing(int id) {
         RestTemplate restTemplate = new RestTemplate();
         User[] usersResponse = restTemplate.getForObject(backendServerUrl + "/api/user/following/" + id, User[].class);
         return usersResponse == null ? Collections.emptyList() : Arrays.asList(usersResponse);
     }
 
     @Override
-    public List<User> findUserByUsername(String username){
+    public List<User> findUserByUsername(String username, int id) {
         RestTemplate restTemplate = new RestTemplate();
-        User[] usersResponse = restTemplate.getForObject(backendServerUrl + "/api/user/username/" + username, User[].class);
+        User[] usersResponse = restTemplate.getForObject(backendServerUrl + "/api/user/username/" + id + "/" + username, User[].class);
         return usersResponse == null ? Collections.emptyList() : Arrays.asList(usersResponse);
     }
 }

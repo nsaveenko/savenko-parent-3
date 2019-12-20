@@ -18,10 +18,7 @@
       <br>
       <div class="row">
         <div class="col">
-          <button class="btn btn-danger co" (click)="changeStatusComplaint(complaint.id)">
-            <ng-container *ngIf="complaint.idStatusComplaint===1">Mark as not viewed</ng-container>
-            <ng-container *ngIf="complaint.idStatusComplaint===2">Mark as viewed</ng-container>
-          </button>
+          <button class="btn btn-danger co" (click)="_deletePost(complaint.idPost)">Delete post</button>
         </div>
         <div class="col">
           <button class="btn btn-danger co" (click)="_deleteComplaint(complaint.id)">Delete report</button>
@@ -29,8 +26,15 @@
       </div>
       <br>
       <div class="row">
+
         <div class="col">
-          <button class="btn btn-danger co" (click)="_deletePost(complaint.idPost)">Delete post</button>
+          <!--          <button class="btn btn-danger co" (click)="changeStatusComplaint(complaint.id)">-->
+          <!--            <ng-container *ngIf="complaint.idStatusComplaint===1">Mark as not viewed</ng-container>-->
+          <!--            <ng-container *ngIf="complaint.idStatusComplaint===2">Mark as viewed</ng-container>-->
+          <!--          </button>          -->
+          <button class="btn btn-danger co" (click)="changeStatusComplaint(complaint.id)" *ngIf="complaint.idStatusComplaint===2" >
+            Mark as viewed
+          </button>
         </div>
         <!--        <div class="col">-->
         <!--          <button class="btn btn-danger co" (click)="blockUserByPostId(complaint.idPost)">-->

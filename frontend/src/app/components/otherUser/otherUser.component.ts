@@ -43,11 +43,19 @@ export class OtherUserComponent implements OnInit {
 
   ngOnInit() {
     this.loadSub();
-    this.userIdParam = this.activeRoute.snapshot.queryParams['id'];
-    this.loadUserById(this.userIdParam);
-    this.loadFollowing(this.userIdParam);
-    this.loadFollowers(this.userIdParam);
-    this.postCount(this.userIdParam);
+    this.activeRoute.queryParams.subscribe(params => {
+      this.userIdParam = params.id;
+      this._updateUser(this.userIdParam);
+      // this.userIdParam = this.activeRoute.snapshot.queryParams['id'];
+      this.loadUserById(this.userIdParam);
+      this.loadFollowing(this.userIdParam);
+      this.loadFollowers(this.userIdParam);
+      this.postCount(this.userIdParam);
+    });
+  }
+
+  public _updateUser(id: number){
+    this.loadUserById(id);
   }
 
   private loadUserById(id: number):void {

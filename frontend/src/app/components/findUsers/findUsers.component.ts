@@ -34,13 +34,13 @@ export class FindUsersComponent implements OnInit {
     this.loadSub();
     this.activeRoute.queryParams.subscribe(params => {
       this.usernameParam = params.username;
+      this._findUserByUsername(this.usernameParam);
     });
-    this._findUserByUsername(this.usernameParam);
-
+    // this._findUserByUsername(this.usernameParam);
   }
 
   public _findUserByUsername(textValue: string): void {
-    this.subscriptions.push(this.userService.findUserByUsername(textValue).subscribe(users => {
+    this.subscriptions.push(this.userService.findUserByUsername(textValue, this.userService.currUser.id).subscribe(users => {
       this._updateSub();
       this.users = users;
     }))
@@ -50,15 +50,15 @@ export class FindUsersComponent implements OnInit {
     this._findUserByUsername(this.usernameParam);
   }
 
-  public _updateSub():void{
+  public _updateSub(): void {
     this.loadSub();
   }
 
   private loadSub(): void {
     this.subscriptions.push(this.subscriberService.getSubscribers().subscribe(subs => {
       this.subscribers = subs;
-      this.users.forEach((us)=> {
-        us.isSubscriber = this.subscribers.some((sb)=> sb.userByIdFollowers.id === this.userService.currUser.id && sb.userByIdFollowing.id === us.id)
+      this.users.forEach((us) => {
+        us.isSubscriber = this.subscribers.some((sb) => sb.userByIdFollowers.id === this.userService.currUser.id && sb.userByIdFollowing.id === us.id)
       });
     }));
   }
@@ -68,8 +68,8 @@ export class FindUsersComponent implements OnInit {
     this.editableSubscriber.userByIdFollowing = following;
     const userSubscribe = this.subscribers.find((subscriber: Subscriber) =>
       subscriber.userByIdFollowers.id === followers.id && subscriber.userByIdFollowing.id === following.id);
-    if(userSubscribe){
-      this.subscriptions.push(this.subscriberService.deleteSubscriber(userSubscribe.id).subscribe(()=>{
+    if (userSubscribe) {
+      this.subscriptions.push(this.subscriberService.deleteSubscriber(userSubscribe.id).subscribe(() => {
         this._updateSub();
         this._updateUsers();
       }))

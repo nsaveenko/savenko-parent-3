@@ -34,7 +34,7 @@ public class ComplaintController {
 //        return ResponseEntity.ok(complaintService.getComplaintByStatusId(id));
 //    }
 
-    @RequestMapping(value = "/status",method = RequestMethod.GET)
+    @RequestMapping(value = "/status", method = RequestMethod.GET)
     public Page<Complaint> getComplaintByStatusId(@RequestParam int id, @RequestParam int page, @RequestParam int size) {
         return complaintService.getComplaintByStatusId(id, page, size);
     }

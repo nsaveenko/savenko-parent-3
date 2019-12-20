@@ -4,6 +4,7 @@ import com.netcracker.savenko.backend.entity.PostEntity;
 import com.netcracker.savenko.backend.entity.UserEntity;
 import com.netcracker.savenko.backend.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,6 +56,16 @@ public class PostController {
     public List<PostEntity> getPostByCurrUser(@PathVariable(name = "id") int userId) {
         return postService.getPostByCurrUser(userId);
     }
+
+//    @RequestMapping(value = "/currUser", method = RequestMethod.GET)
+//    public Page<PostEntity> getPostByCurrUser(@RequestParam int id, @RequestParam int page, @RequestParam int size) {
+//        return postService.getPostByCurrUser(id, page, size);
+//    }
+//
+//    @RequestMapping(value = "/followers", method = RequestMethod.GET)
+//    public Page<PostEntity> getPostBySub(@RequestParam int id, @RequestParam int page, @RequestParam int size) {
+//        return postService.getPostBySub(id, page, size);
+//    }
 
     @RequestMapping(value = "/count/user/{id}", method = RequestMethod.GET)
     public Integer countPostByUserId(@PathVariable(name = "id") int userId) {
