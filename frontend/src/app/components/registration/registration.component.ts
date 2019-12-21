@@ -73,10 +73,6 @@ export class RegistrationComponent implements OnInit {
     return result;
   }
 
-  onSubmit() {
-    alert(JSON.stringify(this.registrationForm.value));
-  }
-
   createUser() {
     this.user.username = this.registrationForm.controls['username'].value;
     this.user.flName = this.registrationForm.controls['flName'].value;
