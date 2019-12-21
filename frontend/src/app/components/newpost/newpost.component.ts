@@ -35,7 +35,7 @@ export class NewpostComponent implements OnInit {
       file:new FormControl("", []),
       caption: new FormControl("", [
         Validators.required,
-        Validators.minLength(2),
+        Validators.minLength(1),
         Validators.maxLength(200),
       ]),
       isRemember: new FormControl()

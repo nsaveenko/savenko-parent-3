@@ -11,11 +11,6 @@
         <strong class="d-inline-block text-dark"
                 (click)="routUser(post.userByIdUser?.id)">{{post.userByIdUser?.username}}</strong>
         <p>
-          <!--          <div class="col p-10 d-flex flex-column position-static pp">-->
-          <!--&lt;!&ndash;        <strong class="d-inline-block mb-10 text-dark">{{post.userByIdUser?.username}}</strong>&ndash;&gt;-->
-          <!--        <strong class="d-inline-block text-dark" routerLink="/otherUser"-->
-          <!--                [queryParams]="{id: post.userByIdUser.id}">{{post.userByIdUser?.username}}</strong>-->
-          <!--        <p>-->
           <button class="btn btn-light btn" (click)="_deletePost(post.id)"
                   *ngIf="post.userByIdUser.id===userService.currUser.id">
             Delete
@@ -38,14 +33,13 @@
         </div>
         <div class="input-group-prepend">
           <form [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
-            <input id="{{post.id}}" formControlName="comment" type="text" class="form-control"
-                   placeholder="Add a comment..." #commentField
-                   [ngClass]="{'is-invalid':form.get('comment').touched && form.get('comment').invalid}">
+            <input id="{{post.id}}" formControlName="comment" type="text" class="form-control inp"
+                   placeholder="Add a comment..." #commentField>
           </form>
-          <button class="input-group-text" [disabled]="form.invalid" (click)="_addComment(post.id, commentField.value)">
+          <button class="input-group-text btn-light" [disabled]="form.invalid"
+                  (click)="_addComment(post.id, commentField.value)">
             Add
           </button>
-          <!--          <span class="input-group-text" [disabled]="form.invalid" (click)="_addComment(post.id, commentField.value)">Add</span>-->
         </div>
       </div>
     </div>

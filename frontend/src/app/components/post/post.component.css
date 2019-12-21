@@ -1,46 +1,53 @@
-.col-md-8{
+.col-md-8 {
   margin-left: 100px;
 }
 
-.qw{
+.qw {
   padding: 20px;
 }
 
-.btn{
+.btn {
   margin: 3px;
   width: 135px;
 }
-.like{
+
+.like {
   margin: 3px;
   width: 40px;
 }
 
-.post{
+.post {
   width: 930px;
 }
 
-.pp{
+.pp {
   padding: 10px;
   width: 100%;
 }
 
-.op{
+.op {
   margin: 5px;
 }
 
-.comment{
+.comment {
   width: auto;
 }
 
-.active{
+.active {
   color: red;
 }
 
-.fa{
+.fa {
   cursor: pointer;
 }
-.fa-trash-alt{
+
+.fa-trash-alt {
   color: red;
+}
+
+.inp{
+  width: 260px;
+  margin-right: 3px;
 }
 
 
