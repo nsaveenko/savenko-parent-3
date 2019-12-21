@@ -9,4 +9,5 @@ public interface SubscriptionsService {
     Subscriptions getSubscriptionById(Integer id);
     Subscriptions saveSubscription(Subscriptions subscription);
     void deleteSubscription(Integer id);
+    Integer getSubId(int currUserId, int follId);
 }

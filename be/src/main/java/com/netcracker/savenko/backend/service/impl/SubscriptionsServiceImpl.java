@@ -40,4 +40,9 @@ public class SubscriptionsServiceImpl implements SubscriptionsService {
     public void deleteSubscription(Integer id) {
         repository.deleteById(id);
     }
+
+    @Override
+    public Integer getSubId(int currUserId, int follId){
+        return repository.getSubId(currUserId, follId);
+    }
 }

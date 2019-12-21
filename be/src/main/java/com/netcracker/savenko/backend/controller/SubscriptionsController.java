@@ -43,4 +43,9 @@ public class SubscriptionsController {
     public void deleteSubscription(@PathVariable(name = "id") Integer id) {
         subscriptionsService.deleteSubscription(id);
     }
+
+    @RequestMapping(value = "/{currUserId}/{follId}",method = RequestMethod.GET)
+    public Integer getSubId(@PathVariable(name = "currUserId") int currUserId, @PathVariable(name = "follId") int follId){
+        return subscriptionsService.getSubId(currUserId, follId);
+    }
 }

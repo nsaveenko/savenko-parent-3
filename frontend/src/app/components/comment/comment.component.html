@@ -3,7 +3,7 @@
 
     <div class="col-md-5">
 <!--      <strong class="d-inline-block text-dark">{{comment.userByIdUser?.username}}</strong>-->
-      <strong class="d-inline-block text-dark" routerLink="/otherUser/id/"
+      <strong class="d-inline-block text-dark" routerLink="/otherUser"
               [queryParams]="{id: comment.userByIdUser.id}">{{comment.userByIdUser?.username}}</strong>
     </div>
 
@@ -25,8 +25,7 @@
 
 </div>
 
-<!--<div *ngIf="comments?.length!==0 && comments?.length>=size" class="row justify-content-center mt-5 ">-->
-<div *ngIf="comments?.length!==0" class="row justify-content-center mt-5 ">
+<div *ngIf="comments?.length!==0 && page?.totalElements/size > 1" class="row justify-content-center mt-5 ">
   <pagination [boundaryLinks]="true" [itemsPerPage]="size" [totalItems]="page?.totalElements"
               (pageChanged)="pageChanged($event)" [(ngModel)]="currentPage"
               previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">

@@ -31,11 +31,18 @@ public class SubscriptionsServiceImpl implements SubscriptionsService {
     @Override
     public Subscriptions saveSubscription(Subscriptions subscription) {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForEntity(backendServerUrl + "/api/subscriptions", subscription, Subscriptions.class).getBody();    }
+        return restTemplate.postForEntity(backendServerUrl + "/api/subscriptions", subscription, Subscriptions.class).getBody();
+    }
 
     @Override
     public void deleteSubscription(Integer id) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.delete(backendServerUrl + "api/subscriptions/" + id);
+    }
+
+    @Override
+    public Integer getSubId(int currUserId, int follId) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(backendServerUrl + "/api/subscriptions/" + currUserId + "/" + follId, Integer.class);
     }
 }

@@ -3,7 +3,7 @@
   <form class="form-inline mt-2 mt-md-0">
     <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="username1" [ngModelOptions]="{standalone: true}">
 <!--    <i class="fa fa-search" [routerLink]="['findUsers', 'username']" [queryParams]="{username: username1}"></i>-->
-    <i class="fa fa-search" routerLink="/findUsers/username/" [queryParams]="{username: username1}"></i>
+    <i class="fa fa-search" routerLink="/findUsers" [queryParams]="{username: username1}"></i>
   </form>
   <nav class="my-2 my-md-0 mr-md-3">
     <i class="fa fa-user-circle" routerLink="/user"></i>

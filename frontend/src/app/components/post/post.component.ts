@@ -61,7 +61,7 @@ export class PostComponent implements OnInit, OnChanges {
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(50),
-          Validators.pattern('^[A-Z\'\\-.,:;a-z0-9]{1}[A-Z \'\\-.,:;a-z0-9]+$'),
+          //Validators.pattern('^[A-Z\'\\-.,:;a-z0-9]{1}[A-Z \'\\-.,:;a-z0-9]+$'),
         ]
       ),
       isRemember: new FormControl()
@@ -83,7 +83,7 @@ export class PostComponent implements OnInit, OnChanges {
       this.loadPost();
     } else if (changes.parentPage.currentValue === 'user') {
       this.loadPostByCurrUser();
-    } else if (changes.parentPage.currentValue === '/otherUser/id' + this.selectedUserId) {
+    } else if (changes.parentPage.currentValue === '/otherUser?id=' + this.selectedUserId) {
       this.loadPostOtherUser();
     }
   }

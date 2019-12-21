@@ -53,7 +53,7 @@ export class CommentComponent implements OnInit {
   }
 
   public _updateComment(): void {
-    this.getComment(this.currentPage);
+    this.getComment(1);
   }
 
   pageChanged(event: PageChangedEvent) {

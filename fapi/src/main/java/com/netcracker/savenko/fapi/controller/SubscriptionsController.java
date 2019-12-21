@@ -37,4 +37,9 @@ public class SubscriptionsController {
         }
         return null;
     }
+
+    @RequestMapping(value="/{currUserId}/{follId}", method = RequestMethod.GET)
+    public ResponseEntity<Integer> getSubId(@PathVariable int currUserId, @PathVariable int follId){
+        return ResponseEntity.ok(subscriptionsService.getSubId(currUserId, follId));
+    }
 }

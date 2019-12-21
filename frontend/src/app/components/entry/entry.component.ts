@@ -61,7 +61,7 @@ export class EntryComponent implements OnInit {
             switch (signIn.user.roleUserByIdRole.id) {
               case 2:
                 if (signIn.user.statusUserByIdStatus.id === 1) {
-                  this.router.navigate(['/']);
+                  this.router.navigate(['/user']);
                 } else {
                   this.errorMassage = 'Your account was blocked by administration.';
                   localStorage.clear();

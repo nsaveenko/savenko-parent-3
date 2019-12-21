@@ -32,11 +32,11 @@ export class NewpostComponent implements OnInit {
     this.editablePost.datePost = Date.now();
     this.editablePost.idUser = this.userService.currUser.id;
     this.form = new FormGroup({
+      file:new FormControl("", []),
       caption: new FormControl("", [
         Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(25),
-        Validators.pattern('^[A-Z\'\\-.,:;a-z0-9]{1}[A-Z \'\\-.,:;a-z0-9]+$')
+        Validators.minLength(2),
+        Validators.maxLength(200),
       ]),
       isRemember: new FormControl()
     });

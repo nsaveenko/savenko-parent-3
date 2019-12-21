@@ -9,4 +9,5 @@ public interface SubscriptionsService {
     Optional<SubscriptionsEntity> getSubscriptionById(Integer id);
     Iterable<SubscriptionsEntity> getAllSubscriptions();
     void deleteSubscription(Integer id);
+    Integer getSubId(int currUserId, int follId);
 }

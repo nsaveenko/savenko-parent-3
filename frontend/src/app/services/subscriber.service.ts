@@ -24,4 +24,8 @@ export class SubscriberService {
   deleteSubscriber(subscriberId: number): Observable<void> {
     return this.http.delete<void>('/api/subscriptions/' + subscriberId);
   }
+
+  getSubIdByCurrUserAndOtherUser(currUserId: number, follId: number): Observable<number>{
+    return this.http.get<number>('api/subscriptions/' + currUserId + '/' + follId);
+  }
 }

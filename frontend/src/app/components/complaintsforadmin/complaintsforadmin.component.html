@@ -1,16 +1,17 @@
 <div class="align-content-lg-center b">
-  <button class="btn selected" (click)="getComplaint(this.currentPage, 2)">Not Reviewed</button>
-  <button class="btn" (click)="getComplaint(this.currentPage, 1)">Reviewed</button>
+  <button class="btn selected" (click)="getComplaint(2)">Not Reviewed</button>
+  <button class="btn" (click)="getComplaint(1)">Reviewed</button>
 </div>
-<div *ngIf="complaints == null" style="text-align: center; color: lightcoral">No reports!</div>
+<!--<div *ngIf="complaints == null" style="text-align: center; color: lightcoral">No reports!</div>-->
 <div class="col" *ngFor="let complaint of complaints">
   <div class="container">
     <div class="comp">
       <!--      <strong class="d-inline-block mb-10 text-dark">User id: {{complaint.idUser}}</strong>-->
       <div class="mb-1 text-muted">{{complaint.dateComplaint | date}}</div>
-      <p>Status complaint: {{complaint.idStatusComplaint}}</p>
-      <p>2 - not reviewed / 1 - reviewed</p>
-      <!--      <p>Status complaint: {{complaint.idStatusComplaint}}</p>-->
+      <p>Status complaint:
+      <ng-container *ngIf="complaint.idStatusComplaint===1">reviewed</ng-container>
+      <ng-container *ngIf="complaint.idStatusComplaint===2">not reviewed</ng-container>
+      </p>
       <p>Post id: {{complaint.idPost}}</p>
       <br>
       <p class="h5">Reason for complaint:</p>
@@ -18,20 +19,16 @@
       <br>
       <div class="row">
         <div class="col">
-          <button class="btn btn-danger co" (click)="_deletePost(complaint.idPost)">Delete post</button>
+          <button class="btn btn-danger co" (click)="_deletePost(complaint.idPost, complaint.idStatusComplaint)">Delete post</button>
         </div>
         <div class="col">
-          <button class="btn btn-danger co" (click)="_deleteComplaint(complaint.id)">Delete report</button>
+          <button class="btn btn-danger co" (click)="_deleteComplaint(complaint.id, complaint.idStatusComplaint)">Delete report</button>
         </div>
       </div>
       <br>
       <div class="row">
 
         <div class="col">
-          <!--          <button class="btn btn-danger co" (click)="changeStatusComplaint(complaint.id)">-->
-          <!--            <ng-container *ngIf="complaint.idStatusComplaint===1">Mark as not viewed</ng-container>-->
-          <!--            <ng-container *ngIf="complaint.idStatusComplaint===2">Mark as viewed</ng-container>-->
-          <!--          </button>          -->
           <button class="btn btn-danger co" (click)="changeStatusComplaint(complaint.id)" *ngIf="complaint.idStatusComplaint===2" >
             Mark as viewed
           </button>

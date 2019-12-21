@@ -1,7 +1,7 @@
 <div class="container post">
-  <div class="h4" *ngIf="this.message !== null" style="text-align: center">
-    {{message}}
-  </div>
+<!--  <div class="h4" *ngIf="message || (posts.length && message !== 'No Posts Yet')" style="text-align: center">-->
+<!--    {{message}}-->
+<!--  </div>-->
   <div class="col" *ngFor="let post of posts;">
     <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-850 position-relative">
       <div class="col-md-7 d-none d-lg-block qw">
@@ -9,7 +9,7 @@
       </div>
       <div class="col p-10 d-flex flex-column position-static pp">
 <!--        <strong class="d-inline-block mb-10 text-dark">{{post.userByIdUser?.username}}</strong>-->
-        <strong class="d-inline-block text-dark" routerLink="/otherUser/id/"
+        <strong class="d-inline-block text-dark" routerLink="/otherUser"
                 [queryParams]="{id: post.userByIdUser.id}">{{post.userByIdUser?.username}}</strong>
         <p>
           <button class="btn btn-light btn" (click)="_deletePost(post.id)" *ngIf="post.userByIdUser.id===userService.currUser.id">Delete</button>

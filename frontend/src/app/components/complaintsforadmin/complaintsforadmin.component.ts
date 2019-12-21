@@ -17,18 +17,11 @@ import {PageChangedEvent} from "ngx-bootstrap";
 export class ComplaintsforadminComponent implements OnInit {
 
   public complaints: Complaint[];
-  public posts: Post[];
   private subscriptions: Subscription[] = [];
   public editableComplaint: Complaint = new Complaint();
   public editableUser: User = new User();
   public message: string;
-  private postId: number;
-  private userId: number;
-  private statusUser: string;
-  private statusComplaint: string;
   private statusComplaintId: number;
-  private username: string;
-  private complaintId: number;
   public complaint: Complaint;
   public currentPage: number = 1;
   private subs: any;
@@ -41,29 +34,66 @@ export class ComplaintsforadminComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.loadComplaint();
-    //this.loadComplaintByStatusId(2);
-    // this.getStatusComplaint(this.complaint.id);
-    // this.getUsername(this.complaint.id);
     this.subs = [];
-    this.subs[this.subs.length] = this.getComplaint(this.currentPage, 2);
+    this.subs[this.subs.length] = this.getComplaint(2, this.currentPage);
   }
 
   pageChanged(event: PageChangedEvent) {
     this.currentPage = event.page;
-    console.log(this.currentPage);
-    this.getComplaint(this.currentPage, 2);
+    this.getComplaint(this.statusComplaintId, this.currentPage);
   }
 
-  private getComplaint(page: number, statusId: number) {
+  private getComplaint(statusId: number, page: number = 1) {
+    this.statusComplaintId = statusId;
     this.currentPage = page;
-    console.log(this.currentPage);
-    this.complaintService.getComplaintsByStatusId(statusId, this.currentPage - 1, this.size)
+    this.complaintService.getComplaintsByStatusId(this.statusComplaintId, this.currentPage - 1, this.size)
       .subscribe((pageModel: RestPageModel) => {
           this.page = pageModel;
           this.complaints = pageModel.content;
           this.subs.length = pageModel.content.length;
       });
+  }
+
+  private changeStatusComplaint(id: number): void {
+    this.subscriptions.push(this.complaintService.getComplaintById(id).subscribe(complaint => {
+      this.editableComplaint.id = complaint.id;
+      this.editableComplaint.idPost = complaint.idPost;
+      this.editableComplaint.idUser = complaint.idUser;
+      this.editableComplaint.dateComplaint = complaint.dateComplaint;
+      this.editableComplaint.complaint = complaint.complaint;
+      switch (complaint.idStatusComplaint) {
+        case 1:
+          this.editableComplaint.idStatusComplaint = 2;
+          this.subscriptions.push(this.complaintService.saveComplaint(this.editableComplaint)
+            .subscribe((complaint: Complaint) => {
+              this._updateComplaint(1);
+            }));
+          break;
+        case 2:
+          this.editableComplaint.idStatusComplaint = 1;
+          this.subscriptions.push(this.complaintService.saveComplaint(this.editableComplaint)
+            .subscribe((complaint: Complaint) => {
+              this._updateComplaint(2);
+            }));
+          break;
+      }
+    }))
+  }
+
+  public _updateComplaint(statusId: number): void {
+    this.getComplaint(statusId, 1);
+  }
+
+  public _deleteComplaint(complaintId: number, statusId: number): void {
+    this.subscriptions.push(this.complaintService.deleteComplaint(complaintId).subscribe(() => {
+      this._updateComplaint(statusId);
+    }));
+  }
+
+  public _deletePost(postId: number, statusId: number): void {
+    this.subscriptions.push(this.complaintService.deletePost(postId).subscribe(() => {
+      this._updateComplaint(statusId);
+    }));
   }
 
   // private loadComplaintByStatusId(id: number): void {
@@ -104,68 +134,6 @@ export class ComplaintsforadminComponent implements OnInit {
   //     }))
   // }
 
-  private changeStatusComplaint(id: number): void {
-    this.subscriptions.push(this.complaintService.getComplaintById(id).subscribe(complaint => {
-      this.editableComplaint.id = complaint.id;
-      this.editableComplaint.idPost = complaint.idPost;
-      this.editableComplaint.idUser = complaint.idUser;
-      this.editableComplaint.dateComplaint = complaint.dateComplaint;
-      this.editableComplaint.complaint = complaint.complaint;
-      switch (complaint.idStatusComplaint) {
-        case 1:
-          this.editableComplaint.idStatusComplaint = 2;
-          this.subscriptions.push(this.complaintService.saveComplaint(this.editableComplaint)
-            .subscribe((complaint: Complaint) => {
-              this._updateComplaint(1);
-            }));
-          break;
-        case 2:
-          this.editableComplaint.idStatusComplaint = 1;
-          this.subscriptions.push(this.complaintService.saveComplaint(this.editableComplaint)
-            .subscribe((complaint: Complaint) => {
-              this._updateComplaint(2);
-            }));
-          break;
-      }
-    }))
-  }
-
-  // private refreshComplaint(): void {
-  //   this.editableComplaint = new Complaint();
-  // }
-  //
-  // private loadComplaint(): void {
-  //   this.subscriptions.push(this.complaintService.getComplaint().subscribe(complaints => {
-  //     if (complaints.length > 0) {
-  //       this.complaints = complaints as Complaint[];
-  //     }
-  //   }));
-  // }
-
-  public _updateComplaint(id: number): void {
-    this.getComplaint(this.currentPage, id);
-  }
-
-  public _deleteComplaint(complaintId: number): void {
-    this.subscriptions.push(this.complaintService.deleteComplaint(complaintId).subscribe(() => {
-      this._updateComplaint(1);
-      this._updateComplaint(2);
-    }));
-  }
-
-  public _deletePost(postId: number): void {
-    this.subscriptions.push(this.complaintService.deletePost(postId).subscribe(() => {
-      this._updateComplaint(1);
-      this._updateComplaint(2);
-    }));
-  }
-
-  // public getStatusComplaint(id: number): void {
-  //   this.subscriptions.push(this.complaintService.getStatusComplaint(id).subscribe(statusComplaint => {
-  //     this.complaint.statusComplaint = statusComplaint;
-  //   }))
-  // }
-  //
   // public getUsername(id: number): void {
   //   this.subscriptions.push(this.complaintService.getUsernameByComplaintId(id).subscribe(username => {
   //     this.complaint.username = username;

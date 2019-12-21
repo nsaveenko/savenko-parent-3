@@ -5,7 +5,7 @@
 <div class="container" *ngFor="let user of users" >
   <div class="row">
     <div class="col-md-7">
-      <strong class="d-inline-block text-dark" routerLink="/otherUser/id/"
+      <strong class="d-inline-block text-dark" routerLink="/otherUser"
               [queryParams]="{id: user.id}">{{user.username}}</strong>
     </div>
     <div class="col-md-4">
