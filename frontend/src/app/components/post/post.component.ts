@@ -4,7 +4,7 @@ import {Comment} from "../../models/Comment";
 import {PostService} from "../../services/post.service";
 import {Subscription} from "rxjs";
 import {Config} from "../../services/config";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {CommentService} from "../../services/comment.service";
 import {LikeService} from "../../services/like.service";
@@ -78,6 +78,17 @@ export class PostComponent implements OnInit, OnChanges {
     return result;
   }
 
+  routUser(userId: number) {
+    if (userId === this.userService.currUser.id) {
+      this.router.navigate(['user']);
+      this.message = null;
+    } else {
+      this.router.navigate(['/otherUser'], { queryParams: { id: userId } });
+      this.message = null;
+      this.loadPostOtherUser();
+    }
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.parentPage.currentValue === 'feed') {
       this.loadPost();
@@ -123,6 +134,7 @@ export class PostComponent implements OnInit, OnChanges {
           this.posts = posts;
           this.loadLike();
         } else {
+          this.posts = null;
           this.message = "Welcome to Photogram. When you follow people, you'll see the photos they post here.";
         }
       }));
@@ -136,6 +148,7 @@ export class PostComponent implements OnInit, OnChanges {
           this.userService.currUser.postsCount = this.posts.length;
           this.loadLike();
         } else {
+          this.posts = null;
           this.message = "Share Photos. When you share photos, they'll appear on your profile.";
         }
       }));
@@ -149,6 +162,7 @@ export class PostComponent implements OnInit, OnChanges {
           this.posts = posts;
           this.loadLike();
         } else {
+          this.posts = null;
           this.message = "No Posts Yet";
         }
       }));

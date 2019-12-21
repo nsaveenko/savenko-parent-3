@@ -10,6 +10,7 @@ import {PageChangedEvent} from "ngx-bootstrap";
 import {map, tap} from "rxjs/operators";
 import {RestPageModel} from "../../models/RestPage.model";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-comment',
@@ -37,13 +38,24 @@ export class CommentComponent implements OnInit {
 
   constructor(private postService: PostService,
               private userService: UserService,
-              private commentService: CommentService) {
+              private commentService: CommentService,
+              private router: Router) {
   }
 
   ngOnInit() {
     // this.loadComment();
     this.subs = [];
     this.subs[this.subs.length] = this.getComment(this.currentPage);
+  }
+
+  routUser(userId: number) {
+    if (userId === this.userService.currUser.id) {
+      this.router.navigate(['user']);
+      this.message = null;
+    } else {
+      this.router.navigate(['/otherUser'], { queryParams: { id: userId } });
+      this.message = null;
+    }
   }
 
   public _deleteComment(CommentId: number): void {

@@ -1,10 +1,15 @@
 <div class="container cmm" *ngFor="let comment of comments">
   <div class="row">
 
+    <!--    <div class="col-md-5">-->
+    <!--&lt;!&ndash;      <strong class="d-inline-block text-dark">{{comment.userByIdUser?.username}}</strong>&ndash;&gt;-->
+    <!--      <strong class="d-inline-block text-dark" routerLink="/otherUser"-->
+    <!--              [queryParams]="{id: comment.userByIdUser.id}">{{comment.userByIdUser?.username}}</strong>-->
+    <!--    </div>    -->
     <div class="col-md-5">
-<!--      <strong class="d-inline-block text-dark">{{comment.userByIdUser?.username}}</strong>-->
-      <strong class="d-inline-block text-dark" routerLink="/otherUser"
-              [queryParams]="{id: comment.userByIdUser.id}">{{comment.userByIdUser?.username}}</strong>
+      <strong class="d-inline-block text-dark" (click)="routUser(comment.userByIdUser?.id)">
+        {{comment.userByIdUser?.username}}
+      </strong>
     </div>
 
     <div class="col-md-5">
