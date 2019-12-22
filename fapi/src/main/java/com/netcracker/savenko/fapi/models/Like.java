@@ -2,12 +2,18 @@ package com.netcracker.savenko.fapi.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.validation.constraints.NotEmpty;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 
 public class Like {
+    @NotEmpty
     private int id;
+    @NotEmpty
     private int idPost;
+    @NotEmpty
     private int idUser;
+    @NotEmpty
     private User userByIdUser;
 
     public Like() {}

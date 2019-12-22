@@ -11,18 +11,19 @@
              required autofocus>
     </div>
     <div *ngIf="isControlInvalid('flName')" class="alert alert-danger">
-      Incorrect flname
+      Enter a valid first and last name.
     </div>
     <div class="form-label-group">
       <br>
       <input formControlName="username" type="username" id="inputUsername" class="form-control"
-             placeholder="Username"
+             placeholder="Username" #username
              [ngClass]="{'is-invalid':registrationForm.get('username').touched && registrationForm.get('username').invalid}"
              required>
       <br>
     </div>
     <div *ngIf="isControlInvalid('username')" class="alert alert-danger">
-      Incorrect username
+      Usernames can only use letters, numbers, underscores, and periods.
+      The username contains at least 5 characters and no more than 25.
     </div>
 
     <div class="form-label-group">
@@ -34,13 +35,14 @@
     <br>
 
     <div *ngIf="isControlInvalid('password')" class="alert alert-danger">
-      Incorrect password
+      Password can only user letters and numbers.
+      Create a password of at least 5 characters and no more than 25.
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="button" [disabled]="registrationForm.invalid"
-            (click)="createUser()">Check in
+            (click)="createUser(username.value)">Check in
     </button>
   </form>
-  <p class="mt-5 mb-3 text-muted text-center">Have an account? <a routerLink="/entry">input</a></p>
+  <p class="mt-5 mb-3 text-muted text-center">Have an account? <a routerLink="/entry">entrance</a></p>
   <p class="mt-5 mb-3 text-muted text-center">&copy; 2019-2020</p>
 </form>
 

@@ -73,28 +73,60 @@ export class RegistrationComponent implements OnInit {
     return result;
   }
 
-  createUser() {
-    this.user.username = this.registrationForm.controls['username'].value;
-    this.user.flName = this.registrationForm.controls['flName'].value;
-    this.user.password = this.registrationForm.controls['password'].value;
-    this.user.statusUserByIdStatus = {id: 1, status: 'ACTIVE'};
-    this.user.roleUserByIdRole = {id: 2, role: 'USER'};
-    this.userService.saveUser(this.user).subscribe((data: User) => {
-        this.user = data as User;
-        if (this.user !== null) {
-          this.router.navigate(['/entry']);
-        }
-      }, response => {
-        if (this.errors != null)
-          this.errors = [];
-        let resError;
-        for (let i = 0; i < response.error.length; i++) {
-          resError = new ErrorModel();
-          resError.field = (response as HttpErrorResponse).error[i].field;
-          resError.defaultMessage = (response as HttpErrorResponse).error[i].defaultMessage;
-          this.errors.push(resError);
-        }
+  createUser(username: string) {
+    this.userService.isExistByUsername(username).subscribe( isExist =>{
+      if(isExist == false){
+        this.user.username = this.registrationForm.controls['username'].value;
+        this.user.flName = this.registrationForm.controls['flName'].value;
+        this.user.password = this.registrationForm.controls['password'].value;
+        this.user.statusUserByIdStatus = {id: 1, status: 'ACTIVE'};
+        this.user.roleUserByIdRole = {id: 2, role: 'USER'};
+        this.userService.saveUser(this.user).subscribe((data: User) => {
+            this.user = data as User;
+            if (this.user !== null) {
+              this.router.navigate(['/entry']);
+            }
+          }, response => {
+            if (this.errors != null)
+              this.errors = [];
+            let resError;
+            for (let i = 0; i < response.error.length; i++) {
+              resError = new ErrorModel();
+              resError.field = (response as HttpErrorResponse).error[i].field;
+              resError.defaultMessage = (response as HttpErrorResponse).error[i].defaultMessage;
+              this.errors.push(resError);
+            }
+          }
+        );
+      } else {
+        alert("Sorry, an error occurred while creating your account. Please try again later.");
+        this.registrationForm.reset();
       }
-    );
+    })
   }
+
+  // createUser() {
+  //   this.user.username = this.registrationForm.controls['username'].value;
+  //   this.user.flName = this.registrationForm.controls['flName'].value;
+  //   this.user.password = this.registrationForm.controls['password'].value;
+  //   this.user.statusUserByIdStatus = {id: 1, status: 'ACTIVE'};
+  //   this.user.roleUserByIdRole = {id: 2, role: 'USER'};
+  //   this.userService.saveUser(this.user).subscribe((data: User) => {
+  //       this.user = data as User;
+  //       if (this.user !== null) {
+  //         this.router.navigate(['/entry']);
+  //       }
+  //     }, response => {
+  //       if (this.errors != null)
+  //         this.errors = [];
+  //       let resError;
+  //       for (let i = 0; i < response.error.length; i++) {
+  //         resError = new ErrorModel();
+  //         resError.field = (response as HttpErrorResponse).error[i].field;
+  //         resError.defaultMessage = (response as HttpErrorResponse).error[i].defaultMessage;
+  //         this.errors.push(resError);
+  //       }
+  //     }
+  //   );
+  // }
 }

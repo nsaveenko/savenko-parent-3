@@ -71,4 +71,14 @@ public class UserController {
     public List<UserEntity> findUserByUsername(@PathVariable(name = "username") String username, @PathVariable(name= "id") int id) {
         return userService.findUserByUsername(username, id);
     }
+
+    @RequestMapping(value = "/exist/{username}", method = RequestMethod.GET)
+    public ResponseEntity<Boolean> isExistByUsername(@PathVariable("username") String username) {
+        return ResponseEntity.ok(userService.isUsernameExist(username));
+    }
+
+    @RequestMapping(value = "/exist/{username}/{password}", method = RequestMethod.GET)
+    public ResponseEntity<Boolean> isExistByUsernameAndPassword(@PathVariable("username") String username, @PathVariable("password") String password) {
+        return ResponseEntity.ok(userService.isUsernameAndPasswordExist(username, password));
+    }
 }

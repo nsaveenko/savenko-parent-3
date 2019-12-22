@@ -70,4 +70,12 @@ export class UserService {
   findUserByUsername(username: string, id: number): Observable<User[]>{
     return this.http.get<User[]>('/api/user/username/'+ '/' + id + '/'+ username);
   }
+
+  isExistByUsername(username: string): Observable<boolean>{
+    return this.http.get<boolean>('/api/user/exist/' + username);
+  }
+
+  isExistByUsernameAndPassword(username: string, password: string): Observable<boolean>{
+    return this.http.get<boolean>('/api/user/exist/' + username + "/" + password);
+  }
 }

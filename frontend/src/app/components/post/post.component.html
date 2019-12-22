@@ -32,7 +32,7 @@
           <div class="col text-muted">{{post.likesCount}} Likes</div>
         </div>
         <div class="input-group-prepend">
-          <form [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
+          <form [formGroup]="form">
             <input id="{{post.id}}" formControlName="comment" type="text" class="form-control inp"
                    placeholder="Add a comment..." #commentField>
           </form>

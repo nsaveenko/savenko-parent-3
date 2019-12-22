@@ -62,4 +62,14 @@ public class UserServiceImpl implements UserService {
     public List<UserEntity> findUserByUsername(String username, int id){
         return repository.findUserByUsername(username, id);
     }
+
+    @Override
+    public boolean isUsernameExist(String username) {
+        return repository.existsUserEntityByUsername(username);
+    }
+
+    @Override
+    public boolean isUsernameAndPasswordExist(String username, String password) {
+        return repository.existsUserEntityByUsernameAndPassword(username, password);
+    }
 }

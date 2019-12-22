@@ -50,34 +50,41 @@ export class EntryComponent implements OnInit {
     return result;
   }
 
-  signIn() {
-    this.subscriptions.push(this.logInService.signIn(this.signInForm.controls['username'].value, this.signInForm.controls['password'].value)
-      .subscribe(signIn => {
-        if (signIn.error == null) {
-          this.errorSignIn = null;
-          localStorage.setItem("token", signIn.token);
-          if (signIn.user) {
-            this.userService.currUser = signIn.user;
-            switch (signIn.user.roleUserByIdRole.id) {
-              case 2:
-                if (signIn.user.statusUserByIdStatus.id === 1) {
-                  this.router.navigate(['/user']);
-                } else {
-                  this.errorMassage = 'Your account was blocked by administration.';
-                  localStorage.clear();
+  signIn(username: string, password: string) {
+    this.subscriptions.push(this.userService.isExistByUsernameAndPassword(username, password).subscribe(isExist => {
+      if (isExist == true) {
+        this.subscriptions.push(this.logInService.signIn(this.signInForm.controls['username'].value, this.signInForm.controls['password'].value)
+          .subscribe(signIn => {
+            if (signIn.error == null) {
+              this.errorSignIn = null;
+              localStorage.setItem("token", signIn.token);
+              if (signIn.user) {
+                this.userService.currUser = signIn.user;
+                switch (signIn.user.roleUserByIdRole.id) {
+                  case 2:
+                    if (signIn.user.statusUserByIdStatus.id === 1) {
+                      this.router.navigate(['/user']);
+                    } else {
+                      this.errorMassage = 'Your account was blocked by administration.';
+                      localStorage.clear();
+                    }
+                    break;
+                  case 1:
+                    this.router.navigate(['/admin']);
+                    break;
                 }
-                break;
-              case 1:
-                this.router.navigate(['/admin']);
-                break;
+              } else {
+                this.errorMassage = 'Incorrect data. Recheck entered data';
+              }
+            } else {
+              this.errorSignIn = signIn.error;
+              this.signInForm.reset();
             }
-          } else {
-            this.errorMassage = 'Incorrect data. Recheck entered data';
-          }
-        } else {
-          this.errorSignIn = signIn.error;
-          this.signInForm.reset();
-        }
-      }));
+          }));
+      } else {
+        alert("The username you entered does not belong to your account. Verify your username and try again.");
+        this.signInForm.reset();
+      }
+    }))
   }
 }

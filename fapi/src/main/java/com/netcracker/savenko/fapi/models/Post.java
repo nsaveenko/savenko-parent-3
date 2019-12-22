@@ -3,19 +3,38 @@ package com.netcracker.savenko.fapi.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.jws.soap.SOAPBinding;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import java.io.File;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Post {
+    @NotEmpty(message = "id is required")
     private int id;
+
+    @NotEmpty(message = "idUser is required")
     private int idUser;
+
+    @NotEmpty(message = "filePath is required")
     private String filePath;
+
+    @NotEmpty(message = "datePost is required")
     private String datePost;
+
+    @NotEmpty(message = "text is required")
+    @Min(1)
+    @Max(200)
     private String text;
+
+    @NotEmpty(message = "file is required")
     private File file;
+
+    @NotEmpty(message = "userByIdUser is required")
     private User userByIdUser;
 
-    public Post() {}
+    public Post() {
+    }
 
     public Post(int id, int idUser, String filePath, String datePost, String text, File file, User userByIdUser) {
         this.id = id;

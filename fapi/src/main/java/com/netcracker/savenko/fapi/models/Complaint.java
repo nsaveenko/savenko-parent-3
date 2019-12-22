@@ -2,14 +2,24 @@ package com.netcracker.savenko.fapi.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 
 public class Complaint {
+    @NotEmpty
     private int id;
+    @NotEmpty
     private int idUser;
+    @NotEmpty
     private String dateComplaint;
+    @NotEmpty
+    @Min(value = 3, message = "Incorrect complaint")
     private String complaint;
+    @NotEmpty
     private int idPost;
+    @NotEmpty
     private int idStatusComplaint;
 
     public Complaint(){}

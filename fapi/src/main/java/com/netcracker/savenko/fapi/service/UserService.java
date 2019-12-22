@@ -14,4 +14,6 @@ public interface UserService {
     List<User> getFollowers(int id);
     List<User> getFollowing(int id);
     List<User> findUserByUsername(String username, int id);
+    boolean isExistByUsername(String username);
+    boolean isExistByUsernameAndPassword(String username, String password);
 }

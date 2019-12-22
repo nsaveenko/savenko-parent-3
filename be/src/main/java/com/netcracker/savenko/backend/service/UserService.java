@@ -15,4 +15,6 @@ public interface UserService {
     List<UserEntity> getFollowersByIdFollowing(int userId);
     void deleteUser(Integer id);
     List<UserEntity> findUserByUsername(String username, int id);
+    boolean isUsernameExist(String username);
+    boolean isUsernameAndPasswordExist(String username, String password);
 }

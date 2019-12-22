@@ -85,4 +85,16 @@ public class UserServiceImpl implements UserService {
         User[] usersResponse = restTemplate.getForObject(backendServerUrl + "/api/user/username/" + id + "/" + username, User[].class);
         return usersResponse == null ? Collections.emptyList() : Arrays.asList(usersResponse);
     }
+
+    @Override
+    public boolean isExistByUsername(String username){
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(backendServerUrl + "api/user/exist/" + username, boolean.class);
+    }
+
+    @Override
+    public boolean isExistByUsernameAndPassword(String username, String password){
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(backendServerUrl + "api/user/exist/" + username + "/" + password, boolean.class);
+    }
 }

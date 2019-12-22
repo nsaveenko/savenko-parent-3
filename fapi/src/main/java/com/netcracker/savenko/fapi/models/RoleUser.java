@@ -2,9 +2,15 @@ package com.netcracker.savenko.fapi.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.validation.constraints.NotEmpty;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RoleUser {
+
+    @NotEmpty(message = "id is required")
     private int id;
+
+    @NotEmpty(message = "role user is required")
     private String roleUser;
 
     public RoleUser(){}

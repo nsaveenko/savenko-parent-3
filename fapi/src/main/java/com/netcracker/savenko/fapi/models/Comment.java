@@ -2,14 +2,31 @@ package com.netcracker.savenko.fapi.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 
 public class Comment {
+
+    @NotEmpty
     private int id;
+
+    @NotEmpty
     private int idPost;
+
+    @Min(value = 3, message = "Incorrect comment")
+    @Max(value = 50, message = "Incorrect comment")
     private String tex;
+
+    @NotEmpty
     private String dataPost;
+
     private int idUser;
+
+    @NotEmpty
     private User userByIdUser;
 
     public Comment(){}

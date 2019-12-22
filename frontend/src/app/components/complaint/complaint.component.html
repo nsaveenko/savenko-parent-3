@@ -1,6 +1,6 @@
 <div class="container">
   <div class="comp">
-    <form [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
+    <form [formGroup]="form">
       <strong class="d-inline-block mb-10 text-dark">{{userService.currUser.username}}</strong>
       <div class="mb-1 text-muted">{{editableComplaint.dateComplaint | date}}</div>
       <br>

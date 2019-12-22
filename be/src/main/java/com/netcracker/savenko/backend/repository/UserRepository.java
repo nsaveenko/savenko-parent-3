@@ -22,4 +22,8 @@ public interface UserRepository extends CrudRepository<UserEntity, Integer> {
 
     @Query(value = "select * from user where username like concat('%', (:username), '%') and id_role = 2 and id_status = 1 and user.id <> (:id)", nativeQuery = true)
     List<UserEntity> findUserByUsername(@Param("username") String username, @Param("id") int id);
+
+    boolean existsUserEntityByUsername(String username);
+
+    boolean existsUserEntityByUsernameAndPassword(String username, String password);
 }

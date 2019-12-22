@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @RestController
@@ -64,5 +65,15 @@ public class UserController {
     @GetMapping("/loadByToken")
     public User loadByToken(@RequestParam String token) {
         return tokenService.loadByToken(token);
+    }
+
+    @RequestMapping(value = "/exist/{username}", method = RequestMethod.GET)
+    public boolean isExistByUsername(@PathVariable String username){
+        return userService.isExistByUsername(username);
+    }
+
+    @RequestMapping(value = "/exist/{username}/{password}", method = RequestMethod.GET)
+    public boolean isExistByUsername(@PathVariable String username, @PathVariable String password){
+        return userService.isExistByUsernameAndPassword(username, password);
     }
 }

@@ -34,16 +34,12 @@ export class ComplaintComponent implements OnInit {
       complaint: new FormControl("", [
           Validators.required,
           Validators.minLength(3),
-          Validators.maxLength(50),
-          //Validators.pattern('^[A-Z\'\\-.,:;a-z0-9]{1}[A-Z \'\\-.,:;a-z0-9]+$'),
+          Validators.maxLength(200),
+          Validators.pattern('^[A-Z\'\\-.,:!?;a-z0-9]{1}[A-Z \'\\-.,:!?;a-z0-9]+$'),
         ]
       ),
       isRemember: new FormControl()
     });
-  }
-
-  onSubmit() {
-    alert(JSON.stringify(this.form.value));
   }
 
   public _addComplaint(textValue: string): void {

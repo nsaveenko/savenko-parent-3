@@ -2,13 +2,27 @@ package com.netcracker.savenko.fapi.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
+    @NotEmpty(message = "id is required")
     private int id;
+
+    @NotEmpty(message = "username is required")
     private String username;
+
+    @NotEmpty(message = "flName is required")
     private String flName;
+
+    @NotEmpty(message = "password is required")
     private String password;
+
+    @NotEmpty(message = "roleUserByIdRole is required")
     private RoleUser roleUserByIdRole;
+
+    @NotEmpty(message = "statusUserByIdStatus is required")
     private StatusUser statusUserByIdStatus;
 
     public User(){}
