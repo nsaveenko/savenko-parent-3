@@ -22,7 +22,9 @@
         </p>
         <p class="mb">{{post.text}}</p>
         <div class="container mb-auto comment">
+
           <app-comment [selectedPost]="post" [commentId]="commentId"></app-comment>
+
         </div>
         <div class="mb-1 text-muted">{{post.datePost | date}}</div>
         <div class="row">
@@ -36,6 +38,10 @@
             <input id="{{post.id}}" formControlName="comment" type="text" class="form-control inp"
                    placeholder="Add a comment..." #commentField>
           </form>
+<!--          <div class="alert alert-danger"-->
+<!--               *ngIf="errorsMapComment['name'] != undefined">-->
+<!--            {{errorsMapComment['name']}}-->
+<!--          </div>-->
           <button class="input-group-text btn-light" [disabled]="form.invalid"
                   (click)="_addComment(post.id, commentField.value)">
             Add

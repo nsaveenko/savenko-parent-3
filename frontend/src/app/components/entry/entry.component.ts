@@ -31,7 +31,8 @@ export class EntryComponent implements OnInit {
       username: new FormControl("", [
           Validators.required,
           Validators.minLength(5),
-          Validators.maxLength(25)
+          Validators.maxLength(25),
+          Validators.pattern('^[A-Z0-9a-z\_]+$')
         ]
       ),
       password: new FormControl("", [
@@ -50,9 +51,10 @@ export class EntryComponent implements OnInit {
     return result;
   }
 
-  signIn(username: string, password: string) {
-    this.subscriptions.push(this.userService.isExistByUsernameAndPassword(username, password).subscribe(isExist => {
-      if (isExist == true) {
+  signIn(username: string) {
+    //debugger;
+    this.subscriptions.push(this.userService.isExistByUsername(username).subscribe(isExist => {
+      if (isExist === true) {
         this.subscriptions.push(this.logInService.signIn(this.signInForm.controls['username'].value, this.signInForm.controls['password'].value)
           .subscribe(signIn => {
             if (signIn.error == null) {

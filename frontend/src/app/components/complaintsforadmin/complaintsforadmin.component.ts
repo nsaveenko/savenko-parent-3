@@ -27,6 +27,7 @@ export class ComplaintsforadminComponent implements OnInit {
   private subs: any;
   private size: number = 2;
   private page: RestPageModel;
+  complaintCount: number;
 
   constructor(private complaintService: ComplaintService,
               private userService: UserService,
@@ -94,6 +95,14 @@ export class ComplaintsforadminComponent implements OnInit {
     this.subscriptions.push(this.complaintService.deletePost(postId).subscribe(() => {
       this._updateComplaint(statusId);
     }));
+  }
+
+
+  public loadComplaintByPostId(postId:number): void{
+    this.complaintService.getComplaintOnPost(postId).subscribe((complaints) =>{
+      //this.complaintCount = complaints.length;
+      alert(complaints.length);
+    })
   }
 
   // private loadComplaintByStatusId(id: number): void {

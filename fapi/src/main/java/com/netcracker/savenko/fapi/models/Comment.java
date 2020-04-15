@@ -11,22 +11,20 @@ import javax.validation.constraints.NotEmpty;
 
 public class Comment {
 
-    @NotEmpty
+    @Min(value = 0, message = "err")
     private int id;
 
-    @NotEmpty
+    @Min(value = 0, message = "err")
     private int idPost;
 
-    @Min(value = 3, message = "Incorrect comment")
-    @Max(value = 50, message = "Incorrect comment")
+    @NotEmpty(message = "err")
     private String tex;
 
-    @NotEmpty
+    @NotEmpty(message = "err")
     private String dataPost;
 
     private int idUser;
 
-    @NotEmpty
     private User userByIdUser;
 
     public Comment(){}

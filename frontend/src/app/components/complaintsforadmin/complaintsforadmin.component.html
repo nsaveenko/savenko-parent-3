@@ -24,10 +24,13 @@
         <div class="col">
           <button class="btn btn-danger co" (click)="_deleteComplaint(complaint.id, complaint.idStatusComplaint)">Delete report</button>
         </div>
+
       </div>
       <br>
       <div class="row">
-
+        <div class="col">
+          <button class="btn btn-danger co" (click)="loadComplaintByPostId(complaint.idPost)">Count Complaint on this post</button>
+        </div>
         <div class="col">
           <button class="btn btn-danger co" (click)="changeStatusComplaint(complaint.id)" *ngIf="complaint.idStatusComplaint===2" >
             Mark as viewed

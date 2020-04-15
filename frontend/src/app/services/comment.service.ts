@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Comment} from "../models/Comment";
 import {RestPageModel} from "../models/RestPage.model";
+import {commentOrErrorsModel} from "../models/commentOrErrorsModel";
 
 @Injectable()
 export class CommentService {
@@ -12,6 +13,10 @@ export class CommentService {
 
   // getAllComment(): Observable<Comment[]> {
   //   return this.http.get<Comment[]>('/api/comment/');
+  // }
+
+  // saveComment(comment: Comment): Observable<commentOrErrorsModel> {
+  //   return this.http.post<commentOrErrorsModel>('/api/comment', comment);
   // }
 
   saveComment(comment: Comment): Observable<Comment> {

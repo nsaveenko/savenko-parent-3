@@ -43,6 +43,8 @@ export class PostComponent implements OnInit, OnChanges {
   public commentId;
   form: FormGroup;
   message: string;
+  errorsMapComment: Map<string, string> = new Map<string, string>();
+  commentCreatedFlag: boolean = false;
 
   constructor(private postService: PostService,
               private userService: UserService,
@@ -59,7 +61,7 @@ export class PostComponent implements OnInit, OnChanges {
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(50),
-          Validators.pattern('^[A-Z\'\\-.,:!?;a-z0-9]{1}[A-Z \'\\-.,:!?;a-z0-9]+$'),
+          Validators.pattern('^[A-Z\'\\-.,:)(!?;a-z0-9]{1}[A-Z \'\\-.,:)(!?;a-z0-9]+$'),
         ]
       ),
       isRemember: new FormControl()
@@ -168,6 +170,35 @@ export class PostComponent implements OnInit, OnChanges {
     this.postService.currPost = post;
     this.router.navigate(['complaint']);
   }
+
+  // _addComment(postId: number, textValue: string): void {
+  //   this.errorsMapComment = new Map<string, string>();
+  //   this.editableComment.dataPost = Date.now();
+  //   this.editableComment.idPost = postId;
+  //   this.editableComment.tex = textValue;
+  //   this.editableComment.userByIdUser = this.userService.currUser;
+  //   this.subscriptions.push(this.commentService.saveComment(this.editableComment).subscribe(commentOrErrors => {
+  //     if (commentOrErrors.errors != null) {
+  //       //this.commentId = commentOrErrors.commentModel.id;
+  //       this.errorsMapComment = commentOrErrors.errors;
+  //     } else {
+  //       this.commentCreatedFlag = true;
+  //     }
+  //     //this.commentId = commentOrErrors.commentModel.id;
+  //   }));
+  //   this.form.reset();
+  // }
+
+  // _addComment(postId: number, textValue: string): void {
+  //   this.editableComment.dataPost = Date.now();
+  //   this.editableComment.idPost = postId;
+  //   this.editableComment.tex = textValue;
+  //   this.editableComment.userByIdUser = this.userService.currUser;
+  //   this.subscriptions.push(this.commentService.saveComment(this.editableComment).subscribe(com => {
+  //     this.commentId = com.comment.id;
+  //   }));
+  //   this.form.reset();
+  // }
 
   _addComment(postId: number, textValue: string): void {
     this.editableComment.dataPost = Date.now();

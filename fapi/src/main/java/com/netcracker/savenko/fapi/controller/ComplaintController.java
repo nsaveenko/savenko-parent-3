@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 @RestController
@@ -22,6 +23,11 @@ public class ComplaintController {
             return ResponseEntity.ok(complaintService.saveComplaint(complaint));
         }
         return null;
+    }
+
+    @RequestMapping(value = "/post/{id}",method = RequestMethod.GET)
+    public ResponseEntity<List<Complaint>> getComplaintOnPosts(@PathVariable int id){
+        return ResponseEntity.ok(complaintService.getComplaintOnPosts(id));
     }
 
 //    @RequestMapping(method = RequestMethod.GET)

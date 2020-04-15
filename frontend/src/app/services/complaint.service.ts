@@ -37,17 +37,22 @@ export class ComplaintService {
 
   // Ajax request for billing account data
   getComplaintsByStatusId(id: number, page: number, size: number): Observable<RestPageModel> {
-    return this.http.get<RestPageModel>("/api/complaint/status?id="+ id + "&page=" + page + "&size=" + size);
+    return this.http.get<RestPageModel>("/api/complaint/status?id=" + id + "&page=" + page + "&size=" + size);
   }
 
-  getUserIdByPostId(postId: number): Observable<number>{
+  getUserIdByPostId(postId: number): Observable<number> {
     return this.http.get<number>('api/complaint/user/post/' + postId);
   }
 
-  getUsernameByComplaintId(complaintId: number): Observable<string>{
-    return  this.http.get<string>('api/complaint/username/' + complaintId);
+  getUsernameByComplaintId(complaintId: number): Observable<string> {
+    return this.http.get<string>('api/complaint/username/' + complaintId);
   }
-  getStatusComplaint(complaintId: number): Observable<string>{
-    return  this.http.get<string>('api/statusComplaint/username/' + complaintId);
+
+  getStatusComplaint(complaintId: number): Observable<string> {
+    return this.http.get<string>('api/statusComplaint/username/' + complaintId);
+  }
+
+  getComplaintOnPost(postId: number): Observable<Complaint[]> {
+    return this.http.get<Complaint[]>('api/complaint/post/' + postId);
   }
 }

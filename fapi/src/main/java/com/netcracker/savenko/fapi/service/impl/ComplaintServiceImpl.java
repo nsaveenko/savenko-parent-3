@@ -41,6 +41,12 @@ public class ComplaintServiceImpl implements ComplaintService {
 //        Complaint[] postResponse = restTemplate.getForObject(backendServerUrl + "api/complaint/status/" + id, Complaint[].class);
 //        return postResponse == null ? Collections.emptyList() : Arrays.asList(postResponse);
 //    }
+    @Override
+    public List<Complaint> getComplaintOnPosts(int id){
+        RestTemplate restTemplate = new RestTemplate();
+        Complaint[] complaints = restTemplate.getForObject(backendServerUrl + "api/complaint/post/" + id, Complaint[].class);
+        return complaints == null ? Collections.emptyList() : Arrays.asList(complaints);
+    }
 
     @Override
     public Page<Complaint> getComplaintByStatusId(int id, Integer page, Integer size) {

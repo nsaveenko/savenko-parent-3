@@ -2,12 +2,13 @@ package com.netcracker.savenko.fapi.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class StatusUser {
 
-    @NotEmpty(message = "id is required")
+    @Min(value = 0, message = "err")
     private int id;
 
     @NotEmpty(message = "status user is required")

@@ -24,8 +24,12 @@
     <br>
     <div *ngIf="errorMassage!=null" class="alert alert-danger">{{errorMassage}}</div>
     <br>
+    <div class="alert alert-danger"
+         *ngIf="errorSignIn != undefined">
+      {{errorSignIn}}
+    </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit"
-            [disabled]="signInForm.invalid || errorMassage!=null" (click)="signIn(username.value, password.value)">
+            [disabled]="signInForm.invalid || errorMassage!=null" (click)="signIn(username.value)">
       To come in
     </button>
 

@@ -11,6 +11,7 @@ import {map, tap} from "rxjs/operators";
 import {RestPageModel} from "../../models/RestPage.model";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
+import {commentOrErrorsModel} from "../../models/commentOrErrorsModel";
 
 @Component({
   selector: 'app-comment',
@@ -27,7 +28,7 @@ export class CommentComponent implements OnInit {
     this._updateComment();
   };
 
-  public comments: Comment[];
+  public comments: commentOrErrorsModel[];
   public posts: Post[];
   private subscriptions: Subscription[] = [];
   public currentPage: number = 1;

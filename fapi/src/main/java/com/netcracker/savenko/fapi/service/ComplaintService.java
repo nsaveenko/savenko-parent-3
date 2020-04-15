@@ -16,4 +16,5 @@ public interface ComplaintService {
     Integer getUserId(int id);
     String getStatusComplaint(int id);
     String getUsernameByComplaintId(int id);
+    List<Complaint> getComplaintOnPosts(int id);
 }
