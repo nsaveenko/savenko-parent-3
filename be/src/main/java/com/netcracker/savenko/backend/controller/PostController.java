@@ -22,6 +22,11 @@ public class PostController {
         this.postService = postService;
     }
 
+    @RequestMapping(value = "complaint/{postId}/{complaintId}", method = RequestMethod.GET)
+    public PostEntity getPostById(@PathVariable(name = "postId") int postId, @PathVariable(name = "complaintId") int complaintId){
+        return postService.getPostByPostIdAndComplaintId(postId, complaintId);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<PostEntity> getPostById(@PathVariable(name = "id") Integer id) {
         Optional<PostEntity> post = postService.getPostById(id);
@@ -56,16 +61,6 @@ public class PostController {
     public List<PostEntity> getPostByCurrUser(@PathVariable(name = "id") int userId) {
         return postService.getPostByCurrUser(userId);
     }
-
-//    @RequestMapping(value = "/currUser", method = RequestMethod.GET)
-//    public Page<PostEntity> getPostByCurrUser(@RequestParam int id, @RequestParam int page, @RequestParam int size) {
-//        return postService.getPostByCurrUser(id, page, size);
-//    }
-//
-//    @RequestMapping(value = "/followers", method = RequestMethod.GET)
-//    public Page<PostEntity> getPostBySub(@RequestParam int id, @RequestParam int page, @RequestParam int size) {
-//        return postService.getPostBySub(id, page, size);
-//    }
 
     @RequestMapping(value = "/count/user/{id}", method = RequestMethod.GET)
     public Integer countPostByUserId(@PathVariable(name = "id") int userId) {

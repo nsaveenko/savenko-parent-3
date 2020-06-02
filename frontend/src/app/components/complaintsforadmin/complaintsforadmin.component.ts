@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Complaint} from "../../models/Complaint";
 import {Subscription} from "rxjs";
 import {ComplaintService} from "../../services/complaint.service";
-import {Post} from "../../models/Post";
 import {PostService} from "../../services/post.service";
 import {UserService} from "../../services/user.service";
 import {User} from "../../models/User";
@@ -27,7 +26,6 @@ export class ComplaintsforadminComponent implements OnInit {
   private subs: any;
   private size: number = 2;
   private page: RestPageModel;
-  complaintCount: number;
 
   constructor(private complaintService: ComplaintService,
               private userService: UserService,
@@ -100,58 +98,7 @@ export class ComplaintsforadminComponent implements OnInit {
 
   public loadComplaintByPostId(postId:number): void{
     this.complaintService.getComplaintOnPost(postId).subscribe((complaints) =>{
-      //this.complaintCount = complaints.length;
       alert(complaints.length);
     })
   }
-
-  // private loadComplaintByStatusId(id: number): void {
-  //   this.subscriptions.push(this.complaintService.getComplaintsByStatusId(id)
-  //     .subscribe(complaints => {
-  //       this.complaints = complaints;
-  //     }));
-  // }
-
-  // private blockUserByPostId(id: number): void {
-  //   this.subscriptions.push(this.complaintService.getUserIdByPostId(id)
-  //     .subscribe(userId => {
-  //       this.userId = userId;
-  //       this.subscriptions.push(this.userService.getUserById(userId).subscribe(user => {
-  //         this.statusUser = user.statusUserByIdStatus.status;
-  //         this.editableUser.id = user.id;
-  //         this.editableUser.username = user.username;
-  //         this.editableUser.flName = user.flName;
-  //         this.editableUser.password = user.password;
-  //         this.editableUser.roleUserByIdRole = user.roleUserByIdRole;
-  //         switch (user.statusUserByIdStatus.id) {
-  //           case 1:
-  //             this.editableUser.statusUserByIdStatus = {id: 2, status: 'BLOCK'};
-  //             this.subscriptions.push(this.userService.saveUser(this.editableUser)
-  //               .subscribe((user: User) => {
-  //                 this._updateComplaintByStatusId(2);
-  //               }));
-  //             break;
-  //           case 2:
-  //             this.editableUser.statusUserByIdStatus = {id: 1, status: 'ACTIVE'};
-  //             this.subscriptions.push(this.userService.saveUser(this.editableUser)
-  //               .subscribe((user: User) => {
-  //                 this._updateComplaintByStatusId(2);
-  //               }));
-  //             break;
-  //         }
-  //       }))
-  //     }))
-  // }
-
-  // public getUsername(id: number): void {
-  //   this.subscriptions.push(this.complaintService.getUsernameByComplaintId(id).subscribe(username => {
-  //     this.complaint.username = username;
-  //   }))
-  // }
-
-  // public getComplaintById(id: number): void{
-  //   this.subscriptions.push(this.complaintService.getComplaintById(id).subscribe(complaint =>{
-  //     this.complaintId = complaint.id;
-  //   }))
-  // }
 }

@@ -2,10 +2,9 @@ package com.netcracker.savenko.backend.service.impl;
 
 import com.netcracker.savenko.backend.entity.ComplaintEntity;
 import com.netcracker.savenko.backend.entity.PostEntity;
-import com.netcracker.savenko.backend.entity.UserEntity;
 import com.netcracker.savenko.backend.repository.ComplaintRepository;
+import com.netcracker.savenko.backend.repository.PostRepository;
 import com.netcracker.savenko.backend.service.ComplaintService;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +25,11 @@ public class ComplaintServiceImpl implements ComplaintService {
     }
 
     @Override
+    public List<ComplaintEntity> getComplaintOnPosts(int id) {
+        return repository.getComplaintOnPost(id);
+    }
+
+    @Override
     public ComplaintEntity saveComplaint(ComplaintEntity complaint) {
         return repository.save(complaint);
     }
@@ -34,11 +38,6 @@ public class ComplaintServiceImpl implements ComplaintService {
     public Optional<ComplaintEntity> getComplaintById(Integer id) {
         return repository.findById(id);
     }
-
-//    @Override
-//    public List<ComplaintEntity> getComplaintByStatusId(int id) {
-//        return repository.getComplaintByStatusId(id);
-//    }
 
     @Override
     public Page<ComplaintEntity> getComplaintByStatusId(int id, Integer page, Integer size) {
@@ -81,5 +80,4 @@ public class ComplaintServiceImpl implements ComplaintService {
         pageable = PageRequest.of(page, size);
         return pageable;
     }
-
 }

@@ -40,7 +40,6 @@ import {AuthGuardService} from "./services/guards/guard.service";
 import {AdminGuardService} from "./services/guards/admin.guard.service";
 import {UserGuardService} from "./services/guards/user.guard.service";
 import {NotAuthGuardService} from "./services/guards/notAuth.guard.service";
-import {ComplaintAndPostComponent} from "./components/ComplaintAndPost/complaintAndPost.component";
 
 const appRoutes: Routes = [
   {path: "", component: FeedComponent, canActivate: [AuthGuardService, UserGuardService]},
@@ -52,7 +51,6 @@ const appRoutes: Routes = [
   {path: "admin", component: AdminComponent, canActivate: [AuthGuardService, AdminGuardService]},
   {path: "otherUser", component: OtherUserComponent, canActivate: [AuthGuardService, UserGuardService]},
   {path: "findUsers", component: FindUsersComponent, canActivate: [AuthGuardService, UserGuardService]},
-  {path: "complaintAndPost", component: ComplaintAndPostComponent, canActivate: [AuthGuardService, AdminGuardService]},
   {path: "**", component: NotFoundComponent}
 ];
 
@@ -75,8 +73,7 @@ const appRoutes: Routes = [
     SubscriberComponent,
     OtherUserComponent,
     NotFoundComponent,
-    FindUsersComponent,
-    ComplaintAndPostComponent,
+    FindUsersComponent
   ],
   imports: [
     BrowserModule,

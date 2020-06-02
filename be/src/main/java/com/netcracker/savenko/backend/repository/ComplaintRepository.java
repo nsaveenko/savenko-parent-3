@@ -1,11 +1,15 @@
 package com.netcracker.savenko.backend.repository;
 
 import com.netcracker.savenko.backend.entity.ComplaintEntity;
+import com.netcracker.savenko.backend.entity.PostEntity;
+import com.netcracker.savenko.backend.model.Posts;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 @Repository
 public interface ComplaintRepository extends PagingAndSortingRepository<ComplaintEntity, Integer> {
@@ -13,16 +17,6 @@ public interface ComplaintRepository extends PagingAndSortingRepository<Complain
     @Query(value = "select * from complaint where id_status_complaint = (?1) " +
             "order by complaint.date_complaimnt desc", nativeQuery = true)
     Page<ComplaintEntity> getComplaintByStatusId(int id, Pageable pageable);
-
-//    @Query(value = "select complaint.* from complaint where id_status_complaint = (?1) " +
-//            "order by complaint.date_complaimnt desc", nativeQuery = true)
-//    List<ComplaintEntity> getComplaintByStatusId(int id);
-
-//    @Query(value = "select user.* from complaint " +
-////            "join post on complaint.id_post = post.id " +
-////            "join user on post.id_user = user.id " +
-////            "where complaint.id_post=(?1)", nativeQuery = true)
-////    List<UserEntity> getUserByPostIdAndComplaintId(int id);
 
     @Query(value = "select user.id from complaint " +
             "join post on complaint.id_post = post.id " +
@@ -40,5 +34,11 @@ public interface ComplaintRepository extends PagingAndSortingRepository<Complain
             "where complaint.id = (?1)", nativeQuery = true)
     String getUsernameByComplaintId(int id);
 
+    @Query(value = "select complaint.* from complaint where id_post=(?1); ", nativeQuery = true)
+    List<ComplaintEntity> getComplaintOnPost(int id);
+
+    @Query(value = "select post.* from post join complaint on complaint.id_post = post.id " +
+            "where complaint.id_post=(:postId) and complaint.id=(:complaintId)", nativeQuery = true)
+    PostEntity getPostByPostIdAndComplaintId(int postId, int complaintId);
 
 }

@@ -27,6 +27,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public PostEntity getPostByPostIdAndComplaintId(int postId, int complaintId){
+        return repository.getPostByPostIdAndComplaintId(postId, complaintId);
+    }
+
+    @Override
     public PostEntity savePost(PostEntity post) {
         return repository.save(post);
     }
@@ -46,18 +51,6 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostEntity> getPostByCurrUser(int userId){return repository.findPostByCurrUser(userId);}
-
-//    @Override
-//    public Page<PostEntity> getPostBySub(int id, Integer page, Integer size) {
-//        Pageable pageable = createPageable(page, size);
-//        return repository.findPostBySub(id, pageable);
-//    }
-//
-//    @Override
-//    public Page<PostEntity> getPostByCurrUser(int id, Integer page, Integer size) {
-//        Pageable pageable = createPageable(page, size);
-//        return repository.findPostByCurrUser(id, pageable);
-//    }
 
     @Override
     public Iterable<PostEntity> getAllPost() {

@@ -3,6 +3,7 @@ package com.netcracker.savenko.backend.service;
 import com.netcracker.savenko.backend.entity.ComplaintEntity;
 import com.netcracker.savenko.backend.entity.PostEntity;
 import com.netcracker.savenko.backend.entity.UserEntity;
+import com.netcracker.savenko.backend.model.Posts;
 import org.apache.catalina.User;
 import org.springframework.data.domain.Page;
 
@@ -15,9 +16,9 @@ public interface ComplaintService {
     void deleteComplaint(Integer id);
     void deletePost(Integer idPost);
     Iterable<ComplaintEntity> getAllComplaint();
-    //List<ComplaintEntity> getComplaintByStatusId(int id);
     Page<ComplaintEntity> getComplaintByStatusId(int id, Integer page, Integer size);
     Integer getUserId(int id);
     String getStatusComplaintId(int id);
     String getUsernameByComplaintId(int id);
+    List<ComplaintEntity> getComplaintOnPosts(int id);
 }

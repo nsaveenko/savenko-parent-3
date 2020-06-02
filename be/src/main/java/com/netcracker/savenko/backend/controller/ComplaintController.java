@@ -1,7 +1,9 @@
 package com.netcracker.savenko.backend.controller;
 
 import com.netcracker.savenko.backend.entity.ComplaintEntity;
+import com.netcracker.savenko.backend.entity.PostEntity;
 import com.netcracker.savenko.backend.entity.UserEntity;
+import com.netcracker.savenko.backend.model.Posts;
 import com.netcracker.savenko.backend.service.ComplaintService;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,11 +61,6 @@ public class ComplaintController {
         return complaintService.getComplaintByStatusId(id, page, size);
     }
 
-//    @RequestMapping(value = "/status/{id}", method = RequestMethod.GET)
-//    public List<ComplaintEntity> getComplainByStatusId(@PathVariable(name = "id") int id) {
-//        return complaintService.getComplaintByStatusId(id);
-//    }
-
     @RequestMapping(value = "user/post/{id}")
     public Integer getUser(@PathVariable(name = "id") int id) {
         return complaintService.getUserId(id);
@@ -79,4 +76,8 @@ public class ComplaintController {
         return complaintService.getUsernameByComplaintId(id);
     }
 
+    @RequestMapping(value = "countPost/{id}", method = RequestMethod.GET)
+    public List<ComplaintEntity> getCountComplaintOfPost(@PathVariable(name = "id") int id){
+        return complaintService.getComplaintOnPosts(id);
+    }
 }

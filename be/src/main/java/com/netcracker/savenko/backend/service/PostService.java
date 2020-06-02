@@ -14,8 +14,7 @@ public interface PostService {
     Iterable<PostEntity> getAllPost();
     List<PostEntity> getPostBySub(int userId);
     List<PostEntity> getPostByCurrUser(int userId);
-//    Page<PostEntity> getPostBySub(int id, Integer page, Integer size);
-//    Page<PostEntity> getPostByCurrUser(int id, Integer page, Integer size);
     void deletePost(Integer id);
     Integer countPostByUserId(int userId);
+    PostEntity getPostByPostIdAndComplaintId(int postId, int complaintId);
 }
