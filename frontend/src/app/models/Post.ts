@@ -10,5 +10,4 @@ export class Post {
   userByIdUser: User;
   isLiked: boolean;
   likesCount: number;
-  postsCount: number;
 }

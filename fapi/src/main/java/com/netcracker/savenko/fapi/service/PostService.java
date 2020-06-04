@@ -9,10 +9,9 @@ public interface PostService {
     List<Post> getAll();
     List<Post> getPostBySub(int userId);
     List<Post> getPostByCurrUser(int userId);
-//    Page<Post> getPostBySub(int id, Integer page, Integer size);
-//    Page<Post> getPostByCurrUser(int id, Integer page, Integer size);
     Post getPostById(Integer id);
     Post savePost(Post post);
     void deletePost(Integer idPost);
     Integer getCountPostByUserId(Integer id);
+    Post getPostByPostIdAndComplaintId(int postId, int complaintId);
 }

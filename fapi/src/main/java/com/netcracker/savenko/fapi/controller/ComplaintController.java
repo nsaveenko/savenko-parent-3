@@ -20,6 +20,7 @@ public class ComplaintController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Complaint> saveComplaint(@RequestBody Complaint complaint /*todo server validation*/) {
         if (complaint != null) {
+            System.out.println("test" + complaint);
             return ResponseEntity.ok(complaintService.saveComplaint(complaint));
         }
         return null;
@@ -29,16 +30,6 @@ public class ComplaintController {
     public ResponseEntity<List<Complaint>> getComplaintOnPosts(@PathVariable int id){
         return ResponseEntity.ok(complaintService.getComplaintOnPosts(id));
     }
-
-//    @RequestMapping(method = RequestMethod.GET)
-//    public ResponseEntity<List<Complaint>> getAllComplaint() {
-//        return ResponseEntity.ok(complaintService.getAll());
-//    }
-//
-//    @RequestMapping(value = "/status/{id}", method = RequestMethod.GET)
-//    public ResponseEntity<List<Complaint>> getComplaintByStatusId(@PathVariable int id){
-//        return ResponseEntity.ok(complaintService.getComplaintByStatusId(id));
-//    }
 
     @RequestMapping(value = "/status", method = RequestMethod.GET)
     public Page<Complaint> getComplaintByStatusId(@RequestParam int id, @RequestParam int page, @RequestParam int size) {

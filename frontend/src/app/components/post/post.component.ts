@@ -95,24 +95,6 @@ export class PostComponent implements OnInit, OnChanges {
     }
   }
 
-  // pageChanged(event: PageChangedEvent) {
-  //   this.currentPage = event.page;
-  //   console.log(this.currentPage);
-  //   this.getPostBySub(this.currentPage);
-  // }
-
-  // private getPostBySub(page: number) {
-  //   this.currentPage = page;
-  //   console.log(this.currentPage);
-  //   this.postService.getPostBySub(this.userService.currUser.id, this.currentPage - 1, this.size)
-  //     .subscribe((pageModel: RestPageModel) => {
-  //       this.page = pageModel;
-  //       this.posts = pageModel.content;
-  //       this.subs.length = pageModel.content.length;
-  //       this.loadLike();
-  //     });
-  // }
-
   public _updatePostCurrUser(): void {
     this.loadPostByCurrUser();
   }
@@ -153,7 +135,6 @@ export class PostComponent implements OnInit, OnChanges {
   private loadPostOtherUser(): void {
     this.subscriptions.push(this.postService.getPostByCurrUser(this.selectedUserId)
       .subscribe(posts => {
-        // this._updateUser(this.selectedUserId);
         if (posts.length !== 0) {
           this.posts = posts;
           this.loadLike();
@@ -170,35 +151,6 @@ export class PostComponent implements OnInit, OnChanges {
     this.postService.currPost = post;
     this.router.navigate(['complaint']);
   }
-
-  // _addComment(postId: number, textValue: string): void {
-  //   this.errorsMapComment = new Map<string, string>();
-  //   this.editableComment.dataPost = Date.now();
-  //   this.editableComment.idPost = postId;
-  //   this.editableComment.tex = textValue;
-  //   this.editableComment.userByIdUser = this.userService.currUser;
-  //   this.subscriptions.push(this.commentService.saveComment(this.editableComment).subscribe(commentOrErrors => {
-  //     if (commentOrErrors.errors != null) {
-  //       //this.commentId = commentOrErrors.commentModel.id;
-  //       this.errorsMapComment = commentOrErrors.errors;
-  //     } else {
-  //       this.commentCreatedFlag = true;
-  //     }
-  //     //this.commentId = commentOrErrors.commentModel.id;
-  //   }));
-  //   this.form.reset();
-  // }
-
-  // _addComment(postId: number, textValue: string): void {
-  //   this.editableComment.dataPost = Date.now();
-  //   this.editableComment.idPost = postId;
-  //   this.editableComment.tex = textValue;
-  //   this.editableComment.userByIdUser = this.userService.currUser;
-  //   this.subscriptions.push(this.commentService.saveComment(this.editableComment).subscribe(com => {
-  //     this.commentId = com.comment.id;
-  //   }));
-  //   this.form.reset();
-  // }
 
   _addComment(postId: number, textValue: string): void {
     this.editableComment.dataPost = Date.now();

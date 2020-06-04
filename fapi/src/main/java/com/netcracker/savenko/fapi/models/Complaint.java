@@ -18,18 +18,18 @@ public class Complaint {
     @Min(value = 3, message = "Incorrect complaint")
     private String complaint;
     @NotEmpty
-    private int idPost;
+    private int postId;
     @NotEmpty
     private int idStatusComplaint;
 
     public Complaint(){}
 
-    public Complaint(int id, int idUser, String dateComplaint, String complaint, int idPost, int idStatusComplaint) {
+    public Complaint(int id, int idUser, String dateComplaint, String complaint, int postId, int idStatusComplaint) {
         this.id = id;
         this.idUser = idUser;
         this.dateComplaint = dateComplaint;
         this.complaint = complaint;
-        this.idPost = idPost;
+        this.postId = postId;
         this.idStatusComplaint = idStatusComplaint;
     }
 
@@ -65,13 +65,13 @@ public class Complaint {
         this.complaint = complaint;
     }
 
-    public int getIdPost() {
-        return idPost;
+    public int getPostId() {
+        return postId;
     }
 
-//    public void setIdPost(int idPost) {
-//        this.idPost = idPost;
-//    }
+    public void setPost(int postId) {
+        this.postId = postId;
+    }
 
     public int getIdStatusComplaint() {
         return idStatusComplaint;

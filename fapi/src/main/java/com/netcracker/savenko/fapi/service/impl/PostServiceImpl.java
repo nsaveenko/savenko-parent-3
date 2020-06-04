@@ -41,22 +41,6 @@ public class PostServiceImpl implements PostService {
         return postResponse == null ? Collections.emptyList() : Arrays.asList(postResponse);
     }
 
-//    @Override
-//    public Page<Post> getPostBySub(int id, Integer page, Integer size) {
-//        RestTemplate restTemplate = new RestTemplate();
-//        Page<Post> comments = restTemplate.getForObject(backendServerUrl + "api/post/followers?id=" + id + "&page=" + page + "&size=" + size, RestPageImpl.class);
-//        Pageable pageable = createPageable(page, size);
-//        return PageableExecutionUtils.getPage(comments.getContent(), pageable, comments::getTotalElements);
-//    }
-//
-//    @Override
-//    public Page<Post> getPostByCurrUser(int id, Integer page, Integer size) {
-//        RestTemplate restTemplate = new RestTemplate();
-//        Page<Post> comments = restTemplate.getForObject(backendServerUrl + "api/post/currUser?id=" + id + "&page=" + page + "&size=" + size, RestPageImpl.class);
-//        Pageable pageable = createPageable(page, size);
-//        return PageableExecutionUtils.getPage(comments.getContent(), pageable, comments::getTotalElements);
-//    }
-
     @Override
     public Post getPostById(Integer id) {
         RestTemplate restTemplate = new RestTemplate();
@@ -83,6 +67,12 @@ public class PostServiceImpl implements PostService {
     public void deletePost(Integer id) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.delete(backendServerUrl + "/api/post/" + id);
+    }
+
+    @Override
+    public Post getPostByPostIdAndComplaintId(int postId, int complaintId){
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(backendServerUrl + "/api/post/complaint/" + postId + "/" + complaintId, Post.class);
     }
 
     private Pageable createPageable(Integer page, Integer size) {

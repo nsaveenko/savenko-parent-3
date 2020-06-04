@@ -2,7 +2,6 @@ package com.netcracker.savenko.backend.repository;
 
 import com.netcracker.savenko.backend.entity.ComplaintEntity;
 import com.netcracker.savenko.backend.entity.PostEntity;
-import com.netcracker.savenko.backend.model.Posts;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;

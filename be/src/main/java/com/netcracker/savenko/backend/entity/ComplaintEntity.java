@@ -11,7 +11,7 @@ public class ComplaintEntity {
     private Integer idUser;
     private Date dateComplaint;
     private String complaint;
-    private Integer idPost;
+    private int postId;
     private Integer idStatusComplaint;
 
     @Id
@@ -57,12 +57,12 @@ public class ComplaintEntity {
 
     @Basic
     @Column(name = "id_post")
-    public Integer getIdPost() {
-        return idPost;
+    public int getPostId() {
+        return postId;
     }
 
-    public void setIdPost(Integer idPost) {
-        this.idPost = idPost;
+    public void setPostId(int postId) {
+        this.postId = postId;
     }
 
     @Basic
@@ -84,12 +84,12 @@ public class ComplaintEntity {
                 Objects.equals(idUser, that.idUser) &&
                 Objects.equals(dateComplaint, that.dateComplaint) &&
                 Objects.equals(complaint, that.complaint) &&
-                Objects.equals(idPost, that.idPost) &&
+                Objects.equals(postId, that.postId) &&
                 Objects.equals(idStatusComplaint, that.idStatusComplaint);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idUser, dateComplaint, complaint, idPost, idStatusComplaint);
+        return Objects.hash(id, idUser, dateComplaint, postId, complaint, idStatusComplaint);
     }
 }

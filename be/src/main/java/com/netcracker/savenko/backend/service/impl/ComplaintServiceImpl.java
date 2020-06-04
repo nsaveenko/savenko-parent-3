@@ -31,6 +31,8 @@ public class ComplaintServiceImpl implements ComplaintService {
 
     @Override
     public ComplaintEntity saveComplaint(ComplaintEntity complaint) {
+//        PostEntity post = complaint.getPostEntity();
+//        int postId = post.getId();
         return repository.save(complaint);
     }
 

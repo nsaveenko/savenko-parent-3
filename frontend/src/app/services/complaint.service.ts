@@ -31,9 +31,6 @@ export class ComplaintService {
     return this.http.get<Complaint>('/api/complaint/' + id);
   }
 
-  // getComplaintsByStatusId(id: number): Observable<Complaint[]> {
-  //   return this.http.get<Complaint[]>('/api/complaint/status/' + id);
-  // }
 
   // Ajax request for billing account data
   getComplaintsByStatusId(id: number, page: number, size: number): Observable<RestPageModel> {

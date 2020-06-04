@@ -2,46 +2,48 @@
   <button class="btn selected" (click)="getComplaint(2)">Not Reviewed</button>
   <button class="btn" (click)="getComplaint(1)">Reviewed</button>
 </div>
-<!--<div *ngIf="complaints == null" style="text-align: center; color: lightcoral">No reports!</div>-->
 <div class="col" *ngFor="let complaint of complaints">
   <div class="container">
     <div class="comp">
-      <!--      <strong class="d-inline-block mb-10 text-dark">User id: {{complaint.idUser}}</strong>-->
       <div class="mb-1 text-muted">{{complaint.dateComplaint | date}}</div>
       <p>Status complaint:
-      <ng-container *ngIf="complaint.idStatusComplaint===1">reviewed</ng-container>
-      <ng-container *ngIf="complaint.idStatusComplaint===2">not reviewed</ng-container>
+        <ng-container *ngIf="complaint.idStatusComplaint===1">reviewed</ng-container>
+        <ng-container *ngIf="complaint.idStatusComplaint===2">not reviewed</ng-container>
       </p>
-      <p>Post id: {{complaint.idPost}}</p>
+      <p>Post id compl: {{complaint.postId}}</p>
+      <p>Post id post: {{complaint.post.id}}</p>
+      <div class="col-md-7 d-none d-lg-block qw">
+        <img [attr.src]="'/api/files/' + complaint.post.filePath | secure | async" width="100%" height="500">
+      </div>      <p></p>
       <br>
       <p class="h5">Reason for complaint:</p>
       <p> {{complaint.complaint}}</p>
       <br>
       <div class="row">
         <div class="col">
-          <button class="btn btn-danger co" (click)="_deletePost(complaint.idPost, complaint.idStatusComplaint)">Delete post</button>
+          <button class="btn btn-danger co" (click)="deletePost(complaint.postId, complaint.idStatusComplaint)">Delete
+            post
+          </button>
         </div>
         <div class="col">
-          <button class="btn btn-danger co" (click)="_deleteComplaint(complaint.id, complaint.idStatusComplaint)">Delete report</button>
+          <button class="btn btn-danger co" (click)="deleteComplaint(complaint.id, complaint.idStatusComplaint)">Delete
+            report
+          </button>
         </div>
-
       </div>
       <br>
       <div class="row">
         <div class="col">
-          <button class="btn btn-danger co" (click)="loadComplaintByPostId(complaint.idPost)">Count Complaint on this post</button>
+          <button class="btn btn-danger co" (click)="loadComplaintByPostId(complaint.postId)">Count Complaint on this
+            post
+          </button>
         </div>
         <div class="col">
-          <button class="btn btn-danger co" (click)="changeStatusComplaint(complaint.id)" *ngIf="complaint.idStatusComplaint===2" >
+          <button class="btn btn-danger co" (click)="changeStatusComplaint(complaint.id)"
+                  *ngIf="complaint.idStatusComplaint===2">
             Mark as viewed
           </button>
         </div>
-        <!--        <div class="col">-->
-        <!--          <button class="btn btn-danger co" (click)="blockUserByPostId(complaint.idPost)">-->
-        <!--            <ng-container *ngIf="complaint.idStatusComplaint===2">Unblock user</ng-container>-->
-        <!--            <ng-container *ngIf="complaint.idStatusComplaint===1">Block user</ng-container>-->
-        <!--          </button>-->
-        <!--        </div>-->
       </div>
     </div>
   </div>

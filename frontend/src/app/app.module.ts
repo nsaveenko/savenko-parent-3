@@ -20,7 +20,9 @@ import {LikeComponent} from './components/like/like.component';
 import {ComplaintComponent} from './components/complaint/complaint.component';
 import {NewpostComponent} from './components/newpost/newpost.component';
 import {PostService} from "./services/post.service";
-import {ComplaintsforadminComponent} from './components/complaintsforadmin/complaintsforadmin.component';
+import {
+  ComplaintsForAdminComponent,
+} from './components/complaintsforadmin/complaintsforadmin.component';
 import {AdminComponent} from './components/admin/admin.component';
 import {UserService} from "./services/user.service";
 import {ComplaintService} from "./services/complaint.service";
@@ -68,7 +70,7 @@ const appRoutes: Routes = [
     LikeComponent,
     ComplaintComponent,
     NewpostComponent,
-    ComplaintsforadminComponent,
+    ComplaintsForAdminComponent,
     AdminComponent,
     SubscriberComponent,
     OtherUserComponent,

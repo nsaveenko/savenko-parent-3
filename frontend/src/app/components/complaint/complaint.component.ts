@@ -21,6 +21,7 @@ export class ComplaintComponent implements OnInit {
   private subscriptions: Subscription[] = [];
   public editableComplaint: Complaint = new Complaint();
   form: FormGroup;
+  public postId;
 
   constructor(private complaintService: ComplaintService,
               private postService: PostService,
@@ -42,12 +43,14 @@ export class ComplaintComponent implements OnInit {
     });
   }
 
-  public _addComplaint(textValue: string): void {
+  public addComplaint(textValue: string): void {
     this.editableComplaint.dateComplaint = Date.now();
-    this.editableComplaint.idPost = this.postService.currPost.id;
     this.editableComplaint.idUser = this.userService.currUser.id;
     this.editableComplaint.complaint = textValue;
     this.editableComplaint.idStatusComplaint = 2;
+    this.postId = this.postService.currPost.id;
+    this.editableComplaint.postId = this.postId;
+
     this.subscriptions.push(this.complaintService.saveComplaint(this.editableComplaint).subscribe((complaint: Complaint) => {
       this.router.navigate(['/']);
     }));

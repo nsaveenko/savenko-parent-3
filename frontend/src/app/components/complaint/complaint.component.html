@@ -9,7 +9,7 @@
              placeholder="Why are you reporting this post?" #complaintField>
       <br>
     </form>
-    <button class="btn btn-danger co" [disabled]="form.invalid" (click)="_addComplaint(complaintField.value)">Report</button>
+    <button class="btn btn-danger co" [disabled]="form.invalid" (click)="addComplaint(complaintField.value)">Report</button>
   </div>
 </div>
 

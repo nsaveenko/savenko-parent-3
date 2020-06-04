@@ -1,10 +1,6 @@
 package com.netcracker.savenko.backend.service;
 
 import com.netcracker.savenko.backend.entity.ComplaintEntity;
-import com.netcracker.savenko.backend.entity.PostEntity;
-import com.netcracker.savenko.backend.entity.UserEntity;
-import com.netcracker.savenko.backend.model.Posts;
-import org.apache.catalina.User;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
